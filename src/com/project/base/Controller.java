@@ -28,12 +28,10 @@ public class Controller {
 
 	public void init() {
 		this.frame = new Frame();
-
 		
-
 		this.menuPages = new ArrayList<JComponent>();
-
 		this.initMenuPages();
+		
 		this.showMenuPage(0);
 
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -42,16 +40,21 @@ public class Controller {
 		this.frame.setVisible(true);
 	}
 	
+	
+	
 	private void initMenuPages() {
 		this.menuPages.add(new MenuPage(this));
-		this.menuPages.add(new BoardPane(this));
-		
+		this.menuPages.add(new BoardPane(this));		
 	}
 
+	
+	
 	public void showMenuPage(int index) {
 		this.showPanel(this.menuPages.get(index));
 	}
 
+	
+	
 	public void showPanel(JComponent panel) {
 		this.frame.setContentPane(panel);
 		this.frame.pack();

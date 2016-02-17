@@ -11,7 +11,6 @@ import javax.swing.JFrame;
 public class Frame extends JFrame implements ComponentListener {
 
 	private static final long serialVersionUID = 7105409066216982655L;
-
 	private Dimension normalSize;
 	private Point normalLocation;
 
@@ -22,6 +21,8 @@ public class Frame extends JFrame implements ComponentListener {
 		this.setTitle("Intelligent Traffic Control");
 	}
 
+	
+	
 	public void actionPerformed() {
 		if (getExtendedState() == JFrame.MAXIMIZED_BOTH && isUndecorated()) {
 			dispose();
@@ -32,8 +33,6 @@ public class Frame extends JFrame implements ComponentListener {
 			pack();
 			setVisible(true);
 		} else {
-			//normalSize = getSize();
-			//normalLocation = getLocationOnScreen();
 			dispose();
 			setUndecorated(true);
 			setPreferredSize(Toolkit.getDefaultToolkit().getScreenSize());
@@ -42,18 +41,26 @@ public class Frame extends JFrame implements ComponentListener {
 		}
 	}
 
+	
+	
 	public void componentHidden(ComponentEvent e) {
 
 	}
 
+	
+	
 	public void componentMoved(ComponentEvent e) {
 
 	}
 
+	
+	
 	public void componentResized(ComponentEvent e) {
 		this.setPreferredSize(this.getSize());
 	}
 
+	
+	
 	public void componentShown(ComponentEvent e) {
 
 	}

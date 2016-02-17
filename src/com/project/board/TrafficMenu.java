@@ -1,4 +1,4 @@
-package com.project.visuals.menu;
+package com.project.board;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -22,6 +22,7 @@ import com.project.base.Controller;
 
 public class TrafficMenu extends JPanel{
 
+	private static final long serialVersionUID = -3952749405048123722L;
 	private JButton generateMap;
 	private JButton exit;
 	private Controller controller;
@@ -44,13 +45,11 @@ public class TrafficMenu extends JPanel{
 		speed.setMajorTickSpacing(20);		
 		speed.setPaintTicks(true);
 		speed.setPaintLabels(true);
+		
 		Hashtable<Integer, JLabel> speedTable = new Hashtable<Integer, JLabel>();
 		speedTable.put(0, new JLabel("Slow") );
 		speedTable.put(0, new JLabel("Speed") );
 		speedTable.put(100, new JLabel("Fast") );
-		//speed.setBorder(BorderFactory.createTitledBorder("JSlider without Tick Marks"));
-		//JLabel sliderLabel = new JLabel("Frames Per Second: ", JLabel.CENTER);
-	   // sliderLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 		speed.setLabelTable(speedTable);
 		
 		
@@ -59,15 +58,18 @@ public class TrafficMenu extends JPanel{
 		scale.setMinorTickSpacing(0);
 		scale.setPaintTicks(true);
 		scale.setPaintLabels(true);
+		
 		Hashtable<Integer, JLabel> scaleTable = new Hashtable<Integer, JLabel>();
 		scaleTable.put(0, new JLabel("Zoom Out"));
 		scaleTable.put(2, new JLabel("Zoom In"));
 		scale.setLabelTable(scaleTable);
 		
+		
 		numberOfCars = new JSlider(JSlider.HORIZONTAL, 0, 200, 25);
 		numberOfCars.setMajorTickSpacing(20);
 		numberOfCars.setPaintTicks(true);
 		numberOfCars.setPaintLabels(true);
+		
 		Hashtable<Integer, JLabel> carTable = new Hashtable<Integer, JLabel>();
 		carTable.put(0, new JLabel("0"));
 		carTable.put(200, new JLabel("200"));
@@ -124,8 +126,7 @@ public class TrafficMenu extends JPanel{
         });
 		
 		Box box = Box.createVerticalBox();
-		box.add(Box.createVerticalStrut(75));
-		
+		box.add(Box.createVerticalStrut(75));		
 		box.add(numberOfCars);
 		box.add(Box.createVerticalStrut(5));
 		box.add(Box.createVerticalGlue());
@@ -148,6 +149,8 @@ public class TrafficMenu extends JPanel{
 		this.add(box);	
 	};
 	
+	
+	
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		Graphics2D g2 = (Graphics2D) g;
@@ -159,12 +162,9 @@ public class TrafficMenu extends JPanel{
 		Color[] colors = { 
 				new Color(160, 160, 160), 
 				new Color(160, 160, 160) 
-		};
-		
+		};	
 		RadialGradientPaint gp = new RadialGradientPaint(center, radius, dist, colors);
 		g2.setPaint(gp);
 		g2.fillRect(0, 0, this.getWidth(), this.getHeight());
 	}
-
-
 }
