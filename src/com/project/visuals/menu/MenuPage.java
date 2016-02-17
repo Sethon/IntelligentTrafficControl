@@ -30,13 +30,13 @@ public class MenuPage extends JPanel {
 		this.controller = controller;
 		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
-		final Font buttonFont = new Font("Segoe UI", 0, 32);
+		final Font buttonFont = new Font("Futura", 0, 32);
 		final Dimension buttonDimension = new Dimension(400, 80);
 
 		this.title = new JLabel("Intelligent Traffic Control");
 		this.title.setOpaque(false);
 		this.title.setHorizontalAlignment(JLabel.CENTER);
-		this.title.setFont(new Font("Segoe UI", 1, 40));
+		this.title.setFont(new Font("Futura", 1, 40));
 		this.title.setAlignmentX(JLabel.CENTER_ALIGNMENT);
 
 		this.trafficControl = new JButton("Start Traffic Control");

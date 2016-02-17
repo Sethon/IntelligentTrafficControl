@@ -37,7 +37,7 @@ public class TrafficMenu extends JPanel{
 	
 	
 	private void init(){
-		final Font buttonFont = new Font("Segoe UI", 0, 16);
+		final Font buttonFont = new Font("Futura", 0, 16);
 		final Dimension buttonDimension = new Dimension(200, 40);
 		
 		speed = new JSlider(JSlider.HORIZONTAL, 0, 100, 25);
