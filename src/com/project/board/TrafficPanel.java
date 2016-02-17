@@ -5,20 +5,18 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RadialGradientPaint;
 import java.awt.geom.Point2D;
-
 import javax.swing.JPanel;
-
 import com.project.base.Controller;
+
 
 public class TrafficPanel extends JPanel{
 	
 	private static final long serialVersionUID = -8086343848521884074L;
 	Controller controller;
-	
-	public TrafficPanel(Controller controller){
-		this.controller = controller;		
-	}
 
+	public TrafficPanel(Controller controller){
+		this.controller = controller;	
+	}
 	
 	
 	public void paintComponent(Graphics g) {
