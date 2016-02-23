@@ -1,11 +1,14 @@
 package com.project.model;
 
 import java.awt.Color;
+import java.awt.Graphics2D;
+import java.awt.geom.Point2D;
 
 public class Car {
+	private final int CAR_RADIUS;
 	private Color color;
 	private Road currentRoad;
-	private double position;
+	private Point2D position;
 	private double length;
 	
 	
@@ -36,25 +39,35 @@ public class Car {
 	
 	
 	
-	public double getPosition(){
+	public Point2D getPosition(){
 		return this.position;
 	}
 	
 	
 	
-	public void setPosition(double position){
+	public void setPosition(Point2D position){
 		this.position = position;
 	}
 	
 	
 	
 	public Color getColor(){
-		this.color = color;
+		return this.color;
 	}
 	
 	
 	
 	public double getLength(){
 		return this.length;
+	}
+	
+	
+	
+	public void drawCar(Graphics2D g2){
+		int x = (int) this.position.getX() - CAR_RADIUS;
+		int y = (int) this.position.getY() + CAR_RADIUS;
+		
+		g2.setColor(this.getColor());
+		g2.fillRect(x, y, CAR_RADIUS*2, CAR_RADIUS*2);
 	}
 }
