@@ -5,7 +5,7 @@ import java.awt.Graphics2D;
 import java.awt.geom.Point2D;
 
 public class Car {
-	private final int CAR_RADIUS;
+	private final int CAR_RADIUS = 4;
 	private Color color;
 	private Road currentRoad;
 	private Point2D position;
