@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import com.project.graph.Node;
 import com.project.graph.Road;
+import com.project.graph.SingleRoad;
 
 public class Map {
 	
@@ -50,8 +51,9 @@ public class Map {
 		edgeList.add(new Road(nodeList.get(1), nodeList.get(5),30));
 		edgeList.add(new Road(nodeList.get(5), nodeList.get(1),30));
 
-		edgeList.add(new Road(nodeList.get(2), nodeList.get(6),30));
-	
+		edgeList.add(new SingleRoad(nodeList.get(2), nodeList.get(6),30));
+//		edgeList.add(new SingleRoad(nodeList.get(6), nodeList.get(2),30));
+
 		edgeList.add(new Road(nodeList.get(2), nodeList.get(3),30));
 		edgeList.add(new Road(nodeList.get(3), nodeList.get(2),30));
 	
@@ -82,7 +84,7 @@ public class Map {
 		edgeList.add(new Road(nodeList.get(8), nodeList.get(12),30));
 		edgeList.add(new Road(nodeList.get(12), nodeList.get(8),30));
 
-		edgeList.add(new Road(nodeList.get(9), nodeList.get(10),30));
+		edgeList.add(new SingleRoad(nodeList.get(9), nodeList.get(10),30));
 		
 		edgeList.add(new Road(nodeList.get(11), nodeList.get(12),30));
 		edgeList.add(new Road(nodeList.get(12), nodeList.get(11),30));

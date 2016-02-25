@@ -1,5 +1,6 @@
 package com.project.graph;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Point;
@@ -43,8 +44,11 @@ public class Node {
 	}
 	
 	public void drawNode(Graphics2D g2){
+		g2.setColor(Color.WHITE);
+		g2.setStroke(new BasicStroke(1));
+		g2.drawRect(this.position.x, this.position.y, Edge.roadWidth, Edge.roadWidth);
+	
 		g2.setColor(Color.DARK_GRAY);
-		g2.fillOval((int) position.getX(), (int) position.getY(), Edge.roadWidth, Edge.roadWidth);
-		
+		g2.fillRect(this.position.x, this.position.y, Edge.roadWidth, Edge.roadWidth);
 	}
 }
