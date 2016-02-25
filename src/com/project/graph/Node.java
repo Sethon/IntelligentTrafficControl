@@ -1,5 +1,7 @@
 package com.project.graph;
 
+import java.awt.Color;
+import java.awt.Graphics2D;
 import java.awt.Point;
 import java.util.ArrayList;
 
@@ -38,5 +40,11 @@ public class Node {
 	public ArrayList<Edge> getOutgoingEdges(){
 		// We make a copy, so our internal list cannot be modified.
 		return new ArrayList<Edge>(outgoingEdges);
+	}
+	
+	public void drawNode(Graphics2D g2){
+		g2.setColor(Color.DARK_GRAY);
+		g2.fillOval((int) position.getX(), (int) position.getY(), Edge.roadWidth, Edge.roadWidth);
+		
 	}
 }

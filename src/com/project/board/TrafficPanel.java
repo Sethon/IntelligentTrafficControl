@@ -5,18 +5,39 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RadialGradientPaint;
 import java.awt.geom.Point2D;
+import java.util.ArrayList;
+
 import javax.swing.JPanel;
 import com.project.base.Controller;
+import com.project.graph.Node;
+import com.project.map.Map;
+import com.project.model.Road;
 
 
 public class TrafficPanel extends JPanel{
 	
 	private static final long serialVersionUID = -8086343848521884074L;
-	Controller controller;
-
+	private Controller controller;
+	private ArrayList<Node> nodeList;
+	private ArrayList<Road> edgeList;
+	
+	/**
+	 * Max road location 	x-axis: 1200
+	 * 						y-axis: 750
+	 * @param controller
+	 */
+	
 	public TrafficPanel(Controller controller){
-		this.controller = controller;	
+		this.controller = controller;
+		nodeList = new ArrayList<Node>();
+		edgeList = new ArrayList<Road>();
+		run();
 	}
+	
+	private void run(){
+		new Map().manhattan(nodeList, edgeList);
+	}
+	
 	
 	
 	public void paintComponent(Graphics g) {
@@ -34,6 +55,14 @@ public class TrafficPanel extends JPanel{
 		RadialGradientPaint gp = new RadialGradientPaint(center, radius, dist, colors);
 		g2.setPaint(gp);
 		g2.fillRect(0, 0, this.getWidth(), this.getHeight());
+		
+		for(Node x: nodeList)
+			x.drawNode(g2);
+		
+		for(Road x: edgeList)
+			x.drawRoad(g2);
+		
+		repaint();
 	}
 	
 }

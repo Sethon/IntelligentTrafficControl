@@ -4,21 +4,17 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.geom.Point2D;
 
+import com.project.graph.Node;
+
 public class StraightRoad extends Road{
 
-	public StraightRoad(Point2D start, Point2D end) {
-		super(start, end);
+public StraightRoad(Node from, Node to, double speedLimit) {
+		super(from, to, speedLimit);
 		// TODO Auto-generated constructor stub
 	}
-	
-	
-	
-	public void drawRoad(Graphics2D g2){
-		g2.setStroke(EDGE_OF_ROAD);
-		g2.setColor(Color.darkGray);
 
-		//draw the line, mapping coordinates to be "normal" i.e. like math graphs
-		g2.drawLine(x1, y1, x2, y2);
+	public void drawRoad(Graphics2D g2){
+		
 	}
 
 }
