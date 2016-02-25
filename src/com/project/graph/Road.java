@@ -1,4 +1,4 @@
-package com.project.model;
+package com.project.graph;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
@@ -7,8 +7,7 @@ import java.awt.geom.Line2D;
 
 import java.util.ArrayList;
 
-import com.project.graph.Edge;
-import com.project.graph.Node;
+import com.project.model.Car;
 
 public class Road extends Edge{
 	private ArrayList<Car> cars;
@@ -53,6 +52,6 @@ public class Road extends Edge{
 		
 		g2.draw(dashed);
 	}
-	
+		
 	
 }

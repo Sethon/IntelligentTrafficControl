@@ -10,8 +10,8 @@ import java.util.ArrayList;
 import javax.swing.JPanel;
 import com.project.base.Controller;
 import com.project.graph.Node;
+import com.project.graph.Road;
 import com.project.map.Map;
-import com.project.model.Road;
 
 
 public class TrafficPanel extends JPanel{

@@ -7,4 +7,10 @@ public class Curve extends Edge{
 		super(from, to, speedLimit);
 		// TODO Auto-generated constructor stub
 	}
+	
+	
+	public void drawRoad(){
+		
+	}
+	
 }

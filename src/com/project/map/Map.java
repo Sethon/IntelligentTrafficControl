@@ -4,7 +4,7 @@ import java.awt.Point;
 import java.util.ArrayList;
 
 import com.project.graph.Node;
-import com.project.model.Road;
+import com.project.graph.Road;
 
 public class Map {
 	
