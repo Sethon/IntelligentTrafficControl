@@ -45,7 +45,7 @@ public class Node {
 	
 	public void drawNode(Graphics2D g2){
 		g2.setColor(Color.WHITE);
-		g2.setStroke(new BasicStroke(1));
+		g2.setStroke(new BasicStroke(2));
 		g2.drawRect(this.position.x, this.position.y, Edge.roadWidth, Edge.roadWidth);
 	
 		g2.setColor(Color.DARK_GRAY);
