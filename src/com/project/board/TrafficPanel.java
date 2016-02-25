@@ -62,7 +62,6 @@ public class TrafficPanel extends JPanel{
 		for(Road x: edgeList)
 			x.drawRoad(g2);
 		
-		repaint();
 	}
 	
 }
