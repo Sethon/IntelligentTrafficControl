@@ -38,6 +38,8 @@ public class Map {
 		nodeList.add(new Node(new Point(1050, 690), false));
 		
 		edgeList.add(new Road(nodeList.get(0), nodeList.get(1),30));
+		edgeList.add(new Road(nodeList.get(1), nodeList.get(0),30));
+
 		edgeList.add(new Road(nodeList.get(0), nodeList.get(5),30));
 		edgeList.add(new Road(nodeList.get(1), nodeList.get(2),30));
 		edgeList.add(new Road(nodeList.get(1), nodeList.get(6),30));

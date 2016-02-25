@@ -55,18 +55,6 @@ public class Edge {
 	
 	
 	public void drawRoad(Graphics2D g2){
-		g2.setStroke(new BasicStroke(2));			
-//		double a[] = segment.getRight();
-		Line2D aLine = new Line2D.Double(from.getPosition().getX(), from.getPosition().getY(), to.getPosition().getX(), to.getPosition().getY());
-		g2.draw(aLine);
-
-//		double c[] = segment.getLeft();
-		if(from.getPosition().getX() == to.getPosition().getX()){
-			Line2D bLine = new Line2D.Double(from.getPosition().getX(), from.getPosition().getY() + roadWidth, to.getPosition().getX(), to.getPosition().getY() + roadWidth);
-			g2.draw(bLine);
-		}else{
-			Line2D bLine = new Line2D.Double(from.getPosition().getX() + roadWidth, from.getPosition().getY(), to.getPosition().getX() + roadWidth, to.getPosition().getY());
-			g2.draw(bLine);
-		}
+		
 	}
 }
