@@ -12,6 +12,7 @@ import com.project.base.Controller;
 import com.project.graph.Edge;
 import com.project.graph.Node;
 import com.project.graph.Road;
+import com.project.graph.SingleRoad;
 import com.project.map.Map;
 
 
@@ -19,8 +20,7 @@ public class TrafficPanel extends JPanel{
 	
 	private static final long serialVersionUID = -8086343848521884074L;
 	private Controller controller;
-	private ArrayList<Node> nodeList;
-	private ArrayList<Road> edgeList;
+	private ArrayList<Node> doubleEdges;
 	
 	/**
 	 * Max road location 	x-axis: 1200
@@ -30,13 +30,12 @@ public class TrafficPanel extends JPanel{
 	
 	public TrafficPanel(Controller controller){
 		this.controller = controller;
-		nodeList = new ArrayList<Node>();
-		edgeList = new ArrayList<Road>();
+		doubleEdges = new ArrayList<Node>();
 		run();
 	}
 	
 	private void run(){
-		new Map().manhattan(nodeList, edgeList);
+		new Map().manhattan(doubleEdges);
 	}
 	
 	
@@ -57,12 +56,12 @@ public class TrafficPanel extends JPanel{
 		g2.setPaint(gp);
 		g2.fillRect(0, 0, this.getWidth(), this.getHeight());
 		
-		for(Node x: nodeList){
+		for(Node x: doubleEdges){
 			x.drawNode(g2);
 		}
 		
-		for(Node x: nodeList){
-			for(Edge e: x.getOutgoingEdges()){
+		for(Node x: doubleEdges){
+			for(Edge e: x.getOutgoingEdges()){				
 				e.drawRoad(g2);
 			}
 		}

@@ -5,7 +5,7 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.geom.Line2D;
 
-public class SingleRoad extends Road{
+public class SingleRoad extends Edge{
 
 	public SingleRoad(Node from, Node to, double speedLimit) {
 		super(from, to, speedLimit);

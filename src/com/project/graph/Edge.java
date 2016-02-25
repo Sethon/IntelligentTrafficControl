@@ -55,7 +55,7 @@ public class Edge {
 	
 	
 	public void drawRoad(Graphics2D g2){
-
+		
 		g2.setStroke(new BasicStroke(Edge.roadWidth/2));	
 		
 		
