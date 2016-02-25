@@ -9,6 +9,7 @@ import java.util.ArrayList;
 
 import javax.swing.JPanel;
 import com.project.base.Controller;
+import com.project.graph.Edge;
 import com.project.graph.Node;
 import com.project.graph.Road;
 import com.project.map.Map;
@@ -56,11 +57,17 @@ public class TrafficPanel extends JPanel{
 		g2.setPaint(gp);
 		g2.fillRect(0, 0, this.getWidth(), this.getHeight());
 		
-		for(Node x: nodeList)
+		for(Node x: nodeList){
 			x.drawNode(g2);
+		}
 		
-		for(Road x: edgeList)
-			x.drawRoad(g2);
+		for(Node x: nodeList){
+			for(Edge e: x.getOutgoingEdges()){
+				e.drawRoad(g2);
+			}
+		}
+			
+		
 		
 	}
 	

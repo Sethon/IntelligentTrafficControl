@@ -6,6 +6,8 @@ import java.awt.Graphics2D;
 import java.awt.Point;
 import java.util.ArrayList;
 
+import com.project.model.TrafficLight;
+
 public class Node {
 	private Point position;
 	private boolean hasTrafficLights;
@@ -50,5 +52,7 @@ public class Node {
 	
 		g2.setColor(Color.DARK_GRAY);
 		g2.fillRect(this.position.x, this.position.y, Edge.roadWidth, Edge.roadWidth);
+		
 	}
+	
 }

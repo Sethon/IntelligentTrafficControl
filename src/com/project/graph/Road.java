@@ -37,7 +37,7 @@ public class Road extends Edge{
 	}
 	
 	
-	public void drawRoad(Graphics2D g2){
+	public void drawRoad(Graphics2D g2, Node node){
 		g2.setStroke(new BasicStroke(Edge.roadWidth/2));	
 		
 		if(from.getPosition().getX() < to.getPosition().getX() && from.getPosition().getY() == to.getPosition().getY()){
@@ -99,4 +99,6 @@ public class Road extends Edge{
 			g2.draw(outA);
 		}
 	}	
+		
+	
 }
