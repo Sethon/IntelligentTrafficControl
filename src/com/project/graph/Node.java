@@ -6,8 +6,6 @@ import java.awt.Graphics2D;
 import java.awt.Point;
 import java.util.ArrayList;
 
-import com.project.model.TrafficLight;
-
 public class Node {
 	private Point position;
 	private boolean hasTrafficLights;
