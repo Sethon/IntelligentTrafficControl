@@ -41,11 +41,18 @@ public class Road extends Edge{
 	
 	public void drawRoad(Graphics2D g2){
 		g2.setStroke(new BasicStroke(Edge.roadWidth));		
-
-		Line2D aLine = new Line2D.Double(from.getPosition().getX()+Edge.roadWidth/2, from.getPosition().getY()+Edge.roadWidth/2, to.getPosition().getX()+Edge.roadWidth/2, to.getPosition().getY()+Edge.roadWidth/2);
 		
+		Line2D aLine = new Line2D.Double(from.getPosition().getX()+Edge.roadWidth/2, from.getPosition().getY()+Edge.roadWidth/2, to.getPosition().getX()+Edge.roadWidth/2, to.getPosition().getY()+Edge.roadWidth/2);
+		g2.setColor(Color.DARK_GRAY);
 		g2.draw(aLine);
-
+		
+		
+		g2.setStroke(new BasicStroke(3, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 0, new float[]{9}, 0));
+	
+		Line2D dashed = new Line2D.Double(from.getPosition().getX()+Edge.roadWidth/2, from.getPosition().getY()+Edge.roadWidth/2, to.getPosition().getX()+Edge.roadWidth/2, to.getPosition().getY()+Edge.roadWidth/2);
+		g2.setColor(Color.WHITE);
+		
+		g2.draw(dashed);
 	}
 	
 	
