@@ -13,29 +13,29 @@ public class Map {
 	}
 	
 	public void manhattan(ArrayList<Node> nodeList, ArrayList<Road> edgeList){
-		nodeList.add(new Node(new Point(50,10), false));
-		nodeList.add(new Node(new Point(300, 10), false));
-		nodeList.add(new Node(new Point(550, 10), false));
-		nodeList.add(new Node(new Point(800, 10), false));
-		nodeList.add(new Node(new Point(1050, 10), false));
+		nodeList.add(new Node(new Point(50,100), false));
+		nodeList.add(new Node(new Point(300, 100), false));
+		nodeList.add(new Node(new Point(550, 100), false));
+		nodeList.add(new Node(new Point(800, 100), false));
+		nodeList.add(new Node(new Point(1050, 100), false));
 		
-		nodeList.add(new Node(new Point(50, 200), false));
-		nodeList.add(new Node(new Point(300, 200), false));
-		nodeList.add(new Node(new Point(550, 200), false));
-		nodeList.add(new Node(new Point(800, 200), false));
-		nodeList.add(new Node(new Point(1050, 200), false));
+		nodeList.add(new Node(new Point(50, 290), false));
+		nodeList.add(new Node(new Point(300, 290), false));
+		nodeList.add(new Node(new Point(550, 290), false));
+		nodeList.add(new Node(new Point(800, 290), false));
+		nodeList.add(new Node(new Point(1050, 290), false));
 		
-		nodeList.add(new Node(new Point(50, 400), false));
-		nodeList.add(new Node(new Point(300, 400), false));
-		nodeList.add(new Node(new Point(550, 400), false));
-		nodeList.add(new Node(new Point(800, 400), false));
-		nodeList.add(new Node(new Point(1050, 400), false));
+		nodeList.add(new Node(new Point(50, 490), false));
+		nodeList.add(new Node(new Point(300, 490), false));
+		nodeList.add(new Node(new Point(550, 490), false));
+		nodeList.add(new Node(new Point(800, 490), false));
+		nodeList.add(new Node(new Point(1050, 490), false));
 		
-		nodeList.add(new Node(new Point(50, 600), false));
-		nodeList.add(new Node(new Point(300, 600), false));
-		nodeList.add(new Node(new Point(550, 600), false));
-		nodeList.add(new Node(new Point(800, 600), false));
-		nodeList.add(new Node(new Point(1050, 600), false));
+		nodeList.add(new Node(new Point(50, 690), false));
+		nodeList.add(new Node(new Point(300, 690), false));
+		nodeList.add(new Node(new Point(550, 690), false));
+		nodeList.add(new Node(new Point(800, 690), false));
+		nodeList.add(new Node(new Point(1050, 690), false));
 		
 		edgeList.add(new Road(nodeList.get(0), nodeList.get(1),30));
 		edgeList.add(new Road(nodeList.get(0), nodeList.get(5),30));
