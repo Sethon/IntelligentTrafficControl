@@ -10,11 +10,14 @@ public class Edge {
 	protected Node from;
 	protected Node to;
 	private double speedLimit;
+	private double distance;
 	
-	public Edge(Node from, Node to, double speedLimit){
+	public Edge(Node from, Node to, double speedLimit, double distance ){
 		this.from = from;
 		this.to = to;
 		this.speedLimit = speedLimit;
+		//distance here is measure by the cells that each edge has with cellular automata
+		this.distance=distance;
 	}
 	
 	public Node getFrom(){
