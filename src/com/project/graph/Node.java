@@ -33,8 +33,8 @@ public class Node {
 		return hasTrafficLights;
 	}
 	*/
-	public void connect(Node to, double speedLimit){
-		Edge e = new Edge(this, to, speedLimit);
+	public void connect(Node to, double speedLimit,double distance){
+		Edge e = new Edge(this, to, speedLimit,distance);
 		outgoingEdges.add(e);
 	}
 	
