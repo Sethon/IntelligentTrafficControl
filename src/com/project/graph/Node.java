@@ -8,12 +8,12 @@ import java.util.ArrayList;
 
 public class Node {
 	private Point position;
-	private boolean hasTrafficLights;
+	//private boolean hasTrafficLights;
 	private ArrayList<Edge> outgoingEdges;
 	
-	public Node(Point position, boolean hasTrafficLights){
+	public Node(Point position){
 		this.position = position;
-		this.hasTrafficLights = hasTrafficLights;
+	//	this.hasTrafficLights = hasTrafficLights;
 		this.outgoingEdges = new ArrayList<Edge>();
 	}
 	
@@ -24,7 +24,7 @@ public class Node {
 	public void setPosition(Point newPosition){
 		position = newPosition;
 	}
-	
+	/*
 	public void setHasTrafficLights(boolean value){
 		hasTrafficLights = value;
 	}
@@ -32,7 +32,7 @@ public class Node {
 	public boolean getHasTrafficLights(){
 		return hasTrafficLights;
 	}
-	
+	*/
 	public void connect(Node to, double speedLimit){
 		Edge e = new Edge(this, to, speedLimit);
 		outgoingEdges.add(e);

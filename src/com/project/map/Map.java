@@ -16,29 +16,29 @@ public class Map {
 	public void manhattan(ArrayList<Node> doubleEdges){
 		
 		/********************************** Create nodes *********************************/
-		doubleEdges.add(new Node(new Point(50,100), false));
-		doubleEdges.add(new Node(new Point(300, 100), false));
-		doubleEdges.add(new Node(new Point(550, 100), false));
+		doubleEdges.add(new Node(new Point(50,100)));
+		doubleEdges.add(new Node(new Point(300, 100)));
+		doubleEdges.add(new Node(new Point(550, 100)));
 //		nodeList.add(new Node(new Point(800, 100), false));
-		doubleEdges.add(new Node(new Point(1050, 100), false));
+		doubleEdges.add(new Node(new Point(1050, 100)));
 		
-		doubleEdges.add(new Node(new Point(50, 290), false));
-		doubleEdges.add(new Node(new Point(300, 290), false));
-		doubleEdges.add(new Node(new Point(550, 290), false));
-		doubleEdges.add(new Node(new Point(800, 290), false));
-		doubleEdges.add(new Node(new Point(1050, 290), false));
+		doubleEdges.add(new Node(new Point(50, 290)));
+		doubleEdges.add(new Node(new Point(300, 290)));
+		doubleEdges.add(new Node(new Point(550, 290)));
+		doubleEdges.add(new Node(new Point(800, 290)));
+		doubleEdges.add(new Node(new Point(1050, 290)));
 		
-		doubleEdges.add(new Node(new Point(50, 490), false));
-		doubleEdges.add(new Node(new Point(300, 490), false));
+		doubleEdges.add(new Node(new Point(50, 490)));
+		doubleEdges.add(new Node(new Point(300, 490)));
 //		nodeList.add(new Node(new Point(550, 490), false));
-		doubleEdges.add(new Node(new Point(800, 490), false));
-		doubleEdges.add(new Node(new Point(1050, 490), false));
+		doubleEdges.add(new Node(new Point(800, 490)));
+		doubleEdges.add(new Node(new Point(1050, 490)));
 		
-		doubleEdges.add(new Node(new Point(50, 690), false));
-		doubleEdges.add(new Node(new Point(300, 690), false));
-		doubleEdges.add(new Node(new Point(550, 690), false));
-		doubleEdges.add(new Node(new Point(800, 690), false));
-		doubleEdges.add(new Node(new Point(1050, 690), false));
+		doubleEdges.add(new Node(new Point(50, 690)));
+		doubleEdges.add(new Node(new Point(300, 690)));
+		doubleEdges.add(new Node(new Point(550, 690)));
+		doubleEdges.add(new Node(new Point(800, 690)));
+		doubleEdges.add(new Node(new Point(1050, 690)));
 		
 		
 		
