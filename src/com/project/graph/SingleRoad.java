@@ -7,8 +7,8 @@ import java.awt.geom.Line2D;
 
 public class SingleRoad extends Edge{
 
-	public SingleRoad(Node from, Node to, double speedLimit) {
-		super(from, to, speedLimit);
+	public SingleRoad(Node from, Node to, double speedLimit,double distance) {
+		super(from, to, speedLimit, distance);
 		// TODO Auto-generated constructor stub
 	}
 	

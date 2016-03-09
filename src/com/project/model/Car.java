@@ -12,7 +12,7 @@ public class Car {
 	private Road currentRoad;
 	private Point2D position;
 	private double length;
-	
+	private double between;
 	
 	public Car(){
 		this.color = getRandColor();
@@ -20,6 +20,10 @@ public class Car {
 	}
 	
 	
+	public Car(double between, double length){
+		this.between=between;
+		this.length=length;
+	}
 	
 	private Color getRandColor(){
 		return new Color((int) Math.ceil(Math.random() * 255), 

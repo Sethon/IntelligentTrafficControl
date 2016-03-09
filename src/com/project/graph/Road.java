@@ -12,8 +12,8 @@ import com.project.model.Car;
 public class Road extends Edge{
 	private ArrayList<Car> cars;
 	
-	public Road(Node from, Node to, double speedLimit) {
-		super(from, to, speedLimit);
+	public Road(Node from, Node to, double speedLimit,double distance) {
+		super(from, to, speedLimit,distance);
 		// TODO Auto-generated constructor stub
 		this.cars = new ArrayList<Car>();
 	}
