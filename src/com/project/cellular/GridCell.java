@@ -11,6 +11,10 @@ public class GridCell {
 		this.state = state;
 	}
 	
+	public GridCell(CellType type, boolean state) {
+		GridCell(type.horizontalPattern, type.verticalPattern)
+	}
+	
 	public boolean getState(){
 		return state;
 	}
