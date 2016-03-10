@@ -12,7 +12,7 @@ public class GridCell {
 	}
 	
 	public GridCell(CellType type, boolean state) {
-		GridCell(type.horizontalPattern, type.verticalPattern)
+		this(type.horizontalPattern, type.verticalPattern, state);
 	}
 	
 	public boolean getState(){
