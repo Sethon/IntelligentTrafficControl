@@ -8,7 +8,7 @@ import com.project.graph.Road;
 import com.project.graph.SingleRoad;
 
 public class Map {
-	
+    private ArrayList<Node> nodeList;
 	public Map(){
 		
 	}
@@ -112,9 +112,19 @@ public class Map {
 		
 		doubleEdges.get(17).connect(doubleEdges.get(12), 30,1);
 		doubleEdges.get(17).connect(doubleEdges.get(16), 30,1);
+		this.setNodeList(doubleEdges);
+		//return doubleEdges;
 
 		
 		
+	}
+
+	public ArrayList<Node> getNodeList() {
+	    return nodeList;
+	}
+
+	public void setNodeList(ArrayList<Node> nodeList) {
+	    this.nodeList = nodeList;
 	}
 	
 }
