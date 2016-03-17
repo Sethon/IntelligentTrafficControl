@@ -12,14 +12,14 @@ public enum CellTypes {
 	//red light cells stop cars from entering a crossroad;
 	LEFT_RED_LIGHT (238, 204),
 	RIGHT_RED_LIGHT (252, 204),
-	UP_RED_LID (204, 238),
+	UP_RED_LIGHT (204, 238),
 	DOWN_RED_LIGHT (204, 252),
 	
 	//traffic stoppers
 	LEFT_TRAFFIC_STOPPER (192, 204),
 	RIGHT_TRAFFIC_STOPPER (136, 204),
 	UP_TRAFFIC_STOPPER (204, 192),
-	DOWN_TRAFFIC_STOPPER (204, 136)
+	DOWN_TRAFFIC_STOPPER (204, 136),
 	
 	//turns
 	// writen in the form TURN_HORIZONTAL_VERTICAL

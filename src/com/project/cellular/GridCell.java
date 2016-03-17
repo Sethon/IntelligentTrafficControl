@@ -11,7 +11,7 @@ public class GridCell {
 		this.state = state;
 	}
 	
-	public GridCell(CellType type, boolean state) {
+	public GridCell(CellTypes type, boolean state) {
 		this(type.horizontalPattern, type.verticalPattern, state);
 	}
 	
@@ -29,6 +29,11 @@ public class GridCell {
 	
 	public void setVerticalPattern(int pattern) {
 		this.verticalPattern = pattern;
+	}
+	
+	public void setCellType(CellTypes type){
+		this.horizontalPattern = type.horizontalPattern;
+		this.verticalPattern = type.verticalPattern;
 	}
 	
 	/*
