@@ -27,7 +27,7 @@ public class RandomPath {
 	 }
 	 /**
 	  * Test for random 
-	  * 
+	  
 	 public static void main(String[] args){
 			//	Node node=new Node();
 				
