@@ -1,18 +1,18 @@
 package com.project.cellular;
 
 public class GridCell {
-	private int horizontalPattern;
-	private int verticalPattern;
+	private int pattern;
+	private boolean horizontal;
 	private boolean state;
 	
-	public GridCell(int horizontalPattern, int verticalPattern, boolean state){
-		this.horizontalPattern = horizontalPattern;
-		this.verticalPattern = verticalPattern;
+	public GridCell(int pattern, boolean horizontal, boolean state){
+		this.pattern = pattern;
+		this.horizontal = horizontal;
 		this.state = state;
 	}
 	
 	public GridCell(CellTypes type, boolean state) {
-		this(type.horizontalPattern, type.verticalPattern, state);
+		this(type.pattern, type.horizontal, state);
 	}
 	
 	public boolean getState(){
@@ -23,25 +23,30 @@ public class GridCell {
 		this.state = state;
 	}
 	
-	public void setHorizontalPattern(int pattern){
-		this.horizontalPattern = pattern;
+	public void setPattern(int pattern){
+		this.pattern = pattern;
 	}
 	
-	public void setVerticalPattern(int pattern) {
-		this.verticalPattern = pattern;
-	}
+	public void setHorizontal(boolean horizontal)
 	
 	public void setCellType(CellTypes type){
-		this.horizontalPattern = type.horizontalPattern;
-		this.verticalPattern = type.verticalPattern;
+		this.setPattern(type.pattern);
+		this.setHorizontal(type.horizontal);
+	}
+	
+	public int getPattern(){
+		return pattern;
+	}
+	
+	public boolean getHorizontal(){
+		return horizontal;
 	}
 	
 	/*
 	 * Updates the state of a cell based on the state of its horizontal or vertical neighbors
 	 */
-	public void updateState(boolean leftState, boolean rightState, boolean horizontal){
+	public void updateState(boolean leftState, boolean rightState){
 		int conditionNumber = getConditionNumber(leftState, this.state, rightState);
-		int pattern = horizontal ? this.horizontalPattern : this.verticalPattern;
 		int conditionNumberMask = (int)Math.pow(2, conditionNumber);
 		this.state = ((pattern & conditionNumberMask) == conditionNumberMask);
 	}
