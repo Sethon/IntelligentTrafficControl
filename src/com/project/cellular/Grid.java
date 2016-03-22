@@ -12,6 +12,9 @@ public class Grid {
 	}
 	
 	public GridCell getCellAt(int x, int y){
+		if(x < 0 || x >= getWidth() || y < 0 || y >= getHeight()){
+			return null;
+		}
 		return this.cells[x][y];
 	}
 	
