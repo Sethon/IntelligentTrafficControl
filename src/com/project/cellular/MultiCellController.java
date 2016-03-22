@@ -15,22 +15,4 @@ public class MultiCellController {
 		this.up = up;
 		this.down = down;
 	}
-	
-	public void applyConfiguration(MultiCellConfiguration config){
-		if(center != null){
-			center.setCellType(config.centerType);
-		}
-		if(left != null){
-			left.setCellType(config.leftType);
-		}
-		if(right != null){
-			right.setCellType(config.rightType);
-		}
-		if(up != null){
-			up.setCellType(config.upType);
-		}
-		if(down != null){
-			down.setCellType(config.downType);
-		}
-	}
 }
