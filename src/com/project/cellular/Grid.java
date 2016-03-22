@@ -23,6 +23,10 @@ public class Grid {
 		return this.cells[0].length;
 	}
 	
+	public void addCell(int x, int y, CellTypes type) {
+		this.cells[x][y] = new GridCell(type, false);
+	}
+	
 	public void updateHorizontal(){
 		for(int y=0; y<this.getHeight(); y++){
 			for(int x=0; x<this.getWidth(); x++){
