@@ -4,6 +4,7 @@ public class GridCell {
 	private int pattern;
 	private boolean horizontal;
 	private boolean state;
+	private boolean isControlled = false;
 	
 	public GridCell(int pattern, boolean horizontal, boolean state){
 		this.pattern = pattern;
@@ -60,5 +61,17 @@ public class GridCell {
 		int selfBit = self ? 1 : 0;
 		int rightBit = self ? 1 : 0;
 		return leftBit * 4 + selfBit * 2 + rightBit;
+	}
+	
+	public boolean isOfType(CellTypes type) {
+		return this.pattern == type.pattern && this.horizontal == type.horizontal;
+	}
+	
+	public void setControlled(boolean controlled){
+		this.isControlled = controlled;
+	}
+	
+	public boolean getControlled(){
+		return isControlled;
 	}
 }
