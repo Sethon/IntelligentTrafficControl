@@ -113,7 +113,7 @@ public class TrafficMenu extends JPanel{
 		this.waitingTime.addChangeListener(new ChangeListener() {
             @Override
             public void stateChanged(ChangeEvent e) {
-               
+               controller.getCurrentMap().setGlobalTrafficLightSwitchInterval(waitingTime.getValue());
             }
         });
 		
