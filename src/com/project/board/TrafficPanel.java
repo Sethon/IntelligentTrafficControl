@@ -96,7 +96,7 @@ public class TrafficPanel extends JPanel{
 					g2.fillRect(drawX + carPadding, drawY + carPadding, (int)(carProportion*cellSize), (int)(carProportion*cellSize));
 				}
 				
-				if(TrafficPanel.temp==true){
+				//if(TrafficPanel.temp==true){
 				if(cell.isOfType(CellTypes.LEFT_RED_LIGHT)==true){
 					g2.setColor(new Color(200, 50, 50));
 					g2.fillRect((drawX + carPadding)+cellSize, (drawY + carPadding)+1, (int)(carProportion*cellSize), (int)(carProportion*cellSize));
@@ -119,7 +119,7 @@ public class TrafficPanel extends JPanel{
 					
 				}
 				
-				}
+			//	}
 			}
 		}
 	}
