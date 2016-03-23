@@ -16,7 +16,7 @@ public class MultiCellController {
 	
 	private Random random = new Random();
 	
-	public static final int trafficLightSwitchInterval = 10;
+	private int trafficLightSwitchInterval = 10;
 	public int trafficLightGreenIndex = 0;
 	
 	public MultiCellController(GridCell center, GridCell left, GridCell right, GridCell up, GridCell down){
@@ -26,6 +26,10 @@ public class MultiCellController {
 		this.up = up;
 		this.down = down;
 		if(center != null) this.setConnections();
+	}
+	
+	public void setTrafficLightSwitchInterval(int ticks){
+		trafficLightSwitchInterval = ticks;
 	}
 	
 	private void setConnections(){

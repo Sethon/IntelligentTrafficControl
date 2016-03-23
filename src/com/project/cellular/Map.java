@@ -53,6 +53,12 @@ public class Map {
 		return grid.toString();
 	}
 	
+	public void setGlobalTrafficLightSwitchInterval(int ticks){
+		for(MultiCellController contr: controllers){
+			contr.setTrafficLightSwitchInterval(ticks);
+		}
+	}
+	
 	public static void main(String[] args){
 		Grid grid = new Grid(7, 7);
 		
