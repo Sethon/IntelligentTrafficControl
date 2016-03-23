@@ -1,4 +1,4 @@
-&package com.project.visuals.frame;
+package com.project.visuals.frame;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -11,7 +11,7 @@ import com.project.base.Controller;
 import com.project.board.TrafficMenu;
 import com.project.board.TrafficPanel;
 
-public class MapEditorPane extends JSplitPane{
+public class SimulationFrame extends JSplitPane{
 
 	private static final long serialVersionUID = 4036879803456305768L;
 	
@@ -19,7 +19,7 @@ public class MapEditorPane extends JSplitPane{
 	private TrafficMenu trafficMenu;
 	private Controller controller;
 	
-	public MapEditorPane(Controller controller){
+	public SimulationFrame(Controller controller){
 		this.controller = controller;
 		this.trafficPanel = new TrafficPanel(controller);
 		this.trafficMenu = new TrafficMenu(controller);

@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 
-import com.project.visuals.frame.MapEditorPane;
+import com.project.visuals.frame.SimulationFrame;
 import com.project.visuals.frame.Frame;
 import com.project.visuals.menu.MenuPage;
 
@@ -43,7 +43,7 @@ public class Controller {
 	
 	private void initMenuPages() {
 		this.menuPages.add(new MenuPage(this));
-		this.menuPages.add(new MapEditorPane(this));		
+		this.menuPages.add(new SimulationFrame(this));		
 	}
 
 	
