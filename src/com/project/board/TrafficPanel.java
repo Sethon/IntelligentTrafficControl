@@ -6,6 +6,8 @@ import java.awt.Graphics2D;
 import java.awt.RadialGradientPaint;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import javax.swing.JPanel;
 import com.project.base.Controller;
@@ -24,6 +26,7 @@ public class TrafficPanel extends JPanel{
 	private Controller controller;
 	private ArrayList<Node> doubleEdges;
 	private int frameCounter = 0;
+	private TimerTask mapRunner;
 	
 	/**
 	 * Max road location 	x-axis: 1200
@@ -33,6 +36,14 @@ public class TrafficPanel extends JPanel{
 	
 	public TrafficPanel(Controller controller){
 		this.controller = controller;
+		mapRunner = new TimerTask() {
+			public void run(){
+				controller.getCurrentMap().tick();
+				repaint();
+			}
+		};
+		Timer t = new Timer();
+		t.scheduleAtFixedRate(mapRunner, 0, 100);
 	}
 	
 	public void paintComponent(Graphics g) {
