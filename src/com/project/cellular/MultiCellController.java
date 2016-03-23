@@ -19,8 +19,7 @@ public class MultiCellController {
 	public static final int trafficLightSwitchInterval = 10;
 	public int trafficLightGreenIndex = 0;
 	
-	public MultiCellController(GridCell center, GridCell left, GridCell right, GridCell up, GridCell down,
-			Grid grid, int centerX, int centerY){
+	public MultiCellController(GridCell center, GridCell left, GridCell right, GridCell up, GridCell down){
 		this.center = center;
 		this.left = left;
 		this.right = right;

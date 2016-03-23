@@ -58,4 +58,19 @@ public class Grid {
 		updateHorizontal();
 		updateVertical();
 	}
+	
+	public String toString(){
+		String result = "";
+		for(int y=0; y<getHeight(); y++){
+			for(int x=0; x<getWidth(); x++){
+				if(getCellAt(x, y) == null){
+					result += ".";
+				}else{
+					result += getCellAt(x, y).getState() ? 1:0;
+				}
+			}
+			result += "\n";
+		}
+		return result;
+	}
 }
