@@ -1,9 +1,9 @@
 package com.project.board;
-
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RadialGradientPaint;
+import java.awt.event.ActionListener;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.Timer;
@@ -15,6 +15,7 @@ import com.project.graph.Edge;
 import com.project.graph.Node;
 import com.project.graph.Road;
 import com.project.graph.SingleRoad;
+import com.project.cellular.CellTypes;
 import com.project.cellular.Grid;
 import com.project.cellular.GridCell;
 import com.project.cellular.Map;
@@ -23,10 +24,13 @@ import com.project.cellular.Map;
 public class TrafficPanel extends JPanel{
 	
 	private static final long serialVersionUID = -8086343848521884074L;
+	 static boolean temp;
+	//private static final CellTypes LEFT_RED_LIGHT = null;
 	private Controller controller;
 	private ArrayList<Node> doubleEdges;
 	private int frameCounter = 0;
 	private TimerTask mapRunner;
+	 
 	
 	/**
 	 * Max road location 	x-axis: 1200
@@ -83,14 +87,39 @@ public class TrafficPanel extends JPanel{
 				
 				int drawX = xPadding + x*cellSize;
 				int drawY = yPadding + y*cellSize;
-				
-				g2.setColor(new Color(50, 50, 50));
+				//GRID
+				g2.setColor(new Color(50));
 				g2.fillRect(drawX, drawY, cellSize, cellSize);
 				if(cell.getState()){
+					//CAR COLORS
 					g2.setColor(new Color(200, 200, 200));
 					g2.fillRect(drawX + carPadding, drawY + carPadding, (int)(carProportion*cellSize), (int)(carProportion*cellSize));
 				}
 				
+				if(TrafficPanel.temp==true){
+				if(cell.isOfType(CellTypes.LEFT_RED_LIGHT)==true){
+					g2.setColor(new Color(200, 50, 50));
+					g2.fillRect((drawX + carPadding)+cellSize, (drawY + carPadding)+1, (int)(carProportion*cellSize), (int)(carProportion*cellSize));
+					
+				}
+			
+				if(cell.isOfType(CellTypes.DOWN_RED_LIGHT)==true){
+					g2.setColor(new Color(200, 50, 50));
+					g2.fillRect(drawX + carPadding, drawY + carPadding, (int)(carProportion*cellSize), (int)(carProportion*cellSize));
+					
+				}
+				if(cell.isOfType(CellTypes.UP_RED_LIGHT)==true){
+					g2.setColor(new Color(200, 50, 50));
+					g2.fillRect(drawX + carPadding, drawY + carPadding, (int)(carProportion*cellSize), (int)(carProportion*cellSize));
+					
+				}
+				if(cell.isOfType(CellTypes.RIGHT_RED_LIGHT)==true){
+					g2.setColor(new Color(200, 50, 50));
+					g2.fillRect(drawX + carPadding, drawY + carPadding, (int)(carProportion*cellSize), (int)(carProportion*cellSize));
+					
+				}
+				
+				}
 			}
 		}
 	}

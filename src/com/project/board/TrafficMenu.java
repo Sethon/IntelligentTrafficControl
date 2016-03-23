@@ -12,6 +12,7 @@ import java.awt.geom.Point2D;
 import java.util.Hashtable;
 import javax.swing.Box;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
@@ -29,6 +30,9 @@ public class TrafficMenu extends JPanel{
 	private JSlider speed;
 	private JSlider waitingTime;
 	private JSlider numberOfCars;
+	private JCheckBox lights;
+	protected boolean temp=false;
+	
 	
 	public TrafficMenu(Controller controller){
 		this.controller = controller;
@@ -40,6 +44,13 @@ public class TrafficMenu extends JPanel{
 	private void init(){
 		final Font buttonFont = new Font("Futura", 0, 16);
 		final Dimension buttonDimension = new Dimension(200, 40);
+		
+		lights = new JCheckBox("red light");
+		//lights.setName("red lights");
+		lights.setVisible(true);
+	//	lights.setRolloverIcon
+	//	lights.se
+		
 		
 		speed = new JSlider(JSlider.HORIZONTAL, 0, 100, 50);
 		speed.setMajorTickSpacing(20);		
@@ -94,8 +105,17 @@ public class TrafficMenu extends JPanel{
 		
 		this.generateMap.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
 			}
 		});
+		this.lights.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//add method with checking the red light button 
+		//	controller.
+				
+			}
+		});
+		
 		
 		this.exit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -125,6 +145,10 @@ public class TrafficMenu extends JPanel{
         });
 		
 		Box box = Box.createVerticalBox();
+		box.add(Box.createVerticalStrut(75));
+		box.add(Box.createVerticalGlue());
+		box.add(Box.createVerticalStrut(100));
+		box.add(lights);
 		box.add(Box.createVerticalStrut(75));		
 		box.add(numberOfCars);
 		box.add(Box.createVerticalStrut(5));
@@ -144,6 +168,7 @@ public class TrafficMenu extends JPanel{
 		box.add(Box.createVerticalStrut(50));
 		box.add(exit);
 		box.add(Box.createVerticalStrut(125));
+	//	box.add(lights);
 
 		this.add(box);	
 	};
