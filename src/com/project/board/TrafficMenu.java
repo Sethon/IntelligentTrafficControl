@@ -27,7 +27,7 @@ public class TrafficMenu extends JPanel{
 	private JButton exit;
 	private Controller controller;
 	private JSlider speed;
-	private JSlider scale;
+	private JSlider waitingTime;
 	private JSlider numberOfCars;
 	
 	public TrafficMenu(Controller controller){
@@ -41,31 +41,30 @@ public class TrafficMenu extends JPanel{
 		final Font buttonFont = new Font("Futura", 0, 16);
 		final Dimension buttonDimension = new Dimension(200, 40);
 		
-		speed = new JSlider(JSlider.HORIZONTAL, 0, 100, 25);
+		speed = new JSlider(JSlider.HORIZONTAL, 0, 100, 50);
 		speed.setMajorTickSpacing(20);		
 		speed.setPaintTicks(true);
 		speed.setPaintLabels(true);
 		
 		Hashtable<Integer, JLabel> speedTable = new Hashtable<Integer, JLabel>();
 		speedTable.put(0, new JLabel("Slow") );
-		speedTable.put(0, new JLabel("Speed") );
 		speedTable.put(100, new JLabel("Fast") );
 		speed.setLabelTable(speedTable);
 		
 		
-		scale = new JSlider(JSlider.HORIZONTAL, 0, 2, 1);
-		scale.setMajorTickSpacing(1);
-		scale.setMinorTickSpacing(0);
-		scale.setPaintTicks(true);
-		scale.setPaintLabels(true);
+		waitingTime = new JSlider(JSlider.HORIZONTAL, 0, 20, 10);
+		waitingTime.setMajorTickSpacing(1);
+		waitingTime.setMinorTickSpacing(0);
+		waitingTime.setPaintTicks(true);
+		waitingTime.setPaintLabels(true);
 		
-		Hashtable<Integer, JLabel> scaleTable = new Hashtable<Integer, JLabel>();
-		scaleTable.put(0, new JLabel("Zoom Out"));
-		scaleTable.put(2, new JLabel("Zoom In"));
-		scale.setLabelTable(scaleTable);
+		Hashtable<Integer, JLabel> waitingTimeTable = new Hashtable<Integer, JLabel>();
+		waitingTimeTable.put(0, new JLabel("1/10s"));
+		waitingTimeTable.put(20, new JLabel("2s"));
+		waitingTime.setLabelTable(waitingTimeTable);
 		
 		
-		numberOfCars = new JSlider(JSlider.HORIZONTAL, 0, 200, 25);
+		numberOfCars = new JSlider(JSlider.HORIZONTAL, 0, 200, 100);
 		numberOfCars.setMajorTickSpacing(20);
 		numberOfCars.setPaintTicks(true);
 		numberOfCars.setPaintLabels(true);
@@ -111,7 +110,7 @@ public class TrafficMenu extends JPanel{
             }
         });
 		
-		this.scale.addChangeListener(new ChangeListener() {
+		this.waitingTime.addChangeListener(new ChangeListener() {
             @Override
             public void stateChanged(ChangeEvent e) {
                
@@ -135,7 +134,7 @@ public class TrafficMenu extends JPanel{
 		box.add(Box.createVerticalStrut(5));
 		box.add(Box.createVerticalGlue());
 		box.add(Box.createVerticalStrut(100));
-		box.add(scale);
+		box.add(waitingTime);
 		box.add(Box.createVerticalStrut(5));
 		box.add(Box.createVerticalGlue());
 		box.add(Box.createVerticalStrut(100));
