@@ -10,6 +10,9 @@ import javax.swing.JSplitPane;
 import com.project.base.Controller;
 import com.project.board.TrafficMenu;
 import com.project.board.TrafficPanel;
+import com.project.cellular.CellTypes;
+import com.project.cellular.Grid;
+import com.project.cellular.Map;
 
 public class SimulationFrame extends JSplitPane{
 
@@ -21,6 +24,7 @@ public class SimulationFrame extends JSplitPane{
 	
 	public SimulationFrame(Controller controller){
 		this.controller = controller;
+		this.initMap();
 		this.trafficPanel = new TrafficPanel(controller);
 		this.trafficMenu = new TrafficMenu(controller);
 
@@ -30,9 +34,37 @@ public class SimulationFrame extends JSplitPane{
 		this.setDividerSize(0);
 		this.add(trafficPanel, JSplitPane.LEFT);
 		this.add(trafficMenu, JSplitPane.RIGHT);
-	}	
+	}
 	
-	
+	public void initMap(){
+		if(this.controller.getCurrentMap() == null){
+			Grid grid = new Grid(21, 21);
+			
+			for(int i=0; i<21; i++){
+				//border
+				grid.addCell(0, i, CellTypes.UP_ROAD);
+				grid.addCell(i, 0, CellTypes.RIGHT_ROAD);
+				grid.addCell(20, i, CellTypes.DOWN_ROAD);
+				grid.addCell(i, 20, CellTypes.LEFT_ROAD);
+				
+				//cross
+				grid.addCell(i, 10, CellTypes.RIGHT_ROAD);
+				grid.addCell(10, i, CellTypes.DOWN_ROAD);
+			}
+			grid.addCell(0, 0, CellTypes.RIGHT_ROAD);
+			grid.addCell(10, 0, CellTypes.RIGHT_ROAD);
+			grid.addCell(20, 0, CellTypes.DOWN_ROAD);
+			grid.addCell(20, 10, CellTypes.DOWN_ROAD);
+			grid.addCell(10, 10, CellTypes.LEFT_ROAD);
+			grid.addCell(10, 20, CellTypes.LEFT_ROAD);
+			grid.addCell(0, 20, CellTypes.UP_ROAD);
+			grid.addCell(0, 10, CellTypes.UP_ROAD);
+			
+			grid.getCellAt(1, 20).setState(true);
+			
+			controller.setCurrentMap(new Map(grid));
+		}
+	}
 	
 	public JPanel getTrafficPanel(){
 		return this.trafficPanel;

@@ -9,6 +9,7 @@ import javax.swing.JComponent;
 import javax.swing.JFrame;
 
 import com.project.visuals.frame.SimulationFrame;
+import com.project.cellular.Map;
 import com.project.visuals.frame.Frame;
 import com.project.visuals.menu.MenuPage;
 
@@ -19,7 +20,8 @@ public class Controller {
 	private ArrayList<JComponent> menuPages;
 
 	private JFrame frame;
-	//private GhostController ghostController2;
+	
+	private Map currentMap;
 
 	public Controller() {
 
@@ -57,6 +59,14 @@ public class Controller {
 	public void showPanel(JComponent panel) {
 		this.frame.setContentPane(panel);
 		this.frame.pack();
+	}
+	
+	public Map getCurrentMap(){
+		return currentMap;
+	}
+	
+	public void setCurrentMap(Map map) {
+		currentMap = map;
 	}
 
 }

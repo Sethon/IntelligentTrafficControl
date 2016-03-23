@@ -45,11 +45,15 @@ public class Map {
 		}
 	}
 	
-	private void tick(){
+	public void tick(){
 		grid.tick();
 		for(MultiCellController contr: controllers){
 			contr.tick();
 		}
+	}
+	
+	public Grid getGrid(){
+		return grid;
 	}
 	
 	public String toString(){
