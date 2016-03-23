@@ -49,10 +49,13 @@ public class TrafficPanel extends JPanel{
 	}
 	
 	private void drawMap(Map map, Graphics2D g2){
-		int cellSize = 32;
+		Grid grid = map.getGrid();
+		int temp=map.getGrid().getWidth();
+		int temp2 = grid.getWidth();
+		int cellSize = temp2/temp;
 		int xPadding = 10;
 		int yPadding = 10;
-		Grid grid = map.getGrid();
+		
 		for(int x=0; x<grid.getWidth(); x++){
 			for(int y=0; y<grid.getHeight(); y++){
 				GridCell cell = grid.getCellAt(x, y);
