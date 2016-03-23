@@ -33,16 +33,9 @@ public class Map {
 		}
 	}
 	
-	private void initCars(int carProbability){
-		Random r = new Random();
-		for(int x=0; x<grid.getWidth(); x++){
-			for(int y=0; y<grid.getHeight(); y++){
-				GridCell cell = grid.getCellAt(x, y);
-				if(cell != null && !cell.getControlled()){
-					cell.setState(r.nextInt(carProbability) == 0);
-				}
-			}
-		}
+	
+	public void initCars(CarAdder adder){
+		adder.addCars(grid);
 	}
 	
 	public void tick(){

@@ -63,16 +63,24 @@ public class TrafficPanel extends JPanel{
 		int cellSize = 32;
 		int xPadding = 10;
 		int yPadding = 10;
+		double carProportion = 0.8;
+		int carPadding = (int)((1-carProportion)*0.5*cellSize);
+		
 		Grid grid = map.getGrid();
 		for(int x=0; x<grid.getWidth(); x++){
 			for(int y=0; y<grid.getHeight(); y++){
 				GridCell cell = grid.getCellAt(x, y);
 				if(cell == null) continue;
 				
-				Color c = (cell.getState()) ? new Color(255, 255, 255) : new Color(50, 50, 50);
-				g2.setColor(c);
+				int drawX = xPadding + x*cellSize;
+				int drawY = yPadding + y*cellSize;
 				
-				g2.fillRect(xPadding + x*cellSize, yPadding + y*cellSize, cellSize, cellSize);
+				g2.setColor(new Color(50, 50, 50));
+				g2.fillRect(drawX, drawY, cellSize, cellSize);
+				if(cell.getState()){
+					g2.setColor(new Color(200, 200, 200));
+					g2.fillRect(drawX + carPadding, drawY + carPadding, (int)(carProportion*cellSize), (int)(carProportion*cellSize));
+				}
 				
 			}
 		}

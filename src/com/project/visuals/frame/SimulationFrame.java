@@ -13,6 +13,7 @@ import com.project.board.TrafficPanel;
 import com.project.cellular.CellTypes;
 import com.project.cellular.Grid;
 import com.project.cellular.Map;
+import com.project.cellular.RandomCarAdder;
 
 public class SimulationFrame extends JSplitPane{
 
@@ -60,9 +61,10 @@ public class SimulationFrame extends JSplitPane{
 			grid.addCell(0, 20, CellTypes.UP_ROAD);
 			grid.addCell(0, 10, CellTypes.UP_ROAD);
 			
-			grid.getCellAt(1, 20).setState(true);
+			Map map = new Map(grid);
+			map.initCars(new RandomCarAdder(3));
 			
-			controller.setCurrentMap(new Map(grid));
+			controller.setCurrentMap(map);
 		}
 	}
 	
