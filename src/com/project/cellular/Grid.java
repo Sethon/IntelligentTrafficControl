@@ -73,4 +73,31 @@ public class Grid {
 		}
 		return result;
 	}
+	
+	public String toDirString(){
+		String result = "";
+		for(int y=0; y<getHeight(); y++){
+			for(int x=0; x<getWidth(); x++){
+				GridCell cell = getCellAt(x, y);
+				if(cell == null){
+					result += ".";
+				}else{
+					if(cell.isOfType(CellTypes.LEFT_ROAD)){
+						result += "L";
+					}
+					if(cell.isOfType(CellTypes.RIGHT_ROAD)){
+						result += "R";
+					}
+					if(cell.isOfType(CellTypes.UP_ROAD)){
+						result += "U";
+					}
+					if(cell.isOfType(CellTypes.DOWN_ROAD)){
+						result += "D";
+					}
+				}
+			}
+			result += "\n";
+		}
+		return result;
+	}
 }

@@ -28,7 +28,9 @@ public class GridCell {
 		this.pattern = pattern;
 	}
 	
-	public void setHorizontal(boolean horizontal)
+	public void setHorizontal(boolean horizontal){
+		this.horizontal = horizontal;
+	}
 	
 	public void setCellType(CellTypes type){
 		this.setPattern(type.pattern);

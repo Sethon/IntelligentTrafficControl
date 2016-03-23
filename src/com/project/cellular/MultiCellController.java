@@ -25,7 +25,7 @@ public class MultiCellController {
 		this.right = right;
 		this.up = up;
 		this.down = down;
-		this.setConnections();
+		if(center != null) this.setConnections();
 	}
 	
 	private void setConnections(){
@@ -57,12 +57,22 @@ public class MultiCellController {
 				outgoing.add(down);
 			}
 		}
+		
+		if(incoming.size() == 0){
+			System.out.println("No incoming streets!");
+		}
+		if(outgoing.size() == 0){
+			System.out.println("No outgoing streets");
+		}
 	}
 	
 	// Initialize this intersection.
 	// This is done for every cell on the grid.
 	// This method returns true if a controller is necessary.
 	public boolean initialize() {
+		if(this.center == null){
+			return false;
+		}
 		if(this.incoming.size() == 1){
 			this.acceptFrom(this.incoming.get(0));
 			if(this.outgoing.size() == 1){
@@ -71,10 +81,10 @@ public class MultiCellController {
 		}
 		//Mark our cells as being controlled, cars shouldn't be spawned here.
 		this.center.setControlled(true);
-		this.left.setControlled(true);
-		this.right.setControlled(true);
-		this.up.setControlled(true);
-		this.down.setControlled(true);
+		if (this.left != null) this.left.setControlled(true);
+		if (this.right != null) this.right.setControlled(true);
+		if (this.up != null) this.up.setControlled(true);
+		if (this.down != null) this.down.setControlled(true);
 		return true;
 	}
 	

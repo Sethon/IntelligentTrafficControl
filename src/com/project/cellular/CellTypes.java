@@ -17,7 +17,7 @@ public enum CellTypes {
 	LEFT_TRAFFIC_STOPPER (192, true),
 	RIGHT_TRAFFIC_STOPPER (136, true),
 	UP_TRAFFIC_STOPPER (192, false),
-	DOWN_TRAFFIC_STOPPER (136, false),
+	DOWN_TRAFFIC_STOPPER (136, false);
 	
 	public final int pattern;
 	public final boolean horizontal;
