@@ -7,10 +7,9 @@ public class Map {
 	private Grid grid;
 	private ArrayList<MultiCellController> controllers = new ArrayList<MultiCellController>();
 	
-	public Map(Grid grid, int carProbability){
+	public Map(Grid grid){
 		this.grid = grid;
 		initControllers();
-		initCars(carProbability);
 	}
 	
 	private void initControllers(){
@@ -23,11 +22,9 @@ public class Map {
 				GridCell down = grid.getCellAt(x, y+1);
 				boolean hasHorNeighbors = (left != null || right !=  null);
 				boolean hasVerNeighbors = (up != null || down != null);
-				System.out.println("checking ("+x+","+y+")");
 				if(!(hasHorNeighbors && hasVerNeighbors)){
 					continue;
 				}
-				System.out.println("("+x+","+y+")");
 				MultiCellController contr = new MultiCellController(center, left, right, up, down);
 				if(contr.initialize()){
 					controllers.add(contr);
@@ -82,9 +79,11 @@ public class Map {
 		grid.addCell(0, 6, CellTypes.UP_ROAD);
 		grid.addCell(0, 3, CellTypes.UP_ROAD);
 		
+		grid.getCellAt(1, 6).setState(true);
 		
-		Map map = new Map(grid, 10);
+		Map map = new Map(grid);
 		System.out.println(grid.toDirString());
+		
 		for(int i=0; i<20; i++){
 			System.out.println(map);
 			map.tick();

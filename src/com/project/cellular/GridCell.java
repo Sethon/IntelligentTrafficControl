@@ -4,6 +4,7 @@ public class GridCell {
 	private int pattern;
 	private boolean horizontal;
 	private boolean state;
+	private boolean nextState;
 	private boolean isControlled = false;
 	
 	public GridCell(int pattern, boolean horizontal, boolean state){
@@ -51,7 +52,11 @@ public class GridCell {
 	public void updateState(boolean leftState, boolean rightState){
 		int conditionNumber = getConditionNumber(leftState, this.state, rightState);
 		int conditionNumberMask = (int)Math.pow(2, conditionNumber);
-		this.state = ((pattern & conditionNumberMask) == conditionNumberMask);
+		this.nextState = ((pattern & conditionNumberMask) == conditionNumberMask);
+	}
+	
+	public void commitState(){
+		this.state = nextState;
 	}
 	
 	/* The next state of a cell depends on itself and its 2 neighbours.
@@ -61,7 +66,7 @@ public class GridCell {
 	private static int getConditionNumber(boolean left, boolean self, boolean right) {
 		int leftBit = left ? 1 : 0;
 		int selfBit = self ? 1 : 0;
-		int rightBit = self ? 1 : 0;
+		int rightBit = right ? 1 : 0;
 		return leftBit * 4 + selfBit * 2 + rightBit;
 	}
 	

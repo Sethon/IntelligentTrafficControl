@@ -34,8 +34,8 @@ public class Grid {
 		for(int y=0; y<this.getHeight(); y++){
 			for(int x=0; x<this.getWidth(); x++){
 				if(this.cells[x][y] != null && this.cells[x][y].getHorizontal()) {
-					boolean left = (x > 0 && cells[x-1][y] != null) ? cells[x-1][y].getState() : false;
-					boolean right = (x < this.getWidth() -1 && cells[x+1][y] != null) ? this.cells[x+1][y].getState() : false;
+					boolean left = (getCellAt(x-1, y) != null) ? cells[x-1][y].getState() : false;
+					boolean right = (getCellAt(x+1, y) != null) ? this.cells[x+1][y].getState() : false;
 					this.cells[x][y].updateState(left, right);
 				}
 			}
@@ -46,9 +46,19 @@ public class Grid {
 		for (int x=0; x<this.getWidth(); x++){
 			for(int y=0; y<this.getHeight(); y++){
 				if(this.cells[x][y] != null && !this.cells[x][y].getHorizontal()){
-					boolean above = (y > 0 && cells[x][y-1] != null) ? cells[x][y-1].getState() : false;
-					boolean below = (y < this.getHeight() -1 && cells[x][y+1] != null) ? this.cells[x][y+1].getState() : false;
+					boolean above = (getCellAt(x, y-1) != null) ? cells[x][y-1].getState() : false;
+					boolean below = (getCellAt(x, y+1) != null) ? this.cells[x][y+1].getState() : false;
 					this.cells[x][y].updateState(above, below);
+				}
+			}
+		}
+	}
+	
+	public void commitUpdates(){
+		for(int y=0; y<getHeight(); y++){
+			for(int x=0; x<getWidth(); x++){
+				if(this.getCellAt(x, y) != null){
+					this.getCellAt(x, y).commitState();
 				}
 			}
 		}
@@ -57,6 +67,7 @@ public class Grid {
 	public void tick(){
 		updateHorizontal();
 		updateVertical();
+		commitUpdates();
 	}
 	
 	public String toString(){
