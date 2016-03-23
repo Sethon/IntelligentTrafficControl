@@ -63,9 +63,9 @@ public class MultiCellController {
 	// This is done for every cell on the grid.
 	// This method returns true if a controller is necessary.
 	public boolean initialize() {
-		if(this.outgoing.size() == 1){
-			this.directCenterTo(this.outgoing.get(0));
-			if(this.incoming.size() == 1){
+		if(this.incoming.size() == 1){
+			this.acceptFrom(this.incoming.get(0));
+			if(this.outgoing.size() == 1){
 				return false;
 			}
 		}
@@ -78,18 +78,18 @@ public class MultiCellController {
 		return true;
 	}
 	
-	public void directCenterTo(GridCell to){
-		if(to == left){
-			center.setCellType(CellTypes.LEFT_ROAD);
-		}
-		if(to == right){
+	public void acceptFrom(GridCell from){
+		if(from == left){
 			center.setCellType(CellTypes.RIGHT_ROAD);
 		}
-		if(to == up){
-			center.setCellType(CellTypes.UP_ROAD);
+		if(from == right){
+			center.setCellType(CellTypes.LEFT_ROAD);
 		}
-		if(to == down){
+		if(from == up){
 			center.setCellType(CellTypes.DOWN_ROAD);
+		}
+		if(from == down){
+			center.setCellType(CellTypes.UP_ROAD);
 		}
 	}
 	
@@ -101,22 +101,18 @@ public class MultiCellController {
 	
 	private void setOutgoingDirection(){
 		GridCell out = outgoing.get(random.nextInt(outgoing.size()));
-		this.directCenterTo(out);
 		for (GridCell cell: outgoing){
-			if(cell == out){
-				break;
-			}
 			if(cell == left){
-				cell.setCellType(CellTypes.LEFT_TRAFFIC_STOPPER);
+				cell.setCellType(cell == out ? CellTypes.LEFT_ROAD : CellTypes.LEFT_TRAFFIC_STOPPER);
 			}
 			if(cell == right){
-				cell.setCellType(CellTypes.RIGHT_TRAFFIC_STOPPER);
+				cell.setCellType(cell == out ? CellTypes.RIGHT_ROAD : CellTypes.RIGHT_TRAFFIC_STOPPER);
 			}
 			if(cell == up){
-				cell.setCellType(CellTypes.UP_TRAFFIC_STOPPER);
+				cell.setCellType(cell == out ? CellTypes.UP_ROAD : CellTypes.UP_TRAFFIC_STOPPER);
 			}
 			if(cell == down){
-				cell.setCellType(CellTypes.DOWN_TRAFFIC_STOPPER);
+				cell.setCellType(cell == out ? CellTypes.DOWN_ROAD : CellTypes.DOWN_TRAFFIC_STOPPER);
 			}
 		}
 	}
@@ -127,21 +123,19 @@ public class MultiCellController {
 			tickCounter = 0;
 		}
 		GridCell green = incoming.get(trafficLightGreenIndex);
+		acceptFrom(green);
 		for(GridCell cell: incoming){
-			if(cell == green){
-				break;
-			}
 			if(cell == left){
-				cell.setCellType(CellTypes.RIGHT_RED_LIGHT);
+				cell.setCellType(cell == green ? CellTypes.RIGHT_ROAD : CellTypes.RIGHT_RED_LIGHT);
 			}
 			if(cell == right){
-				cell.setCellType(CellTypes.LEFT_RED_LIGHT);
+				cell.setCellType(cell == green ? CellTypes.LEFT_ROAD : CellTypes.LEFT_RED_LIGHT);
 			}
 			if(cell == up){
-				cell.setCellType(CellTypes.DOWN_RED_LIGHT);
+				cell.setCellType(cell == green ? CellTypes.DOWN_ROAD : CellTypes.DOWN_RED_LIGHT);
 			}
 			if(cell == down){
-				cell.setCellType(CellTypes.UP_RED_LIGHT);
+				cell.setCellType(cell == green ? CellTypes.UP_ROAD : CellTypes.UP_RED_LIGHT);
 			}
 		}
 	}
