@@ -60,13 +60,22 @@ public class TrafficPanel extends JPanel{
 	}
 	
 	private void drawMap(Map map, Graphics2D g2){
-		int cellSize = 32;
+		Grid grid = map.getGrid();
 		int xPadding = 10;
 		int yPadding = 10;
+		int cellSize;
+		if(getWidth() < getHeight()){
+			int availableSpace = getWidth() - xPadding*2;
+			cellSize = (int)(availableSpace/grid.getWidth());
+		}else{
+			int availableSpace = getHeight() - yPadding*2;
+			cellSize = (int)(availableSpace/grid.getHeight());
+		}
+		
 		double carProportion = 0.8;
 		int carPadding = (int)((1-carProportion)*0.5*cellSize);
 		
-		Grid grid = map.getGrid();
+		
 		for(int x=0; x<grid.getWidth(); x++){
 			for(int y=0; y<grid.getHeight(); y++){
 				GridCell cell = grid.getCellAt(x, y);

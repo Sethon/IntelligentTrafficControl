@@ -12,6 +12,7 @@ public class Edge {
 	private double speedLimit;
 	private double distance;
 	
+	
 	public Edge(Node from, Node to, double speedLimit, double distance ){
 		this.from = from;
 		this.to = to;
