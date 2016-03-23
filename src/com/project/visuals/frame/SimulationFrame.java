@@ -39,27 +39,27 @@ public class SimulationFrame extends JSplitPane{
 	
 	public void initMap(){
 		if(this.controller.getCurrentMap() == null){
-			Grid grid = new Grid(21, 21);
-			
-			for(int i=0; i<21; i++){
+			int gridSize = 51;
+			Grid grid = new Grid(gridSize, gridSize);
+			for(int i=0; i<gridSize; i++){
 				//border
 				grid.addCell(0, i, CellTypes.UP_ROAD);
 				grid.addCell(i, 0, CellTypes.RIGHT_ROAD);
-				grid.addCell(20, i, CellTypes.DOWN_ROAD);
-				grid.addCell(i, 20, CellTypes.LEFT_ROAD);
+				grid.addCell(gridSize-1, i, CellTypes.DOWN_ROAD);
+				grid.addCell(i, gridSize-1, CellTypes.LEFT_ROAD);
 				
 				//cross
-				grid.addCell(i, 10, CellTypes.RIGHT_ROAD);
-				grid.addCell(10, i, CellTypes.DOWN_ROAD);
+				for(int c=1; c<(gridSize-1)/5; c++){
+					if(c % 2 == 0){
+						grid.addCell(i, c*5, CellTypes.RIGHT_ROAD);
+						grid.addCell(c*5, i, CellTypes.DOWN_ROAD);
+					}else{
+						grid.addCell(i, c*5, CellTypes.LEFT_ROAD);
+						grid.addCell(c*5, i, CellTypes.UP_ROAD);
+					}
+				}
 			}
-			grid.addCell(0, 0, CellTypes.RIGHT_ROAD);
-			grid.addCell(10, 0, CellTypes.RIGHT_ROAD);
-			grid.addCell(20, 0, CellTypes.DOWN_ROAD);
-			grid.addCell(20, 10, CellTypes.DOWN_ROAD);
-			grid.addCell(10, 10, CellTypes.LEFT_ROAD);
-			grid.addCell(10, 20, CellTypes.LEFT_ROAD);
-			grid.addCell(0, 20, CellTypes.UP_ROAD);
-			grid.addCell(0, 10, CellTypes.UP_ROAD);
+			System.out.println(grid.toDirString());
 			
 			Map map = new Map(grid);
 			map.initCars(new RandomCarAdder(3));
