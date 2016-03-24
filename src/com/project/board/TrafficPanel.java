@@ -99,7 +99,7 @@ public class TrafficPanel extends JPanel{
 				
 				}
 			
-				if(cell.isOfType(CellTypes.DOWN_RED_LIGHT)==true || cell.isOfType(CellTypes.UP_RED_LIGHT)==true || cell.isOfType(CellTypes.RIGHT_RED_LIGHT)==true || cell.isOfType(CellTypes.LEFT_RED_LIGHT)==true ){
+				if((cell.isOfType(CellTypes.DOWN_RED_LIGHT)==true || cell.isOfType(CellTypes.UP_RED_LIGHT)==true || cell.isOfType(CellTypes.RIGHT_RED_LIGHT)==true || cell.isOfType(CellTypes.LEFT_RED_LIGHT)==true ) && controller.shouldShowLight()){
 					g2.setColor(new Color(200, 50, 50));
 					//g2.fillRect(drawX + carPadding, drawY + carPadding, (int)(carProportion*cellSize), (int)(carProportion*cellSize));
 					g2.fillRect(drawX, drawY, cellSize, cellSize);
