@@ -63,15 +63,15 @@ public class TrafficMenu extends JPanel{
 		speed.setLabelTable(speedTable);
 		
 		
-		waitingTime = new JSlider(JSlider.HORIZONTAL, 0, 20, 10);
-		waitingTime.setMajorTickSpacing(1);
+		waitingTime = new JSlider(JSlider.HORIZONTAL, 0, 50, 25);
+		waitingTime.setMajorTickSpacing(5);
 		waitingTime.setMinorTickSpacing(0);
 		waitingTime.setPaintTicks(true);
 		waitingTime.setPaintLabels(true);
 		
 		Hashtable<Integer, JLabel> waitingTimeTable = new Hashtable<Integer, JLabel>();
 		waitingTimeTable.put(0, new JLabel("1/10s"));
-		waitingTimeTable.put(20, new JLabel("2s"));
+		waitingTimeTable.put(50, new JLabel("5s"));
 		waitingTime.setLabelTable(waitingTimeTable);
 		
 		

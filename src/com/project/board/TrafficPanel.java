@@ -88,7 +88,7 @@ public class TrafficPanel extends JPanel{
 				int drawX = xPadding + x*cellSize;
 				int drawY = yPadding + y*cellSize;
 				//GRID
-				g2.setColor(new Color(50));
+				g2.setColor(new Color(50,50,50));
 				g2.fillRect(drawX, drawY, cellSize, cellSize);
 		
 				if(cell.getState()){
