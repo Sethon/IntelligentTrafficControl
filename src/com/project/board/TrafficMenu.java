@@ -110,9 +110,7 @@ public class TrafficMenu extends JPanel{
 		});
 		this.lights.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//add method with checking the red light button 
-		//	controller.
-				
+				controller.toggleShowRedLight();
 			}
 		});
 		
