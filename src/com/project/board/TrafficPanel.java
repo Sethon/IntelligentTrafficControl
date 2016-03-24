@@ -93,9 +93,9 @@ public class TrafficPanel extends JPanel{
 		
 				if(cell.getState()){
 					//CAR COLORS
-					g2.setColor(new Color(200, 200, 200));
+					//g2.setColor(new Color(200, 200, 200));
 					//g2.fillRect(drawX + carPadding, drawY + carPadding, (int)(carProportion*cellSize), (int)(carProportion*cellSize));
-					g2.fillRect(drawX, drawY, cellSize, cellSize);
+					//g2.fillRect(drawX, drawY, cellSize, cellSize);
 				
 				}
 			
@@ -107,10 +107,10 @@ public class TrafficPanel extends JPanel{
 		
 				if(cell.getState()){
 					//CAR COLORS
-					//g2.setColor(new Color(0, 0, 0));g2.fillRect((drawX + carPadding), (drawY + carPadding), (int)(carProportion*cellSize), (int)(carProportion*cellSize));
+					g2.setColor(new Color(0, 0, 0));g2.fillRect((drawX + carPadding), (drawY + carPadding), (int)(carProportion*cellSize), (int)(carProportion*cellSize));
 					g2.setColor(new Color(200, 200, 200));
-					//g2.fillRect(drawX + carPadding, drawY + carPadding, (int)(carProportion*cellSize), (int)(carProportion*cellSize));
-					g2.fillOval(drawX + carPadding, drawY + carPadding, (int)(carProportion*cellSize), (int)(carProportion*cellSize));
+					g2.fillRect(drawX + carPadding, drawY + carPadding, (int)(carProportion*cellSize)-5, (int)(carProportion*cellSize)-5);
+					//g2.fillOval(drawX + carPadding, drawY + carPadding, (int)(carProportion*cellSize), (int)(carProportion*cellSize));
 				
 				}
 				
