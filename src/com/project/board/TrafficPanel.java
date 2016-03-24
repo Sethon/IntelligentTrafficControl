@@ -90,33 +90,51 @@ public class TrafficPanel extends JPanel{
 				//GRID
 				g2.setColor(new Color(50));
 				g2.fillRect(drawX, drawY, cellSize, cellSize);
-				if(cell.getState()){
+			/*	if(cell.getState()){
 					//CAR COLORS
 					g2.setColor(new Color(200, 200, 200));
 					g2.fillRect(drawX + carPadding, drawY + carPadding, (int)(carProportion*cellSize), (int)(carProportion*cellSize));
-				}
+				
+				
+				}*/
+				
 				
 				//if(TrafficPanel.temp==true){
 				if(cell.isOfType(CellTypes.LEFT_RED_LIGHT)==true){
 					g2.setColor(new Color(200, 50, 50));
-					g2.fillRect((drawX + carPadding)+cellSize, (drawY + carPadding)+1, (int)(carProportion*cellSize), (int)(carProportion*cellSize));
-					
+					//g2.fillRect((drawX + carPadding)+cellSize, (drawY + carPadding)+1, (int)(carProportion*cellSize), (int)(carProportion*cellSize));
+					g2.fillRect(drawX, drawY, cellSize, cellSize);
+				}
+				if(cell.getState()){
+					//CAR COLORS
+					g2.setColor(new Color(200, 200, 200));
+					//g2.fillRect(drawX + carPadding, drawY + carPadding, (int)(carProportion*cellSize), (int)(carProportion*cellSize));
+					g2.fillRect(drawX, drawY, cellSize, cellSize);
+				
 				}
 			
 				if(cell.isOfType(CellTypes.DOWN_RED_LIGHT)==true){
 					g2.setColor(new Color(200, 50, 50));
-					g2.fillRect(drawX + carPadding, drawY + carPadding, (int)(carProportion*cellSize), (int)(carProportion*cellSize));
-					
+					//g2.fillRect(drawX + carPadding, drawY + carPadding, (int)(carProportion*cellSize), (int)(carProportion*cellSize));
+					g2.fillRect(drawX, drawY, cellSize, cellSize);
 				}
 				if(cell.isOfType(CellTypes.UP_RED_LIGHT)==true){
 					g2.setColor(new Color(200, 50, 50));
-					g2.fillRect(drawX + carPadding, drawY + carPadding, (int)(carProportion*cellSize), (int)(carProportion*cellSize));
-					
+					//g2.fillRect(drawX + carPadding, drawY + carPadding, (int)(carProportion*cellSize), (int)(carProportion*cellSize));
+					g2.fillRect(drawX, drawY, cellSize, cellSize);
 				}
 				if(cell.isOfType(CellTypes.RIGHT_RED_LIGHT)==true){
 					g2.setColor(new Color(200, 50, 50));
-					g2.fillRect(drawX + carPadding, drawY + carPadding, (int)(carProportion*cellSize), (int)(carProportion*cellSize));
-					
+					//g2.fillRect(drawX + carPadding, drawY + carPadding, (int)(carProportion*cellSize), (int)(carProportion*cellSize));
+					g2.fillRect(drawX, drawY, cellSize, cellSize);
+				}
+				if(cell.getState()){
+					//CAR COLORS
+					//g2.setColor(new Color(0, 0, 0));g2.fillRect((drawX + carPadding), (drawY + carPadding), (int)(carProportion*cellSize), (int)(carProportion*cellSize));
+					g2.setColor(new Color(200, 200, 200));
+					//g2.fillRect(drawX + carPadding, drawY + carPadding, (int)(carProportion*cellSize), (int)(carProportion*cellSize));
+					g2.fillOval(drawX + carPadding, drawY + carPadding, (int)(carProportion*cellSize), (int)(carProportion*cellSize));
+				
 				}
 				
 			//	}
