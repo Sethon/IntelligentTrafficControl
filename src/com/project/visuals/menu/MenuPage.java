@@ -17,7 +17,10 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import com.project.base.Controller;
-
+/**
+ * GUI
+ *
+ */
 public class MenuPage extends JPanel {
 
 	private static final long serialVersionUID = -5614885626543441412L;
@@ -57,7 +60,7 @@ public class MenuPage extends JPanel {
 		this.exit.setPreferredSize(buttonDimension);
 		this.exit.setMinimumSize(buttonDimension);
 		this.exit.setMaximumSize(buttonDimension);
-
+		//calls the controller with 1 - which is simulation page
 		this.trafficControl.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				controller.showMenuPage(1);

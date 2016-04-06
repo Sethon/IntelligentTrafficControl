@@ -2,12 +2,15 @@ package com.project.cellular;
 
 public enum CellTypes {
 	//straight roads
+	//226 from right to left, 2nd argument true therefore horizontal 
+	//1st rule is the rule for cellular automata
 	LEFT_ROAD (226, true),  
 	RIGHT_ROAD (184, true),
 	UP_ROAD (226, false),
 	DOWN_ROAD (184, false),
+	
 		
-	//red light cells stop cars from entering a crossroad;
+	//red light cells stop cars from entering a cross-road;
 	LEFT_RED_LIGHT (238, true),
 	RIGHT_RED_LIGHT (252, true),
 	UP_RED_LIGHT (238, false),

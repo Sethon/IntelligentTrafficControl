@@ -14,7 +14,13 @@ import com.project.cellular.CellTypes;
 import com.project.cellular.Grid;
 import com.project.cellular.Map;
 import com.project.cellular.RandomCarAdder;
-
+/**
+ * GUI of simulation
+ * 2 parts:
+ * -left: simulation 
+ * -right: panel 
+ *
+ */
 public class SimulationFrame extends JSplitPane{
 
 	private static final long serialVersionUID = 4036879803456305768L;
@@ -22,6 +28,8 @@ public class SimulationFrame extends JSplitPane{
 	private TrafficPanel trafficPanel;
 	private TrafficMenu trafficMenu;
 	private Controller controller;
+	// reference to the controller and calles initMap which creates new 
+	// grid for the simulation and than use it to create new map 
 	
 	public SimulationFrame(Controller controller){
 		this.controller = controller;
@@ -36,7 +44,7 @@ public class SimulationFrame extends JSplitPane{
 		this.add(trafficPanel, JSplitPane.LEFT);
 		this.add(trafficMenu, JSplitPane.RIGHT);
 	}
-	
+	//GUI for cellular automata
 	public void initMap(){
 		if(this.controller.getCurrentMap() == null){
 			int gridSize = 51;
@@ -79,7 +87,7 @@ public class SimulationFrame extends JSplitPane{
 	}
 	
 	
-	
+	// two panels 
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		Graphics2D g2 = (Graphics2D) g;

@@ -13,7 +13,11 @@ import com.project.cellular.Map;
 import com.project.visuals.frame.Frame;
 import com.project.visuals.menu.MenuPage;
 
-
+/**
+ * control everything that happens
+ * 
+ *
+ */
 
 public class Controller {
 
@@ -26,13 +30,15 @@ public class Controller {
 	public Controller() {
 
 	}
-
+	//new frame
 	public void init() {
 		this.frame = new Frame();
-		
+		//screens in program
 		this.menuPages = new ArrayList<JComponent>();
+		//construct menu pages
 		this.initMenuPages();
-		
+		//0 - index 0 with the array 
+		//shows the menu page in the frame
 		this.showMenuPage(0);
 
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();

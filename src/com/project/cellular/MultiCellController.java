@@ -2,7 +2,10 @@ package com.project.cellular;
 
 import java.util.ArrayList;
 import java.util.Random;
-
+/**
+ * controller for the cross-roads
+ *
+ */
 public class MultiCellController {
 	private GridCell center;
 	private GridCell left;
@@ -19,6 +22,7 @@ public class MultiCellController {
 	private int trafficLightSwitchInterval = 10;
 	public int trafficLightGreenIndex = 0;
 	
+	//constructor: 
 	public MultiCellController(GridCell center, GridCell left, GridCell right, GridCell up, GridCell down){
 		this.center = center;
 		this.left = left;
@@ -31,7 +35,8 @@ public class MultiCellController {
 	public void setTrafficLightSwitchInterval(int ticks){
 		trafficLightSwitchInterval = ticks;
 	}
-	
+	//checks for all the directions if there is a road there,
+	//
 	private void setConnections(){
 		if (left != null) {
 			if(left.isOfType(CellTypes.RIGHT_ROAD)){
@@ -77,13 +82,16 @@ public class MultiCellController {
 		if(this.center == null){
 			return false;
 		}
+		
 		if(this.incoming.size() == 1){
 			this.acceptFrom(this.incoming.get(0));
 			if(this.outgoing.size() == 1){
 				return false;
 			}
 		}
+		
 		//Mark our cells as being controlled, cars shouldn't be spawned here.
+		
 		this.center.setControlled(true);
 		if (this.left != null) this.left.setControlled(true);
 		if (this.right != null) this.right.setControlled(true);
@@ -106,13 +114,15 @@ public class MultiCellController {
 			center.setCellType(CellTypes.UP_ROAD);
 		}
 	}
+	//decides which direction has a green light incoming
+	//the direction on the cross-road
 	
 	public void tick(){
 		setOutgoingDirection();
 		setGreenLight();
 		tickCounter += 1;
 	}
-	
+	//choose the random direction to move on the cross-road 
 	private void setOutgoingDirection(){
 		GridCell out = outgoing.get(random.nextInt(outgoing.size()));
 		for (GridCell cell: outgoing){
@@ -130,7 +140,8 @@ public class MultiCellController {
 			}
 		}
 	}
-	
+	// choose which incoming road has green light
+	//create new class for each strategy 
 	private void setGreenLight(){
 		if(tickCounter >= trafficLightSwitchInterval){
 			trafficLightGreenIndex = (trafficLightGreenIndex + 1) % incoming.size();

@@ -37,7 +37,12 @@ public class TrafficPanel extends JPanel{
 	 * 						y-axis: 750
 	 * @param controller
 	 */
-	
+	/**
+	 * 
+	 * @param controller
+	 */
+	//constructor: creates new timer task
+	// run method: calles the timer, does: the update
 	public TrafficPanel(Controller controller){
 		this.controller = controller;
 		mapRunner = new TimerTask() {
@@ -62,7 +67,7 @@ public class TrafficPanel extends JPanel{
 			System.out.println("Tick.");
 		}
 	}
-	
+	//draws map into the panel 
 	private void drawMap(Map map, Graphics2D g2){
 		Grid grid = map.getGrid();
 		int xPadding = 10;
@@ -88,16 +93,16 @@ public class TrafficPanel extends JPanel{
 				int drawX = xPadding + x*cellSize;
 				int drawY = yPadding + y*cellSize;
 				//GRID
-				g2.setColor(new Color(50));
+				g2.setColor(new Color(50,50,50								));
 				g2.fillRect(drawX, drawY, cellSize, cellSize);
 		
-				if(cell.getState()){
+			/*	if(cell.getState()){
 					//CAR COLORS
 					g2.setColor(new Color(200, 200, 200));
 					//g2.fillRect(drawX + carPadding, drawY + carPadding, (int)(carProportion*cellSize), (int)(carProportion*cellSize));
 					g2.fillRect(drawX, drawY, cellSize, cellSize);
 				
-				}
+				}*/
 			
 				if(cell.isOfType(CellTypes.DOWN_RED_LIGHT)==true || cell.isOfType(CellTypes.UP_RED_LIGHT)==true || cell.isOfType(CellTypes.RIGHT_RED_LIGHT)==true || cell.isOfType(CellTypes.LEFT_RED_LIGHT)==true ){
 					g2.setColor(new Color(200, 50, 50));
@@ -109,8 +114,8 @@ public class TrafficPanel extends JPanel{
 					//CAR COLORS
 					//g2.setColor(new Color(0, 0, 0));g2.fillRect((drawX + carPadding), (drawY + carPadding), (int)(carProportion*cellSize), (int)(carProportion*cellSize));
 					g2.setColor(new Color(200, 200, 200));
-					//g2.fillRect(drawX + carPadding, drawY + carPadding, (int)(carProportion*cellSize), (int)(carProportion*cellSize));
-					g2.fillOval(drawX + carPadding, drawY + carPadding, (int)(carProportion*cellSize), (int)(carProportion*cellSize));
+					g2.fillRect(drawX + carPadding, drawY + carPadding, (int)(carProportion*cellSize), (int)(carProportion*cellSize)-5);
+				//	g2.fillOval(drawX + carPadding, drawY + carPadding, (int)(carProportion*cellSize), (int)(carProportion*cellSize));
 				
 				}
 				

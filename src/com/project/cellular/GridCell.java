@@ -48,6 +48,7 @@ public class GridCell {
 	
 	/*
 	 * Updates the state of a cell based on the state of its horizontal or vertical neighbors
+	 * we want to update all the cells  not only one so every cell is commited at one time 
 	 */
 	public void updateState(boolean leftState, boolean rightState){
 		int conditionNumber = getConditionNumber(leftState, this.state, rightState);
@@ -73,6 +74,7 @@ public class GridCell {
 	public boolean isOfType(CellTypes type) {
 		return this.pattern == type.pattern && this.horizontal == type.horizontal;
 	}
+	
 	
 	public void setControlled(boolean controlled){
 		this.isControlled = controlled;

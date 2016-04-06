@@ -1,6 +1,11 @@
 package com.project.cellular;
 
 public class Grid {
+	/**
+	 * 2d array of grid cells
+	 * type of cells and coordinates 
+	 * everytime the maps need to be updates it calles the metho 
+	 */
 	private GridCell[][] cells;
 	
 	public Grid(GridCell[][] cells) {
@@ -29,6 +34,9 @@ public class Grid {
 	public void addCell(int x, int y, CellTypes type) {
 		this.cells[x][y] = new GridCell(type, false);
 	}
+	//3 upcoming methods: updating GUI
+	//updates the cell when needed
+	//goes through  all the cells and look a t cell below and above 
 	
 	public void updateHorizontal(){
 		for(int y=0; y<this.getHeight(); y++){

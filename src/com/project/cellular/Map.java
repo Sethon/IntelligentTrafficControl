@@ -6,11 +6,13 @@ import java.util.Random;
 public class Map {
 	private Grid grid;
 	private ArrayList<MultiCellController> controllers = new ArrayList<MultiCellController>();
-	
+	// creates multicell controllers for traffic light
 	public Map(Grid grid){
 		this.grid = grid;
 		initControllers();
 	}
+	//goes through  the all cells in the grid
+	// we get references of the cells
 	
 	private void initControllers(){
 		for(int x=0; x<grid.getWidth(); x++){
@@ -22,6 +24,8 @@ public class Map {
 				GridCell down = grid.getCellAt(x, y+1);
 				boolean hasHorNeighbors = (left != null || right !=  null);
 				boolean hasVerNeighbors = (up != null || down != null);
+				//cross-road check
+				
 				if(!(hasHorNeighbors && hasVerNeighbors)){
 					continue;
 				}
@@ -33,7 +37,8 @@ public class Map {
 		}
 	}
 	
-	
+	//add cars to the grid
+	//works by adding cars by probability
 	public void initCars(CarAdder adder){
 		adder.addCars(grid);
 	}
