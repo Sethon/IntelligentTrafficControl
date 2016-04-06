@@ -70,7 +70,7 @@ public class SimulationFrame extends JSplitPane{
 			System.out.println(grid.toDirString());
 			
 			Map map = new Map(grid);
-			map.initCars(new RandomCarAdder(5));
+			map.initCars(new RandomCarAdder(4));
 			
 			controller.setCurrentMap(map);
 		}

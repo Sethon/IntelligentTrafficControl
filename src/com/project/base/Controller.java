@@ -26,7 +26,9 @@ public class Controller {
 	private JFrame frame;
 	
 	private Map currentMap;
-
+	
+	private boolean showLights = false;
+	
 	public Controller() {
 
 	}
@@ -73,6 +75,14 @@ public class Controller {
 	
 	public void setCurrentMap(Map map) {
 		currentMap = map;
+	}
+	
+	public void toggleShowRedLight(){
+		showLights = !showLights;
+	}
+	
+	public boolean shouldShowLight(){
+		return showLights;
 	}
 
 }
