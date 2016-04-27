@@ -1,79 +1,37 @@
-package com.project.model;
-
-import java.awt.Color;
-import java.awt.Graphics2D;
-import java.awt.geom.Point2D;
-
-import com.project.graph.Road;
-
-public class Car {
-	private final int CAR_RADIUS = 4;
-	private Color color;
-	private Road currentRoad;
-	private Point2D position;
-	private double length;
-	private double between;
+public class NagelModel
+{
 	
-	public Car(){
-		this.color = getRandColor();
-		this.length = 2;
-	}
+	int MinSpeed = 0;
+	int MaxSpeed = 5;
 	
-	
-	public Car(double between, double length){
-		this.between=between;
-		this.length=length;
-	}
-	
-	private Color getRandColor(){
-		return new Color((int) Math.ceil(Math.random() * 255), 
-				(int) Math.ceil(Math.random() * 255), 
-				(int) Math.ceil(Math.random() * 255));
-	}
-	
-
-	
-	public Road getCurrentRoad(){
-		return this.currentRoad;
-	}
-	
-	
-	
-	public void setCurrentRoad(Road currentRoad){
-		this.currentRoad = currentRoad;
-	}
-	
-	
-	
-	public Point2D getPosition(){
-		return this.position;
-	}
-	
-	
-	
-	public void setPosition(Point2D position){
-		this.position = position;
-	}
-	
-	
-	
-	public Color getColor(){
-		return this.color;
-	}
-	
-	
-	
-	public double getLength(){
-		return this.length;
-	}
-	
-	
-	
-	public void drawCar(Graphics2D g2){
-		int x = (int) this.position.getX() - CAR_RADIUS;
-		int y = (int) this.position.getY() + CAR_RADIUS;
+	public int Acceleration(int actualV)			// +1 to each car's velocity but can not go up the Maxspeed
+	{
+		actualV = Math.min(actualV, MaxSpeed);
 		
-		g2.setColor(this.getColor());
-		g2.fillRect(x, y, CAR_RADIUS*2, CAR_RADIUS*2);
+		return actualV;
 	}
+	
+	public int SlowingDown (int actualV, int gap) // if the gap between 2 cars is smaller than the ActualV of the car behind 
+													//then the car have to slowdown for not having a collision
+	{
+		if(actualV < gap)
+		{
+			actualV = gap;
+		}
+		
+		return actualV;
+	}
+	
+	public int ProbOfSlowingDown(int actualV, double probability) // inserting a probablity of each car to slow down by one V's unit 
+	{
+		if( (actualV > 0 ) && ( Math.random() <= probability) )
+		{
+			actualV--;
+		}	
+		
+		return actualV;
+	}
+	
+
+
 }
