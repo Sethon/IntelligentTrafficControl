@@ -1,4 +1,4 @@
-public class NagelModel
+public class Car
 {
 	
 	int MinSpeed = 0;
