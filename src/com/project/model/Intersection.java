@@ -1,6 +1,6 @@
 package com.project.model;
 
-import java.awt.Point;
+import java.awt.geom.Point2D;
 
 public class Intersection {
 	// An intersection has 4 sides, each one has an integer associated with it.
@@ -9,12 +9,12 @@ public class Intersection {
 	public static final int SOUTH = 2;
 	public static final int WEST = 3;
 	
-	private Point position;
+	private Point2D.Double position;
 	
 	private Road[] inRoads = new Road[4];
 	private Road[] outRoads = new Road[4];
 	
-	public Intersection(Point position){
+	public Intersection(Point2D.Double position){
 		this.position = position;
 	}
 	
@@ -38,8 +38,8 @@ public class Intersection {
 		this.position = newPosition;
 	}
 	
-	public Point getPosition(){
-		return position
+	public Point2D.Double getPosition(){
+		return position;
 	}
 	
 	
