@@ -4,6 +4,12 @@ public class Car
 	int MinSpeed = 0;
 	int MaxSpeed = 5;
 	
+	public final Trajectory trajectory;
+	
+	public Car(Trajectory traj){
+		trajectory = traj;
+	}
+	
 	public int Acceleration(int actualV)			// +1 to each car's velocity but can not go up the Maxspeed
 	{
 		actualV = Math.min(actualV, MaxSpeed);

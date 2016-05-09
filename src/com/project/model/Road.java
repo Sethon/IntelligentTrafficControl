@@ -32,7 +32,7 @@ public class Road {
 		to.setIncomingRoad(this, toDirection);
 	}
 	
-	private int getLength() {
+	public int getLength() {
 		return this.shape.getNumSegments(15);
 	}
 		
