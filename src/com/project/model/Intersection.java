@@ -67,7 +67,9 @@ public class Intersection {
 		// whether it is the incoming or outgoing road.
 		int i = direction * 2 + (incoming ? 0 : 1);
 		Point2D res = connectionPoints[i];
-		return new Point2D.Double(res.getX() * Globals.LANE_WIDTH, res.getY() * Globals.LANE_WIDTH);
+		return new Point2D.Double(
+				position.getX() + res.getX() * Globals.LANE_WIDTH,
+				position.getY() + res.getY() * Globals.LANE_WIDTH);
 	}
 	
 	public Point2D.Double getConnectionPoint(Road road){
