@@ -53,7 +53,7 @@ public class Intersection {
 		return outRoads.clone();
 	}
 	
-	public void setPosition(Point newPosition){
+	public void setPosition(Point2D.Double newPosition){
 		this.position = newPosition;
 	}
 	
