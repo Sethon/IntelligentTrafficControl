@@ -83,4 +83,13 @@ public class Intersection {
 		}
 		return null;
 	}
+	
+	// Given an incoming road, returns theoutgoing road corresponding to how many roads you count going clockwise.
+	public Road getRelativeOutgoingFRoad(Road currentRoad, int turnNumber){
+		for(int i=0; i<4; i++){
+			if(inRoads[i] == currentRoad){
+				return this.outRoads[(i + turnNumber) % 4];
+			}
+		}
+	}
 }
