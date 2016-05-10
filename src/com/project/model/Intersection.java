@@ -91,5 +91,6 @@ public class Intersection {
 				return this.outRoads[(i + turnNumber) % 4];
 			}
 		}
+		return null;
 	}
 }
