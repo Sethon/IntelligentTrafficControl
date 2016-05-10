@@ -10,7 +10,9 @@ import javax.swing.JFrame;
 
 import com.project.visuals.frame.SimulationFrame;
 import com.project.cellular.Map;
+import com.project.map.NagelMap;
 import com.project.visuals.frame.Frame;
+import com.project.visuals.frame.NagelSimulationFrame;
 import com.project.visuals.menu.MenuPage;
 
 /**
@@ -26,6 +28,7 @@ public class Controller {
 	private JFrame frame;
 	
 	private Map currentMap;
+	private NagelMap nagelMap;
 	
 	private boolean showLights = false;
 	
@@ -53,7 +56,7 @@ public class Controller {
 	
 	private void initMenuPages() {
 		this.menuPages.add(new MenuPage(this));
-		this.menuPages.add(new SimulationFrame(this));		
+		this.menuPages.add(new NagelSimulationFrame(this));		
 	}
 
 	
@@ -83,6 +86,13 @@ public class Controller {
 	
 	public boolean shouldShowLight(){
 		return showLights;
+	}
+	public NagelMap getNagelMap() {
+		if(nagelMap == null){
+			nagelMap = new NagelMap();
+			nagelMap.generate();
+		}
+		return nagelMap;
 	}
 
 }

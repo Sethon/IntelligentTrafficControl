@@ -14,13 +14,11 @@ public class Road {
 	public Road(Intersection from, Intersection to, int fromDirection, int toDirection) {
 		this.from = from;
 		this.to = to;
-		
-		int l = this.getLength();
-		this.leftLane = new Lane(l);
-		this.rightLane = new Lane(l);
-		
-		this.shape = new Line(from.getPosition(), to.getPosition());
 		this.updateConnectingIntersections(fromDirection, toDirection);
+		this.shape = new Line(from.getConnectionPoint(this), to.getConnectionPoint(this));
+
+		this.leftLane = new Lane(this);
+		this.rightLane = new Lane(this);
 	}
 	
 	public RoadShape getShape(){

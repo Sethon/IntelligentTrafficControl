@@ -6,7 +6,7 @@ import java.awt.geom.QuadCurve2D;
 
 public class Curve extends QuadCurve2D.Double implements RoadShape {
 	public Curve(Point2D.Double from, Point2D.Double to, Point2D.Double control){
-		super(from.getX(), from.getY(), to.getX(), to.getY(), control.getX(), control.getY());
+		super(from.getX(), from.getY(), control.getX(), control.getY(), to.getX(), to.getY());
 	}
 	
 	public double getLength(){
@@ -42,7 +42,7 @@ public class Curve extends QuadCurve2D.Double implements RoadShape {
 		if(i == nSegments - 1){
 			to = this.getP2();
 		}else{
-			to = getPointAlong(pointProgress * (i+1));f
+			to = getPointAlong(pointProgress * (i+1));
 		}
 		
 		return new Line2D.Double(from, to);

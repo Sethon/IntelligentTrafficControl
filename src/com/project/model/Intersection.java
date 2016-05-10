@@ -20,17 +20,17 @@ public class Intersection {
 			// The second 2 points do that for the east facing roads, and so on.
 			// These co-ordinates specify how the middle of the road touches the intersection.
 			// The points will be scaled by the road with, inside the getConnectionPoint method.
-			new Point2D.Double(0.5, 0),
-			new Point2D.Double(1.5, 0),
+			new Point2D.Double(1, 0),
+			new Point2D.Double(3, 0),
 			
-			new Point2D.Double(2, 0.5),
-			new Point2D.Double(2, 1.5),
+			new Point2D.Double(4, 1),
+			new Point2D.Double(4, 3),
 			
-			new Point2D.Double(1.5, 2),
-			new Point2D.Double(0.5, 2),
+			new Point2D.Double(3, 4),
+			new Point2D.Double(1, 4),
 			
-			new Point2D.Double(0, 1.5),
-			new Point2D.Double(0, 0.5)
+			new Point2D.Double(0, 3),
+			new Point2D.Double(0, 1)
 	};
 	
 	public Intersection(Point2D.Double position){
