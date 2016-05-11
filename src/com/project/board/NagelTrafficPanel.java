@@ -49,6 +49,7 @@ public class NagelTrafficPanel extends JPanel{
 	}
 	//draws map into the panel 
 	private void drawMap(NagelMap map, Graphics2D g2){
+		//Strokes define how lines are drawn.
 		BasicStroke roadStroke = new BasicStroke(
 				(float)Globals.LANE_WIDTH*2,
 				BasicStroke.CAP_ROUND,
@@ -66,6 +67,7 @@ public class NagelTrafficPanel extends JPanel{
 		Color roadColor = Color.DARK_GRAY;
 		Color DividerColor = Color.WHITE;
 		
+		//draw all the roads
 		for(Road road: map.roads){
 			g2.setStroke(roadStroke);
 			g2.setColor(roadColor);
@@ -74,6 +76,8 @@ public class NagelTrafficPanel extends JPanel{
 			g2.setColor(DividerColor);
 			g2.draw((Shape)road.getShape());
 		}
+		
+		//draw all the intersections
 		g2.setColor(roadColor);
 		for(Intersection inter: map.intersections){
 			g2.fillRect((int)inter.getPosition().x, (int)inter.getPosition().y, (int)Globals.LANE_WIDTH*4, (int)Globals.LANE_WIDTH*4);

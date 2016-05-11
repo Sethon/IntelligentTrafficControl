@@ -41,8 +41,12 @@ public class NagelMap {
 		Road road7 = new Road(center, right, Intersection.EAST, Intersection.WEST);
 		Road road8 = new Road(right, center, Intersection.WEST, Intersection.EAST);
 		
-		
+		//This offset is the offset for the control point of the bezier curves of the inner roads of the ring.
+		//If we don't apply this offset, the two roads that make up each part of the ring will overlap.
+		//We want to push the control point inwards by 2 lane widths. The amount we need to push inwards
+		// equal horizontally and vertically. We want to move  2 lane widths, at an angle of 45° (pi/4 radians) to both axis.
 		double ctrlOffset = Math.cos(Math.PI/4)*Globals.LANE_WIDTH*2;
+		
 		Road ring1 = new CurvedRoad(top, right, Intersection.EAST, Intersection.NORTH, new Point2D.Double(offset + size - ctrlOffset, offset + ctrlOffset));
 		Road ring2 = new CurvedRoad(right, top, Intersection.NORTH, Intersection.EAST, new Point2D.Double(offset + size, offset));
 		Road ring3 = new CurvedRoad(right, bottom, Intersection.SOUTH, Intersection.EAST, new Point2D.Double(offset + size - ctrlOffset, offset + size - ctrlOffset));

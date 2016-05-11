@@ -72,6 +72,7 @@ public class Intersection {
 				position.getY() + res.getY() * Globals.LANE_WIDTH);
 	}
 	
+	//Get the point where the center of the given road touches the intersection.
 	public Point2D.Double getConnectionPoint(Road road){
 		for(int direction = 0; direction < 4; direction++){
 			if(inRoads[direction] == road){
