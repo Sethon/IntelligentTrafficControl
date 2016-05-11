@@ -7,19 +7,23 @@ public class RandomTrajectory extends Trajectory{
 	private boolean onIntersection = false;
 	private Random random = new Random();
 	
+	// This trajectory  just picks a road at random at each
 	public Lane getNextLane() {
 		if(onIntersection){
+			// our next lane is the road we've previously selected
 			onIntersection = false;
 			return targetLane;
 		}else{
+			// we're going towards an intersection, pick a direction to leave it.
 			onIntersection = true;
 			targetLane = getTargetLane(nextLane.road.to);
-			// get the internal lane that connects the current road to the target
+			//TODO get the internal lane that connects the current road to the target
 			return null;
 		}
 	}
 	
 	private Lane getTargetLane(Intersection intersection){
+		//Pickk a random lane from which we wat to leave the intersection
 		Road cur = currentLane.road;
 		Road option1;
 		Road option2;
@@ -34,6 +38,7 @@ public class RandomTrajectory extends Trajectory{
 	}
 	
 	private Lane getRandomLane(Road road){
+		//Pick one of the two lanes of a road at random.
 		return random.nextBoolean() ? road.leftLane : road.rightLane;
 	}
 }
