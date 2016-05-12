@@ -27,9 +27,9 @@ public class Lane {
 				int newPosition = i + movements[i];
 				if(newPosition >= cars.length){
 					//this car leaves the road
-					Lane next = cars[i].trajectory.nextLane;
-					next.acceptCar(cars[i], newPosition - cars.length);
 					cars[i].trajectory.updateLane();
+					Lane next = cars[i].trajectory.currentLane;
+					next.acceptCar(cars[i], newPosition - cars.length);
 				}
 			}
 		}

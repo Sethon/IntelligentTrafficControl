@@ -16,7 +16,7 @@ public class RandomTrajectory extends Trajectory{
 		}else{
 			// we're going towards an intersection, pick a direction to leave it.
 			onIntersection = true;
-			targetLane = getTargetLane(nextLane.road.to);
+			targetLane = getTargetLane(currentLane.road.to);
 			//TODO get the internal lane that connects the current road to the target
 			return null;
 		}
