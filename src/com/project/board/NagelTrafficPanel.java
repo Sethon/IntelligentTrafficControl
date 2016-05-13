@@ -75,6 +75,8 @@ public class NagelTrafficPanel extends JPanel{
 			g2.setStroke(dividerStroke);
 			g2.setColor(DividerColor);
 			g2.draw((Shape)road.getShape());
+			g2.setColor(Color.YELLOW);
+			g2.draw(new Curve());
 		}
 		
 		//draw all the intersections
