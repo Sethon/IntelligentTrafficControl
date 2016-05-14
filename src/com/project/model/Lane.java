@@ -11,6 +11,10 @@ public class Lane {
 		this.road = road;
 	}
 	
+	public boolean hasCarAt(int segment){
+		return cars[segment] != null;
+	}
+	
 	public void moveCars() {
 		int[] movements = new int[cars.length];
 		

@@ -7,6 +7,7 @@ import java.awt.RadialGradientPaint;
 import java.awt.Shape;
 import java.awt.Stroke;
 import java.awt.event.ActionListener;
+import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.Timer;
@@ -64,8 +65,10 @@ public class NagelTrafficPanel extends JPanel{
 				new float[]{5f, 5f},
 				0
 		);
+		BasicStroke carStroke = new BasicStroke((float)Globals.LANE_WIDTH*0.8f);
 		Color roadColor = Color.DARK_GRAY;
 		Color DividerColor = Color.WHITE;
+		Color carColor = Color.BLUE;
 		
 		//draw all the roads
 		for(Road road: map.roads){
@@ -75,8 +78,13 @@ public class NagelTrafficPanel extends JPanel{
 			g2.setStroke(dividerStroke);
 			g2.setColor(DividerColor);
 			g2.draw((Shape)road.getShape());
-			g2.setColor(Color.YELLOW);
-			g2.draw(new Curve());
+			
+			//Draw all cars on the road:
+			g2.setColor(carColor);
+			g2.setStroke(carStroke);
+			for(Line2D.Double carLine: road.getCarLines()){
+				g2.draw(carLine);
+			}
 		}
 		
 		//draw all the intersections
