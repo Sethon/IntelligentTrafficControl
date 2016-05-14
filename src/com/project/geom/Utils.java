@@ -5,7 +5,7 @@ import java.awt.geom.Point2D;
 
 public class Utils {
 	public static Point2D.Double translate(Point2D pt, double x, double y){
-		return new Point2D.Double(pt.x +x, pt.y + y);
+		return new Point2D.Double(pt.getX() + x, pt.getY() + y);
 	}
 	
 	public static double getAngle(Point2D from, Point2D to) {
