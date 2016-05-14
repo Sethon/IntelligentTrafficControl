@@ -1,5 +1,6 @@
-public class Car
-{
+package com.project.model;
+
+public class Car{
 	
 	int MinSpeed = 0;
 	int MaxSpeed = 5;
@@ -10,16 +11,14 @@ public class Car
 		trajectory = traj;
 	}
 	
-	public int Acceleration(int actualV)			// +1 to each car's velocity but can not go up the Maxspeed
-	{
+	public int Acceleration(int actualV){
 		actualV = Math.min(actualV, MaxSpeed);
 		
 		return actualV;
 	}
 	
-	public int SlowingDown (int actualV, int gap) // if the gap between 2 cars is smaller than the ActualV of the car behind 
+	public int SlowingDown (int actualV, int gap){ // if the gap between 2 cars is smaller than the ActualV of the car behind 
 													//then the car have to slowdown for not having a collision
-	{
 		if(actualV < gap)
 		{
 			actualV = gap;
@@ -28,8 +27,7 @@ public class Car
 		return actualV;
 	}
 	
-	public int ProbOfSlowingDown(int actualV, double probability) // inserting a probablity of each car to slow down by one V's unit 
-	{
+	public int ProbOfSlowingDown(int actualV, double probability){ // inserting a probablity of each car to slow down by one V's unit 
 		if( (actualV > 0 ) && ( Math.random() <= probability) )
 		{
 			actualV--;
@@ -37,7 +35,4 @@ public class Car
 		
 		return actualV;
 	}
-	
-
-
 }
