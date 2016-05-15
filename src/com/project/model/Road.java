@@ -11,8 +11,8 @@ import com.project.geom.Utils;
 public class Road {
 	public final Intersection from;
 	public final Intersection to;
-	public final Lane leftLane;
-	public final Lane rightLane;
+	public Lane leftLane;
+	public Lane rightLane;
 	protected RoadShape shape;
 	
 	public Road(Intersection from, Intersection to, int fromDirection, int toDirection) {
@@ -20,7 +20,10 @@ public class Road {
 		this.to = to;
 		this.updateConnectingIntersections(fromDirection, toDirection);
 		this.shape = new Line(from.getConnectionPoint(this), to.getConnectionPoint(this));
-
+		initLanes();
+	}
+	
+	protected void initLanes(){
 		this.leftLane = new Lane(this);
 		this.rightLane = new Lane(this);
 	}
@@ -35,18 +38,19 @@ public class Road {
 	}
 	
 	public int getLength() {
-		return this.shape.getNumSegments(15);
+		return this.shape.getNumSegments(Globals.CELL_LENGTH);
 	}
 	
 	public ArrayList<Line2D.Double> getCarLines() {
 		ArrayList<Line2D.Double> lines = new ArrayList<Line2D.Double>(getLength()*2);
+		int l = getLength();
 		for(int i=0; i<this.getLength(); i++){
 			Line2D.Double line = shape.getSegment(Globals.CELL_LENGTH, i);
 			if(leftLane.hasCarAt(i)){
-				lines.add(Utils.getOffsetLine(line, -Globals.LANE_WIDTH/2));
+				lines.add(Utils.getOffsetLine(line, -Globals.LANE_WIDTH*2));
 			}
 			if(rightLane.hasCarAt(i)){
-				lines.add(Utils.getOffsetLine(line,  Globals.LANE_WIDTH/2));
+				lines.add(Utils.getOffsetLine(line,  Globals.LANE_WIDTH*100));
 			}
 		}
 		return lines;

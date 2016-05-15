@@ -3,9 +3,11 @@ package com.project.map;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
+import com.project.model.Car;
 import com.project.model.CurvedRoad;
 import com.project.model.Globals;
 import com.project.model.Intersection;
+import com.project.model.RandomTrajectory;
 import com.project.model.Road;
 
 public class NagelMap {
@@ -79,5 +81,12 @@ public class NagelMap {
 		addIntersection(right);
 		addIntersection(bottom);
 		addIntersection(left);
+		
+		ring1.leftLane.acceptCar(makeCar(), 0);
+		ring1.leftLane.acceptCar(makeCar(), 3);
+	}
+	
+	private Car makeCar(){
+		return new Car(new RandomTrajectory());
 	}
 }
