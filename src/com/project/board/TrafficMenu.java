@@ -5,16 +5,23 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.RadialGradientPaint;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.geom.Point2D;
 import java.util.Hashtable;
+
+import javax.swing.BorderFactory;
 import javax.swing.Box;
+import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 import javax.swing.JSlider;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
@@ -24,13 +31,19 @@ import com.project.base.Controller;
 public class TrafficMenu extends JPanel{
 
 	private static final long serialVersionUID = -3952749405048123722L;
+
+	private JRadioButton lightsON;
+	private JRadioButton lightsOFF;
+	private JSlider waitingTime;
+	private JComboBox combo;
+	
+	
+	
 	private JButton generateMap;
 	private JButton exit;
+	
+	
 	private Controller controller;
-	private JSlider speed;
-	private JSlider waitingTime;
-	private JSlider numberOfCars;
-	private JCheckBox lights;
 	protected boolean temp=false;
 	
 	
@@ -45,45 +58,29 @@ public class TrafficMenu extends JPanel{
 		final Font buttonFont = new Font("Futura", 0, 16);
 		final Dimension buttonDimension = new Dimension(200, 40);
 		
-		lights = new JCheckBox("red light");
-		//lights.setName("red lights");
-		lights.setVisible(true);
-	//	lights.setRolloverIcon
-	//	lights.se
+		lightsON = new JRadioButton("ON");
+		lightsON.setVisible(true);
+		lightsOFF = new JRadioButton("OFF");
+		lightsOFF.setVisible(true);
+
 		
-		
-		speed = new JSlider(JSlider.HORIZONTAL, 0, 100, 50);
-		speed.setMajorTickSpacing(20);		
-		speed.setPaintTicks(true);
-		speed.setPaintLabels(true);
-		
-		Hashtable<Integer, JLabel> speedTable = new Hashtable<Integer, JLabel>();
-		speedTable.put(0, new JLabel("Slow") );
-		speedTable.put(100, new JLabel("Fast") );
-		speed.setLabelTable(speedTable);
-		
+		combo = new JComboBox<String>();
+		combo.addItem("Nagel's Model");
+		combo.addItem("Newell's Model");
+		combo.addItem("Group1's Model");
+		combo.setVisible(true);
+	
 		
 		waitingTime = new JSlider(JSlider.HORIZONTAL, 0, 50, 25);
 		waitingTime.setMajorTickSpacing(5);
 		waitingTime.setMinorTickSpacing(0);
 		waitingTime.setPaintTicks(true);
 		waitingTime.setPaintLabels(true);
-		
 		Hashtable<Integer, JLabel> waitingTimeTable = new Hashtable<Integer, JLabel>();
 		waitingTimeTable.put(0, new JLabel("1/10s"));
 		waitingTimeTable.put(50, new JLabel("5s"));
 		waitingTime.setLabelTable(waitingTimeTable);
 		
-		
-		numberOfCars = new JSlider(JSlider.HORIZONTAL, 0, 200, 100);
-		numberOfCars.setMajorTickSpacing(20);
-		numberOfCars.setPaintTicks(true);
-		numberOfCars.setPaintLabels(true);
-		
-		Hashtable<Integer, JLabel> carTable = new Hashtable<Integer, JLabel>();
-		carTable.put(0, new JLabel("0"));
-		carTable.put(200, new JLabel("200"));
-		numberOfCars.setLabelTable(carTable);
 		
 		generateMap = new JButton("Generate Map");
 		generateMap.setContentAreaFilled(false);
@@ -103,30 +100,24 @@ public class TrafficMenu extends JPanel{
 		exit.setMinimumSize(buttonDimension);
 		exit.setMaximumSize(buttonDimension);
 		
-		this.generateMap.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
-			}
-		});
-		this.lights.addActionListener(new ActionListener() {
+		
+		
+		this.lightsON.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				controller.toggleShowRedLight();
 			}
 		});
 		
-		
-		this.exit.addActionListener(new ActionListener() {
+		this.lightsOFF.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				controller.showMenuPage(0);
 			}
 		});
-	
-		this.speed.addChangeListener(new ChangeListener() {
-            @Override
-            public void stateChanged(ChangeEvent e) {
-               
-            }
-        });
+		
+		this.combo.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
 		
 		this.waitingTime.addChangeListener(new ChangeListener() {
             @Override
@@ -135,44 +126,51 @@ public class TrafficMenu extends JPanel{
             }
         });
 		
-		this.numberOfCars.addChangeListener(new ChangeListener() {
-            @Override
-            public void stateChanged(ChangeEvent e) {
-               
-            }
-        });
+		this.generateMap.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
+		
+		this.exit.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				controller.showMenuPage(0);
+			}
+		});
+	
 		
 		Box box = Box.createVerticalBox();
+		
+		
 		box.add(Box.createVerticalStrut(75));
 		box.add(Box.createVerticalGlue());
 		box.add(Box.createVerticalStrut(100));
-		box.add(lights);
-		box.add(Box.createVerticalStrut(75));		
-		box.add(numberOfCars);
-		box.add(Box.createVerticalStrut(5));
+		box.add(lightsON);
+		box.add(lightsOFF);
+		
+		box.add(Box.createVerticalStrut(10));
 		box.add(Box.createVerticalGlue());
-		box.add(Box.createVerticalStrut(100));
-		box.add(speed);
-		box.add(Box.createVerticalStrut(5));
-		box.add(Box.createVerticalGlue());
-		box.add(Box.createVerticalStrut(100));
+		box.add(Box.createVerticalStrut(20));
+		box.add(combo);
+		
 		box.add(waitingTime);
 		box.add(Box.createVerticalStrut(5));
 		box.add(Box.createVerticalGlue());
-		box.add(Box.createVerticalStrut(100));
+		box.add(Box.createVerticalStrut(50));
+		
 		box.add(generateMap);
 		box.add(Box.createVerticalStrut(5));
 		box.add(Box.createVerticalGlue());
 		box.add(Box.createVerticalStrut(50));
+		
 		box.add(exit);
 		box.add(Box.createVerticalStrut(125));
-	//	box.add(lights);
-
+	
 		this.add(box);	
 	};
 	
 	
-	
+
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		Graphics2D g2 = (Graphics2D) g;
@@ -182,8 +180,8 @@ public class TrafficMenu extends JPanel{
 				0.6f, 0.8f 
 		};
 		Color[] colors = { 
-				new Color(160, 160, 160), 
-				new Color(160, 160, 160) 
+				new Color(100, 100, 100), 
+				new Color(100, 100, 100) 
 		};	
 		RadialGradientPaint gp = new RadialGradientPaint(center, radius, dist, colors);
 		g2.setPaint(gp);
