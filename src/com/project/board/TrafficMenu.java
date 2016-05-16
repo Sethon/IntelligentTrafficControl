@@ -36,6 +36,7 @@ public class TrafficMenu extends JPanel{
 	private JRadioButton lightsOFF;
 	private JSlider waitingTime;
 	private JComboBox combo;
+	private JLabel label;
 	
 	
 	
@@ -58,6 +59,7 @@ public class TrafficMenu extends JPanel{
 		final Font buttonFont = new Font("Futura", 0, 16);
 		final Dimension buttonDimension = new Dimension(200, 40);
 		
+		label = new JLabel("Red Lights");
 		lightsON = new JRadioButton("ON");
 		lightsON.setVisible(true);
 		lightsOFF = new JRadioButton("OFF");
@@ -142,29 +144,31 @@ public class TrafficMenu extends JPanel{
 		Box box = Box.createVerticalBox();
 		
 		
-		box.add(Box.createVerticalStrut(75));
+		box.add(Box.createVerticalStrut(00));
 		box.add(Box.createVerticalGlue());
 		box.add(Box.createVerticalStrut(100));
+		box.add(label);
 		box.add(lightsON);
 		box.add(lightsOFF);
 		
-		box.add(Box.createVerticalStrut(10));
-		box.add(Box.createVerticalGlue());
+		
 		box.add(Box.createVerticalStrut(20));
+		box.add(Box.createVerticalGlue());
+		box.add(Box.createVerticalStrut(100));
 		box.add(combo);
 		
 		box.add(waitingTime);
-		box.add(Box.createVerticalStrut(5));
+		box.add(Box.createVerticalStrut(10));
 		box.add(Box.createVerticalGlue());
-		box.add(Box.createVerticalStrut(50));
+		box.add(Box.createVerticalStrut(100));
 		
 		box.add(generateMap);
-		box.add(Box.createVerticalStrut(5));
+		box.add(Box.createVerticalStrut(50));
 		box.add(Box.createVerticalGlue());
 		box.add(Box.createVerticalStrut(50));
 		
 		box.add(exit);
-		box.add(Box.createVerticalStrut(125));
+		box.add(Box.createVerticalStrut(50));
 	
 		this.add(box);	
 	};
