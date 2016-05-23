@@ -47,10 +47,10 @@ public class Road {
 		for(int i=0; i<this.getLength(); i++){
 			Line2D.Double line = shape.getSegment(Globals.CELL_LENGTH, i);
 			if(leftLane.hasCarAt(i)){
-				lines.add(Utils.getOffsetLine(line, -Globals.LANE_WIDTH*2));
+				lines.add(Utils.getOffsetLine(line, -Globals.LANE_WIDTH*0.5));
 			}
 			if(rightLane.hasCarAt(i)){
-				lines.add(Utils.getOffsetLine(line,  Globals.LANE_WIDTH*100));
+				lines.add(Utils.getOffsetLine(line,  Globals.LANE_WIDTH*0.5));
 			}
 		}
 		return lines;

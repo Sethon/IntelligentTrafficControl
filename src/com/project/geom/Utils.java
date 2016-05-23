@@ -22,12 +22,14 @@ public class Utils {
 	// If the line goes straight up, a positive offset moves the returned line to the right,
 	// a negative offset moves it to the left.
 	public static Line2D.Double getOffsetLine(Line2D.Double line, double offset){
-		double angle = getAngle(line.getP1(), line.getP2());
+		double angle = getAngle(line.getP1(), line.getP2()) + Math.PI * 0.5;
 		double xinc = Math.cos(angle) * offset;
 		double yinc = Math.sin(angle) * offset;
-		return new Line2D.Double(
+		Line2D.Double l = new Line2D.Double(
 				translate(line.getP1(), xinc, yinc),
 				translate(line.getP2(), xinc, yinc)
 			);
+		
+		return l;
 	}
 }

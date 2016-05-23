@@ -65,7 +65,7 @@ public class NagelTrafficPanel extends JPanel{
 				new float[]{5f, 5f},
 				0
 		);
-		BasicStroke carStroke = new BasicStroke((float)Globals.LANE_WIDTH*0.8f);
+		BasicStroke carStroke = new BasicStroke((float)Globals.LANE_WIDTH*0.5f);
 		Color roadColor = Color.DARK_GRAY;
 		Color DividerColor = Color.WHITE;
 		Color carColor = Color.BLUE;
@@ -78,19 +78,22 @@ public class NagelTrafficPanel extends JPanel{
 			g2.setStroke(dividerStroke);
 			g2.setColor(DividerColor);
 			g2.draw((Shape)road.getShape());
-			
-			//Draw all cars on the road:
-			g2.setColor(carColor);
-			g2.setStroke(carStroke);
-			for(Line2D.Double carLine: road.getCarLines()){
-				g2.draw(carLine);
-			}
 		}
 		
 		//draw all the intersections
 		g2.setColor(roadColor);
 		for(Intersection inter: map.intersections){
 			g2.fillRect((int)inter.getPosition().x, (int)inter.getPosition().y, (int)Globals.LANE_WIDTH*4, (int)Globals.LANE_WIDTH*4);
+		}
+		
+		for(Road road: map.roads){
+			g2.setStroke(carStroke);
+			g2.setColor(carColor);
+			for(Line2D.Double carLine: road.getCarLines()){
+				g2.draw(carLine);
+				//g2.draw(new Line2D.Double(0, 0, carLine.x1, carLine.y1));
+				//g2.draw(new Line2D.Double(15, 0, carLine.x2, carLine.y2));
+			}
 		}
 	}
 }
