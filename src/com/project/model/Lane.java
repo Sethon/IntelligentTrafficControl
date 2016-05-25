@@ -20,13 +20,32 @@ public class Lane {
 		//calculate each car's movement
 		for(int i=0; i<cars.length; i++){
 			if(cars[i] != null){
-				//TODO Calculate every car's movement
+				int gap = getGrap(i, cars[i].trajectory.getNextLane());
+				movements[i] = cars[i].getVelocity(gap);
 			}
 		}
 	}
 	
+	public int getGap(int from){
+		for (int i=from + 1; i<cars.length; i++){
+			if(cars[i] != null){
+				return (i - from) - 1;
+			}
+		}
+		return cars.length - from - 1;
+	}
+	
+	public int getGrap(int from, Lane nextLane){
+		int gap = getGap(from);
+		if(gap == cars.length - from - 1 && nextLane != null){
+			gap += nextLane.getGap(-1);
+		}
+		return gap;
+	}
+	
 	public void moveCars() {
 		//actually move the cars
+		Car[] newCars = new Car[cars.length];
 		for(int i=0; i<cars.length; i++){
 			if(cars[i] != null){
 				int newPosition = i + movements[i];
@@ -35,9 +54,12 @@ public class Lane {
 					cars[i].trajectory.updateLane();
 					Lane next = cars[i].trajectory.currentLane;
 					next.acceptCar(cars[i], newPosition - cars.length);
+				}else{
+					newCars[newPosition] = cars[i];
 				}
 			}
 		}
+		cars = newCars;
 	}
 	
 	public void acceptCar(Car car, int startPosition){
