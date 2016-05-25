@@ -37,6 +37,7 @@ public class Car{
 		accellerate();
 		slowDown(gap);
 		randomSlowDown();
+		System.out.println("Set velocity to "+velocity);
 		return velocity;
 	}
 }

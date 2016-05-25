@@ -41,6 +41,17 @@ public class NagelTrafficPanel extends JPanel{
 	// run method: calles the timer, does: the update
 	public NagelTrafficPanel(Controller controller){
 		this.controller = controller;
+		mapRunner = new TimerTask() {
+			public void run(){
+				System.out.println("start tick");
+				controller.getNagelMap().tick();
+				System.out.println("repaint");
+				repaint();
+				System.out.println("end tick");
+			}
+		};
+		Timer t = new Timer();
+		t.scheduleAtFixedRate(mapRunner, 0, 1000);
 	}
 	
 	public void paintComponent(Graphics g) {
@@ -70,10 +81,23 @@ public class NagelTrafficPanel extends JPanel{
 		Color DividerColor = Color.WHITE;
 		Color carColor = Color.BLUE;
 		
+		if(map.testCar.trajectory.onIntersection){
+			g2.setColor(Color.RED);
+		}else{
+			g2.setColor(Color.WHITE);
+		}
+		g2.fillRect(0, 0, this.getWidth(), this.getHeight());
+		
 		//draw all the roads
 		for(Road road: map.roads){
 			g2.setStroke(roadStroke);
 			g2.setColor(roadColor);
+			if(road == map.testCar.trajectory.currentLane.road){
+				g2.setColor(Color.RED);
+			}
+			if(road == map.testCar.trajectory.getNextLane().road){
+				g2.setColor(Color.PINK);
+			}
 			g2.draw((Shape)road.getShape());
 			g2.setStroke(dividerStroke);
 			g2.setColor(DividerColor);
@@ -84,6 +108,25 @@ public class NagelTrafficPanel extends JPanel{
 		g2.setColor(roadColor);
 		for(Intersection inter: map.intersections){
 			g2.fillRect((int)inter.getPosition().x, (int)inter.getPosition().y, (int)Globals.LANE_WIDTH*4, (int)Globals.LANE_WIDTH*4);
+			
+			g2.setColor(Color.GREEN);
+			g2.setStroke(new BasicStroke(1));
+			for(Road r:inter.getIncomingRoads()){
+				if(r==null)continue;
+				Point2D.Double p1 = inter.getConnectionPoint(r.leftLane);
+				Point2D.Double p2 = inter.getConnectionPoint(r.rightLane);
+				g2.fillRect((int)p1.x, (int)p1.y, 1, 1);
+				g2.fillRect((int)p2.x, (int)p2.y, 1, 1);
+			}
+			g2.setColor(Color.ORANGE);
+			for(Road r:inter.getOutgoingRoads()){
+				if(r==null) continue;
+				Point2D.Double p1 = inter.getConnectionPoint(r.leftLane);
+				Point2D.Double p2 = inter.getConnectionPoint(r.rightLane);
+				g2.fillRect((int)p1.x, (int)p1.y, 1, 1);
+				g2.fillRect((int)p2.x, (int)p2.y, 1, 1);
+			}
+			g2.setColor(roadColor);
 		}
 		
 		for(Road road: map.roads){
@@ -99,6 +142,31 @@ public class NagelTrafficPanel extends JPanel{
 			g2.setColor(carColor);
 			for(Line2D.Double carLine: inter.getCarLines()){
 				g2.draw(carLine);
+			}
+		}
+		
+		
+		Intersection testInter = map.intersections.get(0);
+		g2.setStroke(new BasicStroke(1));
+		for(Road fr: testInter.getIncomingRoads()){
+			for(Road tr: testInter.getOutgoingRoads()){
+				testInter.getInsideRoad(fr.leftLane, tr.leftLane);
+			}
+		}
+		
+		g2.setColor(Color.WHITE);
+		for(Road r:testInter.getInsideRoads()){
+			g2.draw((Shape)r.getShape());
+		}
+		//g2.setColor(Color.YELLOW);
+		//g2.draw((Shape)map.testCar.trajectory.getNextLane().road.getShape());
+		//g2.setColor(Color.MAGENTA);
+		//g2.draw((Shape)map.testCar.trajectory.currentLane.road.getShape());
+		for(Road r: map.roads){
+			for(int i=0;i<r.getLength();i++){
+				if(r.leftLane.hasCarAt(i) || r.rightLane.hasCarAt(i)){
+					System.out.println("Car position "+i+" of "+r.getLength());
+				}
 			}
 		}
 	}

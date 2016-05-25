@@ -17,7 +17,19 @@ public class RandomTrajectory extends Trajectory{
 			option1 = intersection.getRelativeOutgoingFRoad(cur, 1); // turning right
 			option2 = intersection.getRelativeOutgoingFRoad(cur, 2); // going straight
 		}
-		return getRandomLane(random.nextBoolean() ? option1 : option2);
+		Road road = null;
+		if(option1 == null && option2 == null){
+			while(road == null){
+				road = intersection.getOutgoingRoads()[random.nextInt(4)];
+			}
+		}else if(option1 == null){
+			road = option2;
+		}else if(option2 == null){
+			road = option1;
+		}else{
+			road = random.nextBoolean() ? option1 : option2;
+		}
+		return getRandomLane(road);
 	}
 	
 	private Lane getRandomLane(Road road){

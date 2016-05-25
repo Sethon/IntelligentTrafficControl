@@ -32,6 +32,6 @@ public class Line extends Line2D.Double implements RoadShape {
 	public Point2D.Double getPointAlong(double progress){
 		double xIncrement = (this.getX2() - this.getX1());
 		double yIncrement = (this.getY2() - this.getY1());
-		return new Point2D.Double(getX1() + progress*xIncrement, getY1() + progress*yIncrement);
+		return Utils.translate(this.getP1(), xIncrement*progress, yIncrement*progress);
 	}
 }

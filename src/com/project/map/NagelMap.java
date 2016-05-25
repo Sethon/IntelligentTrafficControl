@@ -13,6 +13,8 @@ import com.project.model.Road;
 public class NagelMap {
 	public final ArrayList<Road> roads = new ArrayList<Road>();
 	public final ArrayList<Intersection> intersections = new ArrayList<Intersection>();
+	private int tickCount = 0;
+	public Car testCar;
 	
 	public void addRoad(Road road){
 		roads.add(road);
@@ -82,8 +84,8 @@ public class NagelMap {
 		addIntersection(bottom);
 		addIntersection(left);
 		
-		ring1.leftLane.acceptCar(makeCar(), 0);
-		ring1.leftLane.acceptCar(makeCar(), 3);
+		testCar = makeCar();
+		ring1.leftLane.addCar(testCar, 3);
 	}
 	
 	private Car makeCar(){
@@ -93,6 +95,7 @@ public class NagelMap {
 	public void tick(){
 		// The reason these are 2 separate methods, is because all calculations need to be done on the current state.
 		// Only after the calculations, do we want to update the state.
+		System.out.println("tick called " +tickCount ++);
 		calcUpdate();
 		update();
 	}

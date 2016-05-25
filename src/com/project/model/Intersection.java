@@ -4,6 +4,7 @@ import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
 import java.util.Hashtable;
 import java.util.ArrayList;
+import java.util.Collection;
 
 import com.project.geom.Line;
 import com.project.geom.Utils;
@@ -135,9 +136,7 @@ public class Intersection {
 		return null;
 	}
 	
-	private Line getConnectionLine(int direction){
-		double x = position.x;
-		double y = position.y;
+	public Line getConnectionLine(int direction){
 		double s = Globals.LANE_WIDTH*4;
 		direction %= 4; //make sure direction is one of the 4 directions
 		
@@ -173,34 +172,14 @@ public class Intersection {
 	}
 	
 	public Road getInsideRoad(Lane from, Lane to){
-		int inDirection = -1;
-		boolean inLane = true;
-		int outDirection = -1;
-		boolean outLane = true;
-		for(int i=0; i<4; i++){
-			if(inRoads[i] == from.road){
-				if(from == inRoads[i].leftLane){
-					inDirection = i;
-					inLane = true;
-				}else if(from == inRoads[i].rightLane){
-					inDirection = i;
-					inLane = false;
-				}
-			}
-			if(outRoads[i] == to.road){
-				if(to == outRoads[i].leftLane){
-					outDirection = i;
-					outLane = true;
-				}else if(to == outRoads[i].rightLane){
-					outDirection = i;
-					outLane = false;
-				}
-			}
-			if(inDirection != -1 && outDirection != -1){
-				return getInsideRoad(inDirection, inLane, outDirection, outLane);
-			}
+		String key = String.format("%s-%s", from, to);
+		Road road = internalRoads.get(key);
+		if(road == null){
+			Point2D.Double center = Utils.translate(position, Globals.LANE_WIDTH*2, Globals.LANE_WIDTH*2);
+			road = new IntersectionInsideRoad(getConnectionPoint(from), getConnectionPoint(to), 0, 0, position);
+			internalRoads.put(key, road);
 		}
-		throw new NullPointerException("Requested a road that doesn't exist");
+		return road;
 	}
 	
 	public ArrayList<Line2D.Double> getCarLines(){
@@ -221,5 +200,9 @@ public class Intersection {
 		for(Road road: internalRoads.values()){
 			road.update();
 		}
+	}
+	
+	public Collection<Road> getInsideRoads(){
+		return internalRoads.values();
 	}
 }

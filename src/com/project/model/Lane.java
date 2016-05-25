@@ -4,11 +4,13 @@ public class Lane {
 	public final Road road;
 	
 	private Car[] cars;
+	private Car[] acceptedCars;
 	private int[] movements;
 	
 	public Lane(Road road){
 		cars = new Car[road.getLength()];
 		movements = new int[cars.length];
+		acceptedCars = new Car[cars.length];
 		this.road = road;
 	}
 	
@@ -24,6 +26,8 @@ public class Lane {
 				movements[i] = cars[i].getVelocity(gap);
 			}
 		}
+		
+		acceptedCars = new Car[cars.length];
 	}
 	
 	public int getGap(int from){
@@ -59,11 +63,22 @@ public class Lane {
 				}
 			}
 		}
+		for(int i=0; i<cars.length; i++){
+			if(acceptedCars[i] != null){
+				newCars[i] = acceptedCars[i];
+			}
+		}
 		cars = newCars;
 	}
 	
 	public void acceptCar(Car car, int startPosition){
 		//Store cars entering the road
-		cars[startPosition] = car;
+		acceptedCars[startPosition] = car;
+		car.trajectory.currentLane = this;
+	}
+	
+	public void addCar(Car car, int position){
+		cars[position] = car;
+		car.trajectory.currentLane = this;
 	}
 }
