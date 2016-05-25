@@ -6,33 +6,37 @@ public class Car{
 	int MaxSpeed = 5;
 	
 	public final Trajectory trajectory;
+	private int velocity;
 	
 	public Car(Trajectory traj){
 		trajectory = traj;
+		velocity = 0;
 	}
 	
-	public int Acceleration(int actualV){
-		actualV = Math.min(actualV, MaxSpeed);
-		
-		return actualV;
+	public void accellerate(){
+		velocity = Math.min(velocity + 1, MaxSpeed);	
 	}
 	
-	public int SlowingDown (int actualV, int gap){ // if the gap between 2 cars is smaller than the ActualV of the car behind 
+	public void slowDown(int gap){ // if the gap between 2 cars is smaller than the ActualV of the car behind 
 													//then the car have to slowdown for not having a collision
-		if(actualV < gap)
+		if(velocity > gap)
 		{
-			actualV = gap;
+			velocity = gap;
 		}
-		
-		return actualV;
 	}
 	
-	public int ProbOfSlowingDown(int actualV, double probability){ // inserting a probablity of each car to slow down by one V's unit 
-		if( (actualV > 0 ) && ( Math.random() <= probability) )
-		{
-			actualV--;
-		}	
+	public void randomSlowDown(){ // inserting a probablity of each car to slow down by one V's unit
 		
-		return actualV;
+		if( (velocity > 0 ) && ( Math.random() <= 0.3) )
+		{
+			velocity -= 1;
+		}	
+	}
+	
+	public int getVelocity(int gap){
+		accellerate();
+		slowDown(gap);
+		randomSlowDown();
+		return velocity;
 	}
 }
