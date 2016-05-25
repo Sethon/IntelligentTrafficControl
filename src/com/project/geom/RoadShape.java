@@ -7,6 +7,6 @@ public interface RoadShape {
 	Line2D.Double getSegment(double minSegmentLength, int segment);
 	default int getNumSegments(double minSegmentLength){
 		double length = this.getLength();
-		return (int)(length / minSegmentLength);
+		return Math.max((int)(length / minSegmentLength), 1);
 	}
 }

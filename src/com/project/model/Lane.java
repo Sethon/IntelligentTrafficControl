@@ -23,6 +23,7 @@ public class Lane {
 		for(int i=0; i<cars.length; i++){
 			if(cars[i] != null){
 				int gap = getGrap(i, cars[i].trajectory.getNextLane());
+				System.out.println("Gap: "+gap);
 				movements[i] = cars[i].getVelocity(gap);
 			}
 		}
@@ -41,8 +42,12 @@ public class Lane {
 	
 	public int getGrap(int from, Lane nextLane){
 		int gap = getGap(from);
-		if(gap == cars.length - from - 1 && nextLane != null){
-			gap += nextLane.getGap(-1);
+		if(gap == cars.length - from - 1){
+			if(nextLane == null){
+				gap += 100; //arbitrary number of free spaces.
+			}else{
+				gap += nextLane.getGap(-1);
+			}
 		}
 		return gap;
 	}
