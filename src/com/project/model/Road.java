@@ -43,14 +43,13 @@ public class Road {
 	
 	public ArrayList<Line2D.Double> getCarLines() {
 		ArrayList<Line2D.Double> lines = new ArrayList<Line2D.Double>(getLength()*2);
-		int l = getLength();
 		for(int i=0; i<this.getLength(); i++){
 			Line2D.Double line = shape.getSegment(Globals.CELL_LENGTH, i);
 			if(leftLane.hasCarAt(i)){
 				lines.add(Utils.getOffsetLine(line, -Globals.LANE_WIDTH*0.5));
 			}
 			if(rightLane.hasCarAt(i)){
-				lines.add(Utils.getOffsetLine(line,  Globals.LANE_WIDTH*0.5));
+				lines.add(Utils.getOffsetLine(line, Globals.LANE_WIDTH*0.5));
 			}
 		}
 		return lines;

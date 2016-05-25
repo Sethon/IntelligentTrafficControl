@@ -1,6 +1,7 @@
 package com.project.model;
 
 import java.awt.geom.Point2D;
+import java.util.Hashtable;
 
 import com.project.geom.Line;
 import com.project.geom.Utils;
@@ -17,12 +18,8 @@ public class Intersection {
 	private Road[] inRoads = new Road[4];
 	private Road[] outRoads = new Road[4];
 	
-	// These are imaginary roads used to track cars while they are on the crossroads.
-	// This array starts out as all null, but it is filled in as needed by the getInsideRoad method.
-	// There are 32 possible internal roads: for each incoming road, there are 4 possible outgoing roads they may choose,
-	// each of which has 2 lanes. Using separate roads allows us to implement lane switching very easily.
-	// The first 4 options are for when you're coming in from the north, the second 4 are for  east, and so on.
-	private Road[] insideRoads = new Road[32];
+	//This dictionary stores the internal roads, mapping from a string defined by which lanes they connect, to the road.
+	private Hashtable<String, Road> internalRoads = new Hashtable<String, Road>(64);
 	
 	public Intersection(Point2D.Double position){
 		this.position = position;
@@ -50,6 +47,29 @@ public class Intersection {
 	
 	public Point2D.Double getPosition(){
 		return position;
+	}
+	
+	public Point2D.Double getConnectionPoint(int direction, boolean incoming, boolean leftLane){
+		// This method returns the point where the middle of a road touches the intersection.
+		// direction is one of the constants defined at the top of this class, incoming is
+		// whether it is the incoming or outgoing road.
+		// leftLane is true if this is the connection point for the left lane
+		Line cl = getConnectionLine(direction);
+		double p;
+		if(incoming){
+			if(leftLane){
+				p = 62.5;
+			}else{
+				p = 87.5;
+			}
+		}else{
+			if(leftLane){
+				p = 37.5;
+			}else{
+				p = 12.5;
+			}
+		}
+		return cl.getPointAlong(p);
 	}
 	
 	public Point2D.Double getConnectionPoint(int direction, boolean incoming){
@@ -132,12 +152,21 @@ public class Intersection {
 		return null;
 	}
 	
-	public Road getInsideRoad(int inDirection, int outDirection){
-		Point2D.Double from = getConnectionPoint(inDirection, true);
-		Point2D.Double to = getConnectionPoint(outDirection, false);
-		
-		return new CurvedRoad(
-				new Intersection(from),
-				new Intersection(to), outDirection, outDirection, to);
+	public Road getInsideRoad(int inDirection, boolean inLane, int outDirection, boolean outLane){
+		//Get the internal "road" that connects an incoming and outgoing lane.
+		//inDirection and outDirection are the direction of the road to come in and go out respectively.
+		//inLane and outLane are true if the incoming/outgoing lane is the left lane, false if it's the right lane.
+		String key = String.format("%s%s%s%s", inLane, inDirection, outLane, outDirection);
+		Road road = internalRoads.get(key);
+		if(road == null){
+			Point2D.Double from = getConnectionPoint(inDirection, true, inLane);
+			Point2D.Double to = getConnectionPoint(outDirection, false, outLane);
+			Point2D.Double center = Utils.translate(position, Globals.LANE_WIDTH*2, Globals.LANE_WIDTH*2);
+			int fromDirection = (inDirection + 2) % 4; //the opposite direction
+			int toDirection = (outDirection + 2) % 4;
+			road = new IntersectionInsideRoad(from, to, fromDirection, toDirection, center);
+			internalRoads.put(key, road);
+		}
+		return road;
 	}
 }
