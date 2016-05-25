@@ -89,4 +89,29 @@ public class NagelMap {
 	private Car makeCar(){
 		return new Car(new RandomTrajectory());
 	}
+	
+	public void tick(){
+		// The reason these are 2 separate methods, is because all calculations need to be done on the current state.
+		// Only after the calculations, do we want to update the state.
+		calcUpdate();
+		update();
+	}
+	
+	private void calcUpdate(){
+		for(Road road: roads){
+			road.calcUpdate();
+		}
+		for(Intersection inter: intersections){
+			inter.calcUpdate();
+		}
+	}
+	
+	private void update(){
+		for(Road road: roads){
+			road.update();
+		}
+		for(Intersection inter: intersections){
+			inter.update();
+		}
+	}
 }

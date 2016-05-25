@@ -210,4 +210,16 @@ public class Intersection {
 		}
 		return lines;
 	}
+	
+	public void calcUpdate(){
+		for(Road road: internalRoads.values()){
+			road.calcUpdate();
+		}
+	}
+	
+	public void update(){
+		for(Road road: internalRoads.values()){
+			road.update();
+		}
+	}
 }

@@ -4,10 +4,11 @@ public class Lane {
 	public final Road road;
 	
 	private Car[] cars;
-	
+	private int[] movements;
 	
 	public Lane(Road road){
 		cars = new Car[road.getLength()];
+		movements = new int[cars.length];
 		this.road = road;
 	}
 	
@@ -15,16 +16,16 @@ public class Lane {
 		return cars[segment] != null;
 	}	
 	
-	public void moveCars() {
-		int[] movements = new int[cars.length];
-		
+	public void calcMovements(){		
 		//calculate each car's movement
 		for(int i=0; i<cars.length; i++){
 			if(cars[i] != null){
 				//TODO Calculate every car's movement
 			}
 		}
-		
+	}
+	
+	public void moveCars() {
 		//actually move the cars
 		for(int i=0; i<cars.length; i++){
 			if(cars[i] != null){

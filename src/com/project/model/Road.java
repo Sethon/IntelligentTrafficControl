@@ -54,5 +54,14 @@ public class Road {
 		}
 		return lines;
 	}
-		
+	
+	public void calcUpdate(){
+		leftLane.calcMovements();
+		rightLane.calcMovements();
+	}
+	
+	public void update(){
+		leftLane.moveCars();
+		rightLane.moveCars();
+	}
 }
