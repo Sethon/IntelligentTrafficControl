@@ -1,7 +1,9 @@
 package com.project.model;
 
+import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
 import java.util.Hashtable;
+import java.util.ArrayList;
 
 import com.project.geom.Line;
 import com.project.geom.Utils;
@@ -199,5 +201,13 @@ public class Intersection {
 			}
 		}
 		throw new NullPointerException("Requested a road that doesn't exist");
+	}
+	
+	public ArrayList<Line2D.Double> getCarLines(){
+		ArrayList<Line2D.Double> lines = new ArrayList<Line2D.Double>();
+		for(Road road: internalRoads.values()){
+			lines.addAll(road.getCarLines());
+		}
+		return lines;
 	}
 }
