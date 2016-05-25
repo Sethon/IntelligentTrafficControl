@@ -169,4 +169,35 @@ public class Intersection {
 		}
 		return road;
 	}
+	
+	public Road getInsideRoad(Lane from, Lane to){
+		int inDirection = -1;
+		boolean inLane = true;
+		int outDirection = -1;
+		boolean outLane = true;
+		for(int i=0; i<4; i++){
+			if(inRoads[i] == from.road){
+				if(from == inRoads[i].leftLane){
+					inDirection = i;
+					inLane = true;
+				}else if(from == inRoads[i].rightLane){
+					inDirection = i;
+					inLane = false;
+				}
+			}
+			if(outRoads[i] == to.road){
+				if(to == outRoads[i].leftLane){
+					outDirection = i;
+					outLane = true;
+				}else if(to == outRoads[i].rightLane){
+					outDirection = i;
+					outLane = false;
+				}
+			}
+			if(inDirection != -1 && outDirection != -1){
+				return getInsideRoad(inDirection, inLane, outDirection, outLane);
+			}
+		}
+		throw new NullPointerException("Requested a road that doesn't exist");
+	}
 }
