@@ -91,8 +91,14 @@ public class NagelTrafficPanel extends JPanel{
 			g2.setColor(carColor);
 			for(Line2D.Double carLine: road.getCarLines()){
 				g2.draw(carLine);
-				//g2.draw(new Line2D.Double(0, 0, carLine.x1, carLine.y1));
-				//g2.draw(new Line2D.Double(15, 0, carLine.x2, carLine.y2));
+			}
+		}
+		
+		for(Intersection inter: map.intersections){
+			g2.setStroke(carStroke);
+			g2.setColor(carColor);
+			for(Line2D.Double carLine: inter.getCarLines()){
+				g2.draw(carLine);
 			}
 		}
 	}
