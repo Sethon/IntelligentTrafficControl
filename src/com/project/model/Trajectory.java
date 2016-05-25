@@ -18,8 +18,7 @@ public abstract class Trajectory {
 			// we're going towards an intersection, pick a direction to leave it.
 			onIntersection = true;
 			targetLane = getTargetLane(currentLane.road.to);
-			//TODO get the internal lane that connects the current road to the target
-			return null;
+			return currentLane.road.to.getInsideRoad(currentLane, targetLane).leftLane;
 		}
 	}
 	
