@@ -27,6 +27,11 @@ public class Lane {
 				movements[i] = cars[i].getVelocity(gap);
 			}
 		}
+		for(int i=0; i<cars.length; i++){
+			if(acceptedCars[i] != null){
+				cars[i] = acceptedCars[i];
+			}
+		}
 		
 		acceptedCars = new Car[cars.length];
 	}
@@ -66,11 +71,6 @@ public class Lane {
 				}else{
 					newCars[newPosition] = cars[i];
 				}
-			}
-		}
-		for(int i=0; i<cars.length; i++){
-			if(acceptedCars[i] != null){
-				newCars[i] = acceptedCars[i];
 			}
 		}
 		cars = newCars;
