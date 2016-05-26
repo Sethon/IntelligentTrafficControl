@@ -2,6 +2,7 @@ package com.project.map;
 
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
+import java.util.Random;
 
 import com.project.model.Car;
 import com.project.model.CurvedRoad;
@@ -14,7 +15,6 @@ public class NagelMap {
 	public final ArrayList<Road> roads = new ArrayList<Road>();
 	public final ArrayList<Intersection> intersections = new ArrayList<Intersection>();
 	private int tickCount = 0;
-	public Car testCar;
 	
 	public void addRoad(Road road){
 		roads.add(road);
@@ -84,8 +84,12 @@ public class NagelMap {
 		addIntersection(bottom);
 		addIntersection(left);
 		
-		testCar = makeCar();
-		ring1.leftLane.addCar(testCar, 3);
+		Random rand = new Random();
+		for(int i=0;i<20;i++){
+			Road r = roads.get(rand.nextInt(roads.size()));
+			int pos = rand.nextInt(r.getLength());
+			(rand.nextBoolean() ? r.leftLane : r.rightLane).addCar(makeCar(), pos);
+		}
 	}
 	
 	private Car makeCar(){
@@ -95,7 +99,6 @@ public class NagelMap {
 	public void tick(){
 		// The reason these are 2 separate methods, is because all calculations need to be done on the current state.
 		// Only after the calculations, do we want to update the state.
-		System.out.println("tick called " +tickCount ++);
 		calcUpdate();
 		update();
 	}
