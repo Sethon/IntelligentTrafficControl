@@ -6,6 +6,7 @@ public class Lane {
 	private Car[] cars;
 	private Car[] acceptedCars;
 	private int[] movements;
+	private boolean blocked;
 	
 	public Lane(Road road){
 		cars = new Car[road.getLength()];
@@ -36,6 +37,9 @@ public class Lane {
 	}
 	
 	public int getGap(int from){
+		if(blocked){
+			return 0;
+		}
 		for (int i=from + 1; i<cars.length; i++){
 			if(cars[i] != null){
 				return (i - from) - 1;
@@ -54,6 +58,10 @@ public class Lane {
 			}
 		}
 		return gap;
+	}
+	
+	public void setBlocked(boolean b){
+		blocked = b;
 	}
 	
 	public void moveCars() {

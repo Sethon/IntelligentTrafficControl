@@ -24,6 +24,15 @@ public class Intersection {
 	//This dictionary stores the internal roads, mapping from a string defined by which lanes they connect, to the road.
 	private Hashtable<String, Road> internalRoads = new Hashtable<String, Road>(64);
 	
+	// There always two opposite roads that have green. Which ones, is determined by this number.
+	// "0" for one pair, "1" for the other.
+	private int greenDirection = 0;
+	// "true" for the left lane, "false" for the right lane.
+	private boolean greenLane = true;
+	// how many "ticks" should it take between switching traffic light directions?
+	private int switchInterval = 10;
+	private int tickCounter = 0;
+	
 	public Intersection(Point2D.Double position){
 		this.position = position;
 	}
@@ -196,7 +205,54 @@ public class Intersection {
 		}
 	}
 	
+	private void updateGreenLight(){
+		tickCounter += 1;
+		if(tickCounter==switchInterval){
+			tickCounter = 0;
+			if(greenLane){
+				greenLane = false;
+			}else{
+				greenLane = true;
+				greenDirection = greenDirection == 0 ? 1 : 0;
+			}
+		}
+		updateBlockedLanes();
+	}
+	
+	private void updateBlockedLanes(){
+		for(int i=0;i<4;i++){
+			Road inRoad = inRoads[i];
+			if(inRoad == null){
+				continue;
+			}
+			if(i % 2 == greenDirection){
+				for(int j=0;j<4;j++){
+					Road outRoad = outRoads[i];
+					if(outRoad == null){
+						continue;
+					}
+					getInsideRoad(inRoad.leftLane, outRoad.leftLane).leftLane.setBlocked(!greenLane);
+					getInsideRoad(inRoad.leftLane, outRoad.rightLane).leftLane.setBlocked(!greenLane);
+					getInsideRoad(inRoad.rightLane, outRoad.leftLane).leftLane.setBlocked(greenLane);
+					getInsideRoad(inRoad.rightLane, outRoad.rightLane).leftLane.setBlocked(greenLane);
+				}
+			}else{
+				for(int j=0;j<4;j++){
+					Road outRoad = outRoads[i];
+					if(outRoad == null){
+						continue;
+					}
+					getInsideRoad(inRoad.leftLane, outRoad.leftLane).leftLane.setBlocked(true);
+					getInsideRoad(inRoad.leftLane, outRoad.rightLane).leftLane.setBlocked(true);
+					getInsideRoad(inRoad.rightLane, outRoad.leftLane).leftLane.setBlocked(true);
+					getInsideRoad(inRoad.rightLane, outRoad.rightLane).leftLane.setBlocked(true);
+				}
+			}
+		}
+	}
+	
 	public void update(){
+		updateGreenLight();
 		for(Road road: internalRoads.values()){
 			road.update();
 		}
@@ -204,5 +260,24 @@ public class Intersection {
 	
 	public Collection<Road> getInsideRoads(){
 		return internalRoads.values();
+	}
+	
+	public boolean hasGreenLight(Lane lane){
+		Road r = null;
+		if(inRoads[greenDirection] == lane.road){
+			r = inRoads[greenDirection];
+		} else if(inRoads[greenDirection + 2] == lane.road){
+			r = inRoads[greenDirection + 2];
+		}else{
+			return false;
+		}
+		if(lane == r.leftLane){
+			return greenLane;
+		}
+		if(lane == r.rightLane){
+			return !greenLane;
+		}
+			
+		return false;
 	}
 }

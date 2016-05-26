@@ -18,7 +18,8 @@ import com.project.base.Controller;
 import com.project.map.NagelMap;
 import com.project.model.Road;
 import com.project.model.Globals;
-import com.project.model.Intersection;;
+import com.project.model.Intersection;
+import com.project.model.Lane;;
 
 
 public class NagelTrafficPanel extends JPanel{
@@ -79,7 +80,7 @@ public class NagelTrafficPanel extends JPanel{
 		BasicStroke carStroke = new BasicStroke((float)Globals.LANE_WIDTH*0.5f);
 		Color roadColor = Color.DARK_GRAY;
 		Color DividerColor = Color.WHITE;
-		Color carColor = Color.BLUE;
+		Color carColor = Color.YELLOW;
 		
 		//draw all the roads
 		for(Road road: map.roads){
@@ -111,6 +112,21 @@ public class NagelTrafficPanel extends JPanel{
 			for(Line2D.Double carLine: inter.getCarLines()){
 				g2.draw(carLine);
 			}
+			for(Road r: inter.getIncomingRoads()){
+				if(r == null) continue;
+				drawLight(inter, r.leftLane, g2);
+				drawLight(inter, r.rightLane, g2);
+			}
 		}
+	}
+	
+	private void drawLight(Intersection inter, Lane lane, Graphics2D g2){
+		if(inter.hasGreenLight(lane)){
+			g2.setColor(Color.GREEN);
+		}else{
+			g2.setColor(Color.RED);
+		}
+		Point2D.Double p = inter.getConnectionPoint(lane);
+		g2.fillRect((int)p.x, (int)p.y, 1, 1);
 	}
 }
