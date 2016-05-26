@@ -3,7 +3,7 @@ package com.project.model;
 public class Car{
 	
 	int MinSpeed = 0;
-	int MaxSpeed = 2;
+	int MaxSpeed = 10;
 	
 	public final Trajectory trajectory;
 	private int velocity;

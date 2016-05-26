@@ -27,7 +27,7 @@ public class NagelMap {
 	public void generate(){
 		//We want to generate a random map here later, but for now, I'm just setting up a test map.
 		double offset = 20;
-		double size = 200;
+		double size = 600;
 		double c = size / 2;
 		
 		Intersection center = new Intersection(new Point2D.Double(offset + c, offset + c));
@@ -85,7 +85,7 @@ public class NagelMap {
 		addIntersection(left);
 		
 		Random rand = new Random();
-		for(int i=0;i<20;i++){
+		for(int i=0;i<100;i++){
 			Road r = roads.get(rand.nextInt(roads.size()));
 			int pos = rand.nextInt(r.getLength());
 			(rand.nextBoolean() ? r.leftLane : r.rightLane).addCar(makeCar(), pos);

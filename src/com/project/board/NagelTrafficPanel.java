@@ -127,6 +127,7 @@ public class NagelTrafficPanel extends JPanel{
 			g2.setColor(Color.RED);
 		}
 		Point2D.Double p = inter.getConnectionPoint(lane);
-		g2.fillRect((int)p.x, (int)p.y, 1, 1);
+		int size = (int)(Globals.LANE_WIDTH*0.5);
+		g2.fillRect((int)p.x-size/2, (int)p.y-size/2, size, size);
 	}
 }
