@@ -37,7 +37,7 @@ public class Lane {
 	}
 	
 	public int getGap(int from){
-		if(blocked){
+		if(blocked && from == -1){
 			return 0;
 		}
 		for (int i=from + 1; i<cars.length; i++){

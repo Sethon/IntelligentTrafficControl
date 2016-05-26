@@ -221,33 +221,17 @@ public class Intersection {
 	
 	private void updateBlockedLanes(){
 		for(int i=0;i<4;i++){
-			Road inRoad = inRoads[i];
-			if(inRoad == null){
-				continue;
-			}
-			if(i % 2 == greenDirection){
-				for(int j=0;j<4;j++){
-					Road outRoad = outRoads[i];
-					if(outRoad == null){
-						continue;
-					}
-					getInsideRoad(inRoad.leftLane, outRoad.leftLane).leftLane.setBlocked(!greenLane);
-					getInsideRoad(inRoad.leftLane, outRoad.rightLane).leftLane.setBlocked(!greenLane);
-					getInsideRoad(inRoad.rightLane, outRoad.leftLane).leftLane.setBlocked(greenLane);
-					getInsideRoad(inRoad.rightLane, outRoad.rightLane).leftLane.setBlocked(greenLane);
-				}
-			}else{
-				for(int j=0;j<4;j++){
-					Road outRoad = outRoads[i];
-					if(outRoad == null){
-						continue;
-					}
-					getInsideRoad(inRoad.leftLane, outRoad.leftLane).leftLane.setBlocked(true);
-					getInsideRoad(inRoad.leftLane, outRoad.rightLane).leftLane.setBlocked(true);
-					getInsideRoad(inRoad.rightLane, outRoad.leftLane).leftLane.setBlocked(true);
-					getInsideRoad(inRoad.rightLane, outRoad.rightLane).leftLane.setBlocked(true);
-				}
-			}
+			if(inRoads[i] == null) continue;
+			updateBlockedInternalLanes(inRoads[i].leftLane, !hasGreenLight(inRoads[i].leftLane));
+			updateBlockedInternalLanes(inRoads[i].rightLane, !hasGreenLight(inRoads[i].rightLane));
+		}
+	}
+	
+	private void updateBlockedInternalLanes(Lane from, boolean blocked){
+		for(int i=0;i<4;i++){
+			if(outRoads[i] == null) continue;
+			getInsideRoad(from, outRoads[i].leftLane).leftLane.setBlocked(blocked);
+			getInsideRoad(from, outRoads[i].rightLane).leftLane.setBlocked(blocked);
 		}
 	}
 	
