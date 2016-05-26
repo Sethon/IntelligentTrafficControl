@@ -51,7 +51,7 @@ public class NagelTrafficPanel extends JPanel{
 			}
 		};
 		Timer t = new Timer();
-		t.scheduleAtFixedRate(mapRunner, 0, 1000);
+		t.scheduleAtFixedRate(mapRunner, 0, 200);
 	}
 	
 	public void paintComponent(Graphics g) {
