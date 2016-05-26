@@ -68,8 +68,8 @@ public class TrafficMenu extends JPanel{
 		
 		combo = new JComboBox<String>();
 		combo.addItem("Nagel's Model");
-		combo.addItem("Newell's Model");
-		combo.addItem("Group1's Model");
+		combo.addItem("Random Model");
+		combo.addItem("Group1's Model (lane changing)");
 		combo.setVisible(true);
 	
 		
