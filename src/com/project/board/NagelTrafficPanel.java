@@ -15,6 +15,7 @@ import java.util.TimerTask;
 
 import javax.swing.JPanel;
 import com.project.base.Controller;
+import com.project.geom.Utils;
 import com.project.map.NagelMap;
 import com.project.model.Road;
 import com.project.model.Globals;
@@ -102,7 +103,7 @@ public class NagelTrafficPanel extends JPanel{
 			g2.setStroke(carStroke);
 			g2.setColor(carColor);
 			for(Line2D.Double carLine: road.getCarLines()){
-				g2.draw(carLine);
+				drawCarLine(carLine, g2);
 			}
 		}
 		
@@ -110,7 +111,7 @@ public class NagelTrafficPanel extends JPanel{
 			g2.setStroke(carStroke);
 			g2.setColor(carColor);
 			for(Line2D.Double carLine: inter.getCarLines()){
-				g2.draw(carLine);
+				drawCarLine(carLine, g2);
 			}
 			for(Road r: inter.getIncomingRoads()){
 				if(r == null) continue;
@@ -129,5 +130,9 @@ public class NagelTrafficPanel extends JPanel{
 		Point2D.Double p = inter.getConnectionPoint(lane);
 		int size = (int)(Globals.LANE_WIDTH*0.5);
 		g2.fillRect((int)p.x-size/2, (int)p.y-size/2, size, size);
+	}
+	
+	private void drawCarLine(Line2D.Double line, Graphics2D g2){
+		g2.draw(Utils.scale(line, 0.1));
 	}
 }

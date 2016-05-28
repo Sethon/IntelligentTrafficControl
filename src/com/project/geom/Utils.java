@@ -32,4 +32,12 @@ public class Utils {
 		
 		return l;
 	}
+	
+	public static Line2D.Double scale(Line2D.Double line, double factor){
+		//Scales the line by the given amount. 1.0 will keep it the same size, 0.9 will shrink it, 1.1 will grow it.
+		Point2D.Double center = new Point2D.Double((line.x1 + line.x2)/2, (line.y1 + line.y2)/2);
+		double xInc = ((line.x2 - line.x1)/2)*factor;
+		double yInc = ((line.y2 - line.y1)/2)*factor;
+		return new Line2D.Double(translate(center, -xInc, -yInc), translate(center, xInc, yInc));
+	}
 }
