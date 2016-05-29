@@ -3,14 +3,13 @@ import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.RadialGradientPaint;
 import java.awt.Shape;
-import java.awt.Stroke;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseWheelEvent;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Line2D;
+import java.awt.geom.NoninvertibleTransformException;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.Timer;
@@ -36,6 +35,9 @@ public class NagelTrafficPanel extends JPanel{
 	private int panY = 0;
 	private int prevMouseX;
 	private int prevMouseY;
+	private int mouseX = 0;
+	private int mouseY = 0;
+	private double scale = 1.0;
 	
 	//constructor: creates new timer task
 	// run method: calles the timer, does: the update
@@ -58,6 +60,11 @@ public class NagelTrafficPanel extends JPanel{
 				prevMouseY = e.getY();
 			}
 			
+			public void mouseMoved(MouseEvent e){
+				mouseX = e.getX();
+				mouseY = e.getY();
+			}
+			
 			public void mouseDragged(MouseEvent e) {
 				panX += e.getX() - prevMouseX;
 				panY += e.getY() - prevMouseY;
@@ -65,9 +72,15 @@ public class NagelTrafficPanel extends JPanel{
 				prevMouseY = e.getY();
 				repaint();
 			}
+			
+			public void mouseWheelMoved(MouseWheelEvent e) {
+				scale = Math.max(0, Math.min(5, scale + 0.1 * e.getWheelRotation()));
+				repaint();
+			}
 		};
 		this.addMouseListener(ml);
 		this.addMouseMotionListener(ml);
+		this.addMouseWheelListener(ml);
 	}
 	
 	public void paintComponent(Graphics g) {
@@ -154,6 +167,10 @@ public class NagelTrafficPanel extends JPanel{
 	}
 	
 	private void applyTransforms(Graphics2D g2){
-		g2.setTransform(AffineTransform.getTranslateInstance(panX, panY));
+		AffineTransform t = new AffineTransform();
+		t.concatenate(AffineTransform.getTranslateInstance(panX, panY));
+		t.concatenate(AffineTransform.getScaleInstance(scale, scale));
+		g2.setTransform(t);
+		
 	}
 }
