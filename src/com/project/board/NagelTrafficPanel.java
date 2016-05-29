@@ -7,6 +7,9 @@ import java.awt.RadialGradientPaint;
 import java.awt.Shape;
 import java.awt.Stroke;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.geom.AffineTransform;
 import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
@@ -28,17 +31,12 @@ public class NagelTrafficPanel extends JPanel{
 	private static final long serialVersionUID = -8086343848521884074L;
 	private Controller controller;
 	private TimerTask mapRunner;
-	 
 	
-	/**
-	 * Max road location 	x-axis: 1200
-	 * 						y-axis: 750
-	 * @param controller
-	 */
-	/**
-	 * 
-	 * @param controller
-	 */
+	private int panX = 0;
+	private int panY = 0;
+	private int prevMouseX;
+	private int prevMouseY;
+	
 	//constructor: creates new timer task
 	// run method: calles the timer, does: the update
 	public NagelTrafficPanel(Controller controller){
@@ -54,6 +52,22 @@ public class NagelTrafficPanel extends JPanel{
 		};
 		Timer t = new Timer();
 		t.scheduleAtFixedRate(mapRunner, 0, 200);
+		MouseAdapter ml = new MouseAdapter() {
+			public void mousePressed(MouseEvent e){
+				prevMouseX = e.getX();
+				prevMouseY = e.getY();
+			}
+			
+			public void mouseDragged(MouseEvent e) {
+				panX += e.getX() - prevMouseX;
+				panY += e.getY() - prevMouseY;
+				prevMouseX = e.getX();
+				prevMouseY = e.getY();
+				repaint();
+			}
+		};
+		this.addMouseListener(ml);
+		this.addMouseMotionListener(ml);
 	}
 	
 	public void paintComponent(Graphics g) {
@@ -63,6 +77,9 @@ public class NagelTrafficPanel extends JPanel{
 	}
 	//draws map into the panel 
 	private void drawMap(NagelMap map, Graphics2D g2){
+		//apply transforms for panning and zooming
+		applyTransforms(g2);
+		
 		//Strokes define how lines are drawn.
 		BasicStroke roadStroke = new BasicStroke(
 				(float)Globals.LANE_WIDTH*2,
@@ -134,5 +151,9 @@ public class NagelTrafficPanel extends JPanel{
 	
 	private void drawCarLine(Line2D.Double line, Graphics2D g2){
 		g2.draw(Utils.scale(line, 0.1));
+	}
+	
+	private void applyTransforms(Graphics2D g2){
+		g2.setTransform(AffineTransform.getTranslateInstance(panX, panY));
 	}
 }
