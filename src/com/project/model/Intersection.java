@@ -242,6 +242,12 @@ public class Intersection {
 		}
 	}
 	
+	public void handleTransitions(){
+		for(Road road: internalRoads.values()){
+			road.handleTransitions();
+		}
+	}
+	
 	public Collection<Road> getInsideRoads(){
 		return internalRoads.values();
 	}

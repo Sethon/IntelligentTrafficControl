@@ -65,4 +65,9 @@ public class Road {
 		leftLane.moveCars();
 		rightLane.moveCars();
 	}
+	
+	public void handleTransitions(){
+		leftLane.saveAcceptedCars();
+		rightLane.saveAcceptedCars();
+	}
 }

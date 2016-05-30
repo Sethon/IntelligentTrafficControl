@@ -102,6 +102,7 @@ public class NagelMap {
 		// Only after the calculations, do we want to update the state.
 		calcUpdate();
 		update();
+		handleTransitions();
 	}
 	
 	private void calcUpdate(){
@@ -122,6 +123,16 @@ public class NagelMap {
 		}
 	}
 	
+	private void handleTransitions(){
+		for(Road road: roads){
+			road.handleTransitions();
+		}
+		for(Intersection inter: intersections){
+			inter.handleTransitions();
+		}
+	}
+	
+	
 	public ArrayList<CarLine> getCarLines(){
 		ArrayList<CarLine> carLines = new ArrayList<CarLine>();
 		for(Road road: roads){
@@ -131,6 +142,7 @@ public class NagelMap {
 		for(Intersection inter: intersections){
 			carLines.addAll(inter.getCarLines());
 		}
+		
 		return carLines;
 	}
 }
