@@ -2,6 +2,7 @@ package com.project.model;
 
 
 import java.awt.geom.Line2D;
+import java.awt.geom.Line2D.Double;
 import java.util.ArrayList;
 
 import com.project.geom.Line;
@@ -41,15 +42,15 @@ public class Road {
 		return this.shape.getNumSegments(Globals.CELL_LENGTH);
 	}
 	
-	public ArrayList<Line2D.Double> getCarLines() {
-		ArrayList<Line2D.Double> lines = new ArrayList<Line2D.Double>(getLength()*2);
+	public ArrayList<CarLine> getCarLines() {
+		ArrayList<CarLine> lines = new ArrayList<CarLine>(getLength()*2);
 		for(int i=0; i<this.getLength(); i++){
 			Line2D.Double line = shape.getSegment(Globals.CELL_LENGTH, i);
 			if(leftLane.hasCarAt(i)){
-				lines.add(Utils.getOffsetLine(line, -Globals.LANE_WIDTH*0.5));
+				lines.add(new CarLine(Utils.getOffsetLine(line, -Globals.LANE_WIDTH*0.5), leftLane.getCarAt(i)));
 			}
 			if(rightLane.hasCarAt(i)){
-				lines.add(Utils.getOffsetLine(line, Globals.LANE_WIDTH*0.5));
+				lines.add(new CarLine(Utils.getOffsetLine(line, Globals.LANE_WIDTH*0.5), rightLane.getCarAt(i)));
 			}
 		}
 		return lines;

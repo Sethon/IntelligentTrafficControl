@@ -17,7 +17,11 @@ public class Lane {
 	
 	public boolean hasCarAt(int segment){
 		return cars[segment] != null;
-	}	
+	}
+	
+	public Car getCarAt(int segment){
+		return cars[segment];
+	}
 	
 	public void calcMovements(){		
 		//calculate each car's movement

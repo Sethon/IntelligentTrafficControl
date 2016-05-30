@@ -17,12 +17,12 @@ public class IntersectionInsideRoad extends Road {
 		this.initLanes();
 	}
 
-	public ArrayList<Line2D.Double> getCarLines(){
-		ArrayList<Line2D.Double> lines = new ArrayList<Line2D.Double>(getLength());
+	public ArrayList<CarLine> getCarLines(){
+		ArrayList<CarLine> lines = new ArrayList<CarLine>(getLength());
 		
 		for(int i=0; i<this.getLength(); i++){
 			if(leftLane.hasCarAt(i)){
-				lines.add(shape.getSegment(Globals.CELL_LENGTH, i));
+				lines.add(new CarLine(shape.getSegment(Globals.CELL_LENGTH, i), leftLane.getCarAt(i)));
 			}
 		}
 		return lines;

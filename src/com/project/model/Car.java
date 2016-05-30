@@ -1,5 +1,7 @@
 package com.project.model;
 
+import java.util.Random;
+
 public class Car{
 	
 	int MinSpeed = 0;
@@ -7,10 +9,12 @@ public class Car{
 	
 	public final Trajectory trajectory;
 	private int velocity;
+	public final int ID;
 	
 	public Car(Trajectory traj){
 		trajectory = traj;
 		velocity = 0;
+		ID = new Random().nextInt(65536);
 	}
 	
 	public void accellerate(){

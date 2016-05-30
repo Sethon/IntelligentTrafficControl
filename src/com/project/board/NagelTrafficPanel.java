@@ -20,6 +20,7 @@ import com.project.base.Controller;
 import com.project.geom.Utils;
 import com.project.map.NagelMap;
 import com.project.model.Road;
+import com.project.model.CarLine;
 import com.project.model.Globals;
 import com.project.model.Intersection;
 import com.project.model.Lane;;
@@ -108,10 +109,8 @@ public class NagelTrafficPanel extends JPanel{
 				new float[]{5f, 5f},
 				0
 		);
-		BasicStroke carStroke = new BasicStroke((float)Globals.LANE_WIDTH*0.5f);
 		Color roadColor = Color.DARK_GRAY;
 		Color DividerColor = Color.WHITE;
-		Color carColor = Color.YELLOW;
 		
 		//draw all the roads
 		for(Road road: map.roads){
@@ -129,20 +128,20 @@ public class NagelTrafficPanel extends JPanel{
 			g2.fillRect((int)inter.getPosition().x, (int)inter.getPosition().y, (int)Globals.LANE_WIDTH*4, (int)Globals.LANE_WIDTH*4);
 		}
 		
+		ArrayList<CarLine> carLines = new ArrayList<CarLine>();
 		for(Road road: map.roads){
-			g2.setStroke(carStroke);
-			g2.setColor(carColor);
-			for(Line2D.Double carLine: road.getCarLines()){
-				drawCarLine(carLine, g2);
-			}
+			carLines.addAll(road.getCarLines());
 		}
 		
 		for(Intersection inter: map.intersections){
-			g2.setStroke(carStroke);
-			g2.setColor(carColor);
-			for(Line2D.Double carLine: inter.getCarLines()){
-				drawCarLine(carLine, g2);
-			}
+			carLines.addAll(inter.getCarLines());
+		}
+		
+		for(CarLine carLine: carLines){
+			drawCarLine(carLine, g2);
+		}
+		
+		for(Intersection inter:map.intersections){
 			for(Road r: inter.getIncomingRoads()){
 				if(r == null) continue;
 				drawLight(inter, r.leftLane, g2);
@@ -163,6 +162,10 @@ public class NagelTrafficPanel extends JPanel{
 	}
 	
 	private void drawCarLine(Line2D.Double line, Graphics2D g2){
+		BasicStroke carStroke = new BasicStroke((float)Globals.LANE_WIDTH*0.5f);
+		Color carColor = Color.YELLOW;
+		g2.setStroke(carStroke);
+		g2.setColor(carColor);
 		g2.draw(Utils.scale(line, 0.1));
 	}
 	

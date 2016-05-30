@@ -191,8 +191,8 @@ public class Intersection {
 		return road;
 	}
 	
-	public ArrayList<Line2D.Double> getCarLines(){
-		ArrayList<Line2D.Double> lines = new ArrayList<Line2D.Double>();
+	public ArrayList<CarLine> getCarLines(){
+		ArrayList<CarLine> lines = new ArrayList<CarLine>();
 		for(Road road: internalRoads.values()){
 			lines.addAll(road.getCarLines());
 		}
