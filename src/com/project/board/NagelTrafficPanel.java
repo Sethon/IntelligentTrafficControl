@@ -12,11 +12,13 @@ import java.awt.geom.Line2D;
 import java.awt.geom.NoninvertibleTransformException;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
+import java.util.Hashtable;
 import java.util.Timer;
 import java.util.TimerTask;
 
 import javax.swing.JPanel;
 import com.project.base.Controller;
+import com.project.geom.Line;
 import com.project.geom.Utils;
 import com.project.map.NagelMap;
 import com.project.model.Road;
@@ -39,22 +41,34 @@ public class NagelTrafficPanel extends JPanel{
 	private int mouseX = 0;
 	private int mouseY = 0;
 	private double scale = 1.0;
+	private double tickProgress = 0;
+	private ArrayList<CarLine> lastCarLines;
+	private ArrayList<CarLine> currentCarLines;
 	
 	//constructor: creates new timer task
 	// run method: calles the timer, does: the update
 	public NagelTrafficPanel(Controller controller){
 		this.controller = controller;
+		lastCarLines = controller.getNagelMap().getCarLines();
+		currentCarLines = lastCarLines;
+		int fps = 30;
 		mapRunner = new TimerTask() {
+			private int frame = 0;
+			private final int tickFreq = 10;
 			public void run(){
-				System.out.println("start tick");
-				controller.getNagelMap().tick();
-				System.out.println("repaint");
-				repaint();
-				System.out.println("end tick");
+				if(frame == 0){
+					controller.getNagelMap().tick();
+					lastCarLines = currentCarLines;
+					currentCarLines = controller.getNagelMap().getCarLines();
+				}
+				tickProgress = frame/(double)tickFreq;
+				repaint();		
+				frame += 1;
+				frame %= tickFreq;
 			}
 		};
 		Timer t = new Timer();
-		t.scheduleAtFixedRate(mapRunner, 0, 200);
+		t.scheduleAtFixedRate(mapRunner, 0, 1000/fps);
 		MouseAdapter ml = new MouseAdapter() {
 			public void mousePressed(MouseEvent e){
 				prevMouseX = e.getX();
@@ -89,6 +103,34 @@ public class NagelTrafficPanel extends JPanel{
 		Graphics2D g2 = (Graphics2D) g;
 		drawMap(controller.getNagelMap(), g2);
 	}
+	
+	private ArrayList<CarLine> getCarLines(){
+		Hashtable<Integer, CarLine> from = mapCarLines(lastCarLines);
+		Hashtable<Integer, CarLine> to = mapCarLines(currentCarLines);
+		ArrayList<CarLine> lines = new ArrayList<CarLine>();
+		//This method currently assumes that a car that is on the map in one tick, wil also be on the map in the next tick.
+		//If we ever implement cars entering/leaving the map, and something goes wrong, it'll very likely happen here.
+		for(int carID: from.keySet()){
+			CarLine fromLine = from.get(new Integer(carID));
+			CarLine toLine = to.get(new Integer(carID));
+			if(fromLine == null || toLine == null){
+				continue;
+			}
+			Line line1 = new Line(fromLine.getP1(), toLine.getP1());
+			Line line2 = new Line(fromLine.getP2(), toLine.getP2());
+			lines.add(new CarLine(new Line(line1.getPointAlong(tickProgress), line2.getPointAlong(tickProgress)), carID));
+		}
+		return lines;
+	}
+	
+	private Hashtable<Integer, CarLine> mapCarLines(ArrayList<CarLine> lines){
+		Hashtable<Integer, CarLine> table = new Hashtable<Integer, CarLine>(lines.size());
+		for(CarLine line: lines){
+			table.put(new Integer(line.carID), line);
+		}
+		return table;
+	}
+	
 	//draws map into the panel 
 	private void drawMap(NagelMap map, Graphics2D g2){
 		//apply transforms for panning and zooming
@@ -128,7 +170,7 @@ public class NagelTrafficPanel extends JPanel{
 			g2.fillRect((int)inter.getPosition().x, (int)inter.getPosition().y, (int)Globals.LANE_WIDTH*4, (int)Globals.LANE_WIDTH*4);
 		}
 		
-		ArrayList<CarLine> carLines = map.getCarLines();
+		ArrayList<CarLine> carLines = getCarLines();
 		
 		for(CarLine carLine: carLines){
 			drawCarLine(carLine, g2);

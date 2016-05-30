@@ -7,6 +7,11 @@ public class CarLine extends Line2D.Double {
 	
 	public CarLine(Line2D.Double line, Car car){
 		super(line.getP1(), line.getP2());
-		carID = car.ID;
+		this.carID = car.ID;
+	}
+	
+	public CarLine(Line2D.Double line, int carID){
+		super(line.getP1(), line.getP2());
+		this.carID = carID;
 	}
 }

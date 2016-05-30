@@ -5,7 +5,7 @@ import java.util.Random;
 public class Car{
 	
 	int MinSpeed = 0;
-	int MaxSpeed = 4;
+	int MaxSpeed = 20;
 	
 	public final Trajectory trajectory;
 	private int velocity;

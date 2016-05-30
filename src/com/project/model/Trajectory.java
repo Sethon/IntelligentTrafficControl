@@ -26,7 +26,6 @@ public abstract class Trajectory {
 	protected abstract Lane getTargetLane(Intersection inter);
 	
 	public void updateLane(){
-		System.out.println("Onintersection "+onIntersection);
 		currentLane = getNextLane();
 		onIntersection = !onIntersection;
 		if(!onIntersection){
