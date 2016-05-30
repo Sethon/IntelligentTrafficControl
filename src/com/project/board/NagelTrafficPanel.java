@@ -128,14 +128,7 @@ public class NagelTrafficPanel extends JPanel{
 			g2.fillRect((int)inter.getPosition().x, (int)inter.getPosition().y, (int)Globals.LANE_WIDTH*4, (int)Globals.LANE_WIDTH*4);
 		}
 		
-		ArrayList<CarLine> carLines = new ArrayList<CarLine>();
-		for(Road road: map.roads){
-			carLines.addAll(road.getCarLines());
-		}
-		
-		for(Intersection inter: map.intersections){
-			carLines.addAll(inter.getCarLines());
-		}
+		ArrayList<CarLine> carLines = map.getCarLines();
 		
 		for(CarLine carLine: carLines){
 			drawCarLine(carLine, g2);

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import com.project.model.Car;
+import com.project.model.CarLine;
 import com.project.model.CurvedRoad;
 import com.project.model.Globals;
 import com.project.model.Intersection;
@@ -119,5 +120,17 @@ public class NagelMap {
 		for(Intersection inter: intersections){
 			inter.update();
 		}
+	}
+	
+	public ArrayList<CarLine> getCarLines(){
+		ArrayList<CarLine> carLines = new ArrayList<CarLine>();
+		for(Road road: roads){
+			carLines.addAll(road.getCarLines());
+		}
+		
+		for(Intersection inter: intersections){
+			carLines.addAll(inter.getCarLines());
+		}
+		return carLines;
 	}
 }
