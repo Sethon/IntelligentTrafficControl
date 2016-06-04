@@ -41,7 +41,13 @@ public class NagelTrafficPanel extends JPanel{
 	private int mouseX = 0;
 	private int mouseY = 0;
 	private double scale = 1.0;
+	
+	// tickProgress is a number between 0 and 1, and keeps track of how far along we are in the current tick.
+	// see line 72 for more info
 	private double tickProgress = 0;
+	
+	//We have two lists of CarLines, one for the previous tick, and one for the current tick.
+	//This is used for smoothly animating cars between ticks.
 	private ArrayList<CarLine> lastCarLines;
 	private ArrayList<CarLine> currentCarLines;
 	
@@ -52,23 +58,32 @@ public class NagelTrafficPanel extends JPanel{
 		lastCarLines = controller.getNagelMap().getCarLines();
 		currentCarLines = lastCarLines;
 		int fps = 30;
+		// This TimerTask is run 'fps' times per second
 		mapRunner = new TimerTask() {
 			private int frame = 0;
 			private final int tickFreq = 10;
 			public void run(){
+				// This is true every "tickFreq" frames
 				if(frame == 0){
 					controller.getNagelMap().tick();
+					//update our CarLine arrays
 					lastCarLines = currentCarLines;
 					currentCarLines = controller.getNagelMap().getCarLines();
 				}
+				// every frame, we update tickProgress to reflect how many frames out of the total tickFrew we've had.
+				// We animate cars based on this. For example, if this number is 0.75, then cars will be 75% of the way
+				// between their previous position and their current position.
 				tickProgress = frame/(double)tickFreq;
 				repaint();		
 				frame += 1;
+				// this ensures that as soonas frame == tickFreq, it is reset to 0
 				frame %= tickFreq;
 			}
 		};
 		Timer t = new Timer();
 		t.scheduleAtFixedRate(mapRunner, 0, 1000/fps);
+		
+		
 		MouseAdapter ml = new MouseAdapter() {
 			public void mousePressed(MouseEvent e){
 				prevMouseX = e.getX();
@@ -105,25 +120,33 @@ public class NagelTrafficPanel extends JPanel{
 	}
 	
 	private ArrayList<CarLine> getCarLines(){
+		// Returns the CarLines corresponding to all the cars on the map.
+		// This is where most of the smooth animation magic happens.
+		
+		//These are two hashTables, mapping from car IDs to CarLines.
 		Hashtable<Integer, CarLine> from = mapCarLines(lastCarLines);
 		Hashtable<Integer, CarLine> to = mapCarLines(currentCarLines);
 		ArrayList<CarLine> lines = new ArrayList<CarLine>();
-		//This method currently assumes that a car that is on the map in one tick, wil also be on the map in the next tick.
-		//If we ever implement cars entering/leaving the map, and something goes wrong, it'll very likely happen here.
+		//loop over every carID of a car on the map
 		for(int carID: from.keySet()){
+			//Get tthe CarLine corresponding to their previous (fromLine) and current (toLine) positions.
 			CarLine fromLine = from.get(new Integer(carID));
 			CarLine toLine = to.get(new Integer(carID));
 			if(fromLine == null || toLine == null){
 				continue;
 			}
+			// A car's line has 2 points. line1 and line2 are the lines along each of these points has to move in order to go
+			// from its previous to its current position.
 			Line line1 = new Line(fromLine.getP1(), toLine.getP1());
 			Line line2 = new Line(fromLine.getP2(), toLine.getP2());
+			// Create a new CarLine, with its two points set to the point along the path it has to move.
 			lines.add(new CarLine(new Line(line1.getPointAlong(tickProgress), line2.getPointAlong(tickProgress)), carID));
 		}
 		return lines;
 	}
 	
 	private Hashtable<Integer, CarLine> mapCarLines(ArrayList<CarLine> lines){
+		//This converts an ArrayList of CarLines to a Hashtable, making it easier to get CarLines from their car's ID.
 		Hashtable<Integer, CarLine> table = new Hashtable<Integer, CarLine>(lines.size());
 		for(CarLine line: lines){
 			table.put(new Integer(line.carID), line);
@@ -170,12 +193,13 @@ public class NagelTrafficPanel extends JPanel{
 			g2.fillRect((int)inter.getPosition().x, (int)inter.getPosition().y, (int)Globals.LANE_WIDTH*4, (int)Globals.LANE_WIDTH*4);
 		}
 		
+		//draw all the cars
 		ArrayList<CarLine> carLines = getCarLines();
-		
 		for(CarLine carLine: carLines){
 			drawCarLine(carLine, g2);
 		}
 		
+		//draw the traffic lights
 		for(Intersection inter:map.intersections){
 			for(Road r: inter.getIncomingRoads()){
 				if(r == null) continue;
@@ -209,6 +233,5 @@ public class NagelTrafficPanel extends JPanel{
 		t.concatenate(AffineTransform.getTranslateInstance(panX, panY));
 		t.concatenate(AffineTransform.getScaleInstance(scale, scale));
 		g2.setTransform(t);
-		
 	}
 }
