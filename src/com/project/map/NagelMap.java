@@ -23,10 +23,16 @@ public class NagelMap {
 	private RecordSet stats = new RecordSet();
 	
 	public void addRoad(Road road){
+		if(roads.contains(road)){
+			return;
+		}
 		roads.add(road);
 	}
 	
 	public void addIntersection(Intersection inter){
+		if(intersections.contains(inter)){
+			return;
+		}
 		intersections.add(inter);
 	}
 	
@@ -112,6 +118,9 @@ public class NagelMap {
 	}
 	
 	private void addCar(Car car, Lane lane, int pos){
+		if(cars.contains(car)){
+			return;
+		}
 		lane.addCar(car, pos);
 		cars.add(car);
 	}
