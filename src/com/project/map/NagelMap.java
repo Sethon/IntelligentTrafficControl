@@ -7,6 +7,7 @@ import java.util.Random;
 import com.project.model.Car;
 import com.project.model.CarLine;
 import com.project.model.CurvedRoad;
+import com.project.model.EllipseRoad;
 import com.project.model.Globals;
 import com.project.model.Intersection;
 import com.project.model.RandomTrajectory;
@@ -104,6 +105,15 @@ public class NagelMap {
 		addIntersection(bottom);
 		addIntersection(left);
 		
+		addRandomCars(100);
+	}
+	
+	public void generateCircle(double x, double y, double w, double h, int nCars){
+		addRoad(new EllipseRoad(x, y, w, h));
+		addRandomCars(nCars);
+	}
+	
+	public void addRandomCars(int n){
 		Random rand = new Random();
 		for(int i=0;i<100;i++){
 			Road r = roads.get(rand.nextInt(roads.size()));
