@@ -7,6 +7,7 @@ public abstract class Trajectory {
 	
 	private Lane targetLane = null;
 	public boolean onIntersection = false;
+	private boolean isOvertaking;
 	
 	// This trajectory just picks a road at random at each
 	public Lane getNextLane() {

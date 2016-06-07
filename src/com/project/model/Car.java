@@ -10,6 +10,8 @@ public class Car{
 	public final Trajectory trajectory;
 	private int velocity;
 	public final int ID;
+	private boolean wantsLaneChange;
+	private boolean overtaking = false;
 	
 	public Car(Trajectory traj){
 		trajectory = traj;
@@ -25,6 +27,9 @@ public class Car{
 													//then the car have to slowdown for not having a collision
 		if(velocity > gap)
 		{
+			if(trajectory.currentLane == trajectory.currentLane.road.rightLane){
+				wantsLaneChange = true;
+			}
 			velocity = gap;
 		}
 	}
@@ -38,9 +43,22 @@ public class Car{
 	}
 	
 	public int getVelocity(int gap){
+		wantsLaneChange = false;
 		accellerate();
 		slowDown(gap);
 		randomSlowDown();
 		return velocity;
+	}
+	
+	public boolean getWantsLaneChange(){
+		return wantsLaneChange;
+	}
+
+	public void setOvertaking(boolean overtaking) {
+		overtaking = true;
+	}
+	
+	public boolean isOvertaking(){
+		return overtaking;
 	}
 }

@@ -7,6 +7,7 @@ public class Lane {
 	private Car[] acceptedCars;
 	private int[] movements;
 	private boolean blocked;
+	private boolean[] laneChangers;
 	
 	public Lane(Road road){
 		cars = new Car[road.getLength()];
@@ -25,12 +26,59 @@ public class Lane {
 	
 	public void calcMovements(){		
 		//calculate each car's movement
+		laneChangers = new boolean[cars.length];
 		for(int i=0; i<cars.length; i++){
 			if(cars[i] != null){
 				int gap = getGrap(i, cars[i].trajectory.getNextLane());
 				movements[i] = cars[i].getVelocity(gap);
+				laneChangers[i] = cars[i].getWantsLaneChange();
 			}
 		}
+	}
+	
+	public void handleLaneChanges(){
+		for(int i=0; i<cars.length; i++){
+			if(laneChangers[i] && road.leftLane.canMoveIn(i, movements[i])){
+				road.leftLane.acceptCar(cars[i], i+movements[i]);
+				cars[i].setOvertaking(true);
+				cars[i] = null;
+			}
+			if(cars[i].isOvertaking() && road.rightLane.canMoveIn(i, movements[i])){
+				road.rightLane.acceptCar(cars[i], i+movements[i]);
+				cars[i].setOvertaking(false);
+				cars[i] = null;
+			}
+		}
+	}
+	
+	public boolean canMoveIn(int from, int speed){
+		if(from + speed >= cars.length){
+			return false;
+		}
+		//check for cars in front
+		for(int j=0; j<=speed; j++){
+			if(hasCarAt(from+j)){
+				return false;
+			}
+		}
+		
+		//check for cars behind
+		int carIndex = getCarBehind(from);
+		int distance = from - carIndex;
+		if(carIndex != -1 && movements[carIndex] >= distance){
+			return false;
+		}
+		
+		return true;
+	}
+	
+	public int getCarBehind(int from){
+		for(int i=from-1; i>=0; i--){
+			if(hasCarAt(i)){
+				return i;
+			}
+		}
+		return -1;
 	}
 	
 	public int getGap(int from){
