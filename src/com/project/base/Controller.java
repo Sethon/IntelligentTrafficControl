@@ -56,7 +56,8 @@ public class Controller {
 	
 	private void initMenuPages() {
 		this.menuPages.add(new MenuPage(this));
-		this.menuPages.add(new NagelSimulationFrame(this));		
+		this.menuPages.add(new NagelSimulationFrame(this));	
+		this.menuPages.add(new SimulationFrame(this));
 	}
 
 	

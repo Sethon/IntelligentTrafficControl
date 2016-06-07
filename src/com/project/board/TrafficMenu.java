@@ -38,11 +38,9 @@ public class TrafficMenu extends JPanel{
 	
 	private JSlider Density;
 	private JSlider Speed;
-	private JComboBox combo;
+	private JComboBox<String> combo;
 	private JLabel label;
 	private JLabel labelDensity;
-	
-	
 	
 	private JButton ComplexMap;
 	private JButton ExperimentalMap;
@@ -52,6 +50,9 @@ public class TrafficMenu extends JPanel{
 	private Controller controller;
 	protected boolean temp=false;
 	
+	public static final String NAGEL_MODEL = "Nagel's Model";
+	public static final String ECA_MODEL ="ECA Model";
+	public static final String LANE_CHANGING_MODEL = "Nagel's Model + Lane Changing";
 	
 	public TrafficMenu(Controller controller){
 		this.controller = controller;
@@ -69,9 +70,9 @@ public class TrafficMenu extends JPanel{
 
 		
 		combo = new JComboBox<String>();
-		combo.addItem("Nagel's Model");
-		combo.addItem("Random Model");
-		combo.addItem("Lane Changing Model");
+		combo.addItem(NAGEL_MODEL);
+		combo.addItem(ECA_MODEL);
+		combo.addItem(LANE_CHANGING_MODEL);
 		combo.setVisible(true);
 	
 		
@@ -130,7 +131,14 @@ public class TrafficMenu extends JPanel{
 		
 		this.combo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				String item = (String)combo.getSelectedItem();
+				if(item == ECA_MODEL){
+					controller.showMenuPage(2);
+				}
+				if(item == NAGEL_MODEL){
+					controller.showMenuPage(1);
+				}
+				repaint();
 			}
 		});
 		
