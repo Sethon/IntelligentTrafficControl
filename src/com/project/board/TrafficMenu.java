@@ -27,20 +27,25 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import com.project.base.Controller;
+import com.project.map.NagelMap;
+import com.project.model.Car;
+import com.project.model.Lane;
 
 public class TrafficMenu extends JPanel{
 
 	private static final long serialVersionUID = -3952749405048123722L;
 
-	private JRadioButton lightsON;
-	private JRadioButton lightsOFF;
-	private JSlider waitingTime;
+	
+	private JSlider Density;
+	private JSlider Speed;
 	private JComboBox combo;
 	private JLabel label;
+	private JLabel labelDensity;
 	
 	
 	
-	private JButton generateMap;
+	private JButton ComplexMap;
+	private JButton ExperimentalMap;
 	private JButton exit;
 	
 	
@@ -59,39 +64,56 @@ public class TrafficMenu extends JPanel{
 		final Font buttonFont = new Font("Futura", 0, 16);
 		final Dimension buttonDimension = new Dimension(200, 40);
 		
-		label = new JLabel("Red Lights");
-		lightsON = new JRadioButton("ON");
-		lightsON.setVisible(true);
-		lightsOFF = new JRadioButton("OFF");
-		lightsOFF.setVisible(true);
+		label = new JLabel("Number of Cars in the system: ");
+		labelDensity = new JLabel("Waiting time: ");
 
 		
 		combo = new JComboBox<String>();
 		combo.addItem("Nagel's Model");
 		combo.addItem("Random Model");
-		combo.addItem("Group1's Model (lane changing)");
+		combo.addItem("Lane Changing Model");
 		combo.setVisible(true);
 	
 		
-		waitingTime = new JSlider(JSlider.HORIZONTAL, 0, 50, 25);
-		waitingTime.setMajorTickSpacing(5);
-		waitingTime.setMinorTickSpacing(0);
-		waitingTime.setPaintTicks(true);
-		waitingTime.setPaintLabels(true);
-		Hashtable<Integer, JLabel> waitingTimeTable = new Hashtable<Integer, JLabel>();
-		waitingTimeTable.put(0, new JLabel("1/10s"));
-		waitingTimeTable.put(50, new JLabel("5s"));
-		waitingTime.setLabelTable(waitingTimeTable);
+		Density = new JSlider(JSlider.HORIZONTAL, 0, 50, 25);
+		Density.setMajorTickSpacing(5);
+		Density.setMinorTickSpacing(0);
+		Density.setPaintTicks(true);
+		Density.setPaintLabels(true);
+		Hashtable<Integer, JLabel> DensityTable = new Hashtable<Integer, JLabel>();
+		DensityTable.put(0, new JLabel("0"));
+		DensityTable.put(50, new JLabel("200"));
+		Density.setLabelTable(DensityTable);
 		
 		
-		generateMap = new JButton("Generate Map");
-		generateMap.setContentAreaFilled(false);
-		generateMap.setAlignmentX(JButton.CENTER_ALIGNMENT);
-		generateMap.setFont(buttonFont);
-		generateMap.setFocusPainted(false);
-		generateMap.setPreferredSize(buttonDimension);
-		generateMap.setMinimumSize(buttonDimension);
-		generateMap.setMaximumSize(buttonDimension);
+		Speed = new JSlider(JSlider.HORIZONTAL, 0, 50, 25);
+		Speed.setMajorTickSpacing(5);
+		Speed.setMinorTickSpacing(0);
+		Speed.setPaintTicks(true);
+		Speed.setPaintLabels(true);
+		Hashtable<Integer, JLabel> SpeedTable = new Hashtable<Integer, JLabel>();
+		SpeedTable.put(0, new JLabel("0"));
+		SpeedTable.put(50, new JLabel("150 Km/h"));
+		Speed.setLabelTable(SpeedTable);
+		
+		
+		ComplexMap = new JButton("Complex Map");
+		ComplexMap.setContentAreaFilled(false);
+		ComplexMap.setAlignmentX(JButton.CENTER_ALIGNMENT);
+		ComplexMap.setFont(buttonFont);
+		ComplexMap.setFocusPainted(false);
+		ComplexMap.setPreferredSize(buttonDimension);
+		ComplexMap.setMinimumSize(buttonDimension);
+		ComplexMap.setMaximumSize(buttonDimension);
+		
+		ExperimentalMap = new JButton("Experimental Map");
+		ExperimentalMap .setContentAreaFilled(false);
+		ExperimentalMap .setAlignmentX(JButton.CENTER_ALIGNMENT);
+		ExperimentalMap .setFont(buttonFont);
+		ExperimentalMap .setFocusPainted(false);
+		ExperimentalMap .setPreferredSize(buttonDimension);
+		ExperimentalMap .setMinimumSize(buttonDimension);
+		ExperimentalMap .setMaximumSize(buttonDimension);
 		
 		exit = new JButton("Exit");
 		exit.setContentAreaFilled(false);
@@ -104,16 +126,7 @@ public class TrafficMenu extends JPanel{
 		
 		
 		
-		this.lightsON.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				controller.toggleShowRedLight();
-			}
-		});
-		
-		this.lightsOFF.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
+
 		
 		this.combo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -121,16 +134,20 @@ public class TrafficMenu extends JPanel{
 			}
 		});
 		
-		this.waitingTime.addChangeListener(new ChangeListener() {
+		this.Density.addChangeListener(new ChangeListener() {
             @Override
             public void stateChanged(ChangeEvent e) {
-               controller.getCurrentMap().setGlobalTrafficLightSwitchInterval(waitingTime.getValue());
             }
         });
 		
-		this.generateMap.addActionListener(new ActionListener() {
+		this.ComplexMap.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
+			}
+		});
+		
+		this.ExperimentalMap.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
 			}
 		});
 		
@@ -146,10 +163,9 @@ public class TrafficMenu extends JPanel{
 		
 		box.add(Box.createVerticalStrut(00));
 		box.add(Box.createVerticalGlue());
-		box.add(Box.createVerticalStrut(100));
+		box.add(Box.createVerticalStrut(00));
 		box.add(label);
-		box.add(lightsON);
-		box.add(lightsOFF);
+		box.add(labelDensity);
 		
 		
 		box.add(Box.createVerticalStrut(20));
@@ -157,18 +173,27 @@ public class TrafficMenu extends JPanel{
 		box.add(Box.createVerticalStrut(100));
 		box.add(combo);
 		
-		box.add(waitingTime);
-		box.add(Box.createVerticalStrut(10));
+		box.add(Density);
+		box.add(Box.createVerticalStrut(00));
 		box.add(Box.createVerticalGlue());
-		box.add(Box.createVerticalStrut(100));
+		box.add(Box.createVerticalStrut(20));
+		box.add(Speed);
+		box.add(Box.createVerticalStrut(00));
+		box.add(Box.createVerticalGlue());
+		box.add(Box.createVerticalStrut(20));
 		
-		box.add(generateMap);
-		box.add(Box.createVerticalStrut(50));
+		box.add(ComplexMap);
+		box.add(Box.createVerticalStrut(5));
 		box.add(Box.createVerticalGlue());
-		box.add(Box.createVerticalStrut(50));
+		box.add(Box.createVerticalStrut(30));
+		
+		box.add(ExperimentalMap);
+		box.add(Box.createVerticalStrut(5));
+		box.add(Box.createVerticalGlue());
+		box.add(Box.createVerticalStrut(30));
 		
 		box.add(exit);
-		box.add(Box.createVerticalStrut(50));
+		box.add(Box.createVerticalStrut(10));
 	
 		this.add(box);	
 	};
