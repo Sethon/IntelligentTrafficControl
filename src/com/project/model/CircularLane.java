@@ -17,10 +17,12 @@ public class CircularLane extends Lane {
 	
 	public void calcMovements(){		
 		//calculate each car's movement
+		laneChangers = new boolean[cars.length];
 		for(int i=0; i<cars.length; i++){
 			if(cars[i] != null){
 				int gap = getGap(i);
 				movements[i] = cars[i].getVelocity(gap);
+				laneChangers[i] = cars[i].getWantsLaneChange();
 			}
 		}
 	}
@@ -30,6 +32,9 @@ public class CircularLane extends Lane {
 		Car[] newCars = new Car[cars.length];
 		for(int i=0; i<cars.length; i++){
 			if(cars[i] != null){
+				if(handleLaneChange(i)){
+					continue;
+				}
 				int newPosition = (i + movements[i]) % cars.length;
 				newCars[newPosition] = cars[i];
 			}

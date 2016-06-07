@@ -7,7 +7,7 @@ public class Lane {
 	protected Car[] acceptedCars;
 	protected int[] movements;
 	private boolean blocked;
-	private boolean[] laneChangers;
+	public boolean[] laneChangers;
 	
 	public Lane(Road road){
 		cars = new Car[road.getLength()];
@@ -36,19 +36,23 @@ public class Lane {
 		}
 	}
 	
-	public void handleLaneChanges(){
-		for(int i=0; i<cars.length; i++){
-			if(laneChangers[i] && road.leftLane.canMoveIn(i, movements[i])){
-				road.leftLane.acceptCar(cars[i], i+movements[i]);
-				cars[i].setOvertaking(true);
-				cars[i] = null;
-			}
-			if(cars[i].isOvertaking() && road.rightLane.canMoveIn(i, movements[i])){
-				road.rightLane.acceptCar(cars[i], i+movements[i]);
-				cars[i].setOvertaking(false);
-				cars[i] = null;
-			}
+	public boolean handleLaneChange(int i){
+		cars[i].laneChangeTick();
+		if(laneChangers[i] && cars[i].canChangeLane() && road.leftLane.canMoveIn(i, movements[i])){
+			road.leftLane.acceptCar(cars[i], i+movements[i]);
+			cars[i].laneChanged();
+			cars[i].setOvertaking(true);
+			cars[i] = null;
+			return true;
 		}
+		if(cars[i].isOvertaking() && cars[i].canChangeLane() && road.rightLane.canMoveIn(i, movements[i])){
+			road.rightLane.acceptCar(cars[i], i+movements[i]);
+			cars[i].laneChanged();
+			cars[i].setOvertaking(false);
+			cars[i] = null;
+			return true;
+		}
+		return false;
 	}
 	
 	public boolean canMoveIn(int from, int speed){
@@ -114,6 +118,9 @@ public class Lane {
 		Car[] newCars = new Car[cars.length];
 		for(int i=0; i<cars.length; i++){
 			if(cars[i] != null){
+				if(handleLaneChange(i)){
+					continue;
+				}
 				int newPosition = i + movements[i];
 				if(newPosition >= cars.length){
 					//this car leaves the road

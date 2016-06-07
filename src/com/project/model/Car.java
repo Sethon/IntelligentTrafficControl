@@ -14,6 +14,7 @@ public class Car{
 	public final int ID;
 	private boolean wantsLaneChange;
 	private boolean overtaking = false;
+	private int laneChangeTimer = 0;
 	
 	public Car(Trajectory traj){
 		trajectory = traj;
@@ -56,7 +57,7 @@ public class Car{
 	}
 
 	public void setOvertaking(boolean overtaking) {
-		overtaking = true;
+		this.overtaking = overtaking;
 	}
 	
 	public boolean isOvertaking(){
@@ -66,5 +67,17 @@ public class Car{
 	public void collectStats(Record rec) {
 		rec.setValue("carID", ID);
 		rec.setValue("velocity", velocity);
+	}
+	
+	public void laneChanged(){
+		laneChangeTimer = 5;
+	}
+	
+	public void laneChangeTick(){
+		laneChangeTimer = Math.max(laneChangeTimer - 1, 0);
+	}
+	
+	public boolean canChangeLane(){
+		return laneChangeTimer == 0;
 	}
 }
