@@ -16,6 +16,12 @@ public class Road {
 	public Lane rightLane;
 	protected RoadShape shape;
 	
+	protected Road(){
+		from = null;
+		to = null;
+		shape = null;
+	}
+	
 	public Road(Intersection from, Intersection to, int fromDirection, int toDirection) {
 		this.from = from;
 		this.to = to;
@@ -34,8 +40,8 @@ public class Road {
 	}
 	
 	private void updateConnectingIntersections(int fromDirection, int toDirection){
-		from.setOutgoingRoad(this, fromDirection);
-		to.setIncomingRoad(this, toDirection);
+		if(from != null) from.setOutgoingRoad(this, fromDirection);
+		if(to != null) to.setIncomingRoad(this, toDirection);
 	}
 	
 	public int getLength() {

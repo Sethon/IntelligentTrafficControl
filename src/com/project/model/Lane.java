@@ -3,9 +3,9 @@ package com.project.model;
 public class Lane {
 	public final Road road;
 	
-	private Car[] cars;
-	private Car[] acceptedCars;
-	private int[] movements;
+	protected Car[] cars;
+	protected Car[] acceptedCars;
+	protected int[] movements;
 	private boolean blocked;
 	private boolean[] laneChangers;
 	

@@ -2,6 +2,8 @@ package com.project.model;
 
 import java.util.Random;
 
+import com.project.stats.Record;
+
 public class Car{
 	
 	int MinSpeed = 0;
@@ -36,8 +38,7 @@ public class Car{
 	
 	public void randomSlowDown(){ // inserting a probablity of each car to slow down by one V's unit
 		
-		if( (velocity > 0 ) && ( Math.random() <= 0.3) )
-		{
+		if( (velocity > 0 ) && ( Math.random() <= 0.3) ){
 			velocity -= 1;
 		}	
 	}
@@ -60,5 +61,10 @@ public class Car{
 	
 	public boolean isOvertaking(){
 		return overtaking;
+	}
+
+	public void collectStats(Record rec) {
+		rec.setValue("carID", ID);
+		rec.setValue("velocity", velocity);
 	}
 }

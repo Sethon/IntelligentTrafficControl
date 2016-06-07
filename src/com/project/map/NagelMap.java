@@ -7,24 +7,44 @@ import java.util.Random;
 import com.project.model.Car;
 import com.project.model.CarLine;
 import com.project.model.CurvedRoad;
+import com.project.model.EllipseRoad;
 import com.project.model.Globals;
 import com.project.model.Intersection;
 import com.project.model.RandomTrajectory;
+import com.project.model.Lane;
 import com.project.model.Road;
+import com.project.stats.Record;
+import com.project.stats.RecordSet;
 
 public class NagelMap {
 	public final ArrayList<Road> roads = new ArrayList<Road>();
 	public final ArrayList<Intersection> intersections = new ArrayList<Intersection>();
+	public final ArrayList<Car> cars = new ArrayList<Car>();
 	private int tickCount = 0;
+	private RecordSet stats = new RecordSet();
 	
 	public void addRoad(Road road){
+		if(roads.contains(road)){
+			return;
+		}
 		roads.add(road);
 	}
 	
 	public void addIntersection(Intersection inter){
+		if(intersections.contains(inter)){
+			return;
+		}
 		intersections.add(inter);
 	}
-		
+	
+	public void resetStats(){
+		stats = new RecordSet();
+	}
+	
+	public RecordSet getStats(){
+		return stats;
+	}
+			
 	public void generate(){
 		//We want to generate a random map here later, but for now, I'm just setting up a test map.
 		double offset = 35;
@@ -343,17 +363,35 @@ public class NagelMap {
 		addRoad(ry243);	
 		addRoad(ry2a2);
 		addRoad(ra2y2);
-
+		
+		addRandomCars(100);
+	}
+	
+	public void generateCircle(double x, double y, double w, double h, int nCars){
+		addRoad(new EllipseRoad(x, y, w, h));
+		addRandomCars(nCars);
+	}
+	
+	public void addRandomCars(int n){
 		Random rand = new Random();
 		for(int i=0;i<100;i++){
 			Road r = roads.get(rand.nextInt(roads.size()));
 			int pos = rand.nextInt(r.getLength());
-			(rand.nextBoolean() ? r.leftLane : r.rightLane).addCar(makeCar(), pos);
+			Lane lane = (rand.nextBoolean()) ? r.leftLane : r.rightLane;
+			addCar(makeCar(), lane, pos);
 		}
 	}
 	
 	private Car makeCar(){
 		return new Car(new RandomTrajectory());
+	}
+	
+	private void addCar(Car car, Lane lane, int pos){
+		if(cars.contains(car)){
+			return;
+		}
+		lane.addCar(car, pos);
+		cars.add(car);
 	}
 	
 	public void tick(){
@@ -362,6 +400,8 @@ public class NagelMap {
 		calcUpdate();
 		update();
 		handleTransitions();
+		collectStats();
+		tickCount += 1;
 	}
 	
 	private void calcUpdate(){
@@ -391,6 +431,21 @@ public class NagelMap {
 		}
 	}
 	
+	private void collectStats(){
+		for(Car car:cars){
+			Record rec = getBaseRecord();
+			car.collectStats(rec);
+			stats.addRecord(rec);
+		}
+	}
+	
+	private Record getBaseRecord(){
+		Record rec = new Record();
+		rec.setValue("tick", tickCount);
+		rec.setValue("nCars", cars.size());;
+		rec.setValue("nCells", getTotalCells());
+		return rec;
+	}
 	
 	public ArrayList<CarLine> getCarLines(){
 		ArrayList<CarLine> carLines = new ArrayList<CarLine>();
@@ -404,4 +459,19 @@ public class NagelMap {
 		
 		return carLines;
 	}
+	
+	public int getTotalCells(){
+		int cells = 0;
+		for(Road road: roads){
+			cells += road.getLength() * 2; // 2 lanes
+		}
+		
+		for(Intersection inter: intersections){
+			for(Road road: inter.getInsideRoads()){
+				cells += road.getLength(); //We only use the left lane here of these.
+			}
+		}
+		return cells;
+	}
+	
 }

@@ -94,5 +94,9 @@ public class Controller {
 		}
 		return nagelMap;
 	}
+	
+	public void setNagelMap(NagelMap map){
+		nagelMap = map;
+	}
 
 }
