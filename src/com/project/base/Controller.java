@@ -9,8 +9,10 @@ import javax.swing.JComponent;
 import javax.swing.JFrame;
 
 import com.project.visuals.frame.SimulationFrame;
+import com.project.board.BaseSimulationPanel;
 import com.project.cellular.Map;
 import com.project.map.NagelMap;
+import com.project.visuals.frame.Activatable;
 import com.project.visuals.frame.Frame;
 import com.project.visuals.frame.NagelSimulationFrame;
 import com.project.visuals.menu.MenuPage;
@@ -23,7 +25,7 @@ import com.project.visuals.menu.MenuPage;
 
 public class Controller {
 
-	private ArrayList<JComponent> menuPages;
+	private ArrayList<Activatable> menuPages;
 
 	private JFrame frame;
 	
@@ -31,6 +33,7 @@ public class Controller {
 	private NagelMap nagelMap;
 	
 	private boolean showLights = false;
+	private int menuIndex = 0;
 	
 	public Controller() {
 
@@ -39,7 +42,7 @@ public class Controller {
 	public void init() {
 		this.frame = new Frame();
 		//screens in program
-		this.menuPages = new ArrayList<JComponent>();
+		this.menuPages = new ArrayList<Activatable>();
 		//construct menu pages
 		this.initMenuPages();
 		//0 - index 0 with the array 
@@ -63,7 +66,10 @@ public class Controller {
 	
 	
 	public void showMenuPage(int index) {
-		this.showPanel(this.menuPages.get(index));
+		menuPages.get(menuIndex).deactivate();
+		menuPages.get(index).activate();
+		menuIndex = index;
+		this.showPanel((JComponent)this.menuPages.get(index));
 	}
 
 	

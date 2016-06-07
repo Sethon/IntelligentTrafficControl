@@ -28,7 +28,7 @@ import com.project.model.Intersection;
 import com.project.model.Lane;;
 
 
-public class NagelTrafficPanel extends JPanel{
+public class NagelTrafficPanel extends BaseSimulationPanel{
 	
 	private static final long serialVersionUID = -8086343848521884074L;
 	private Controller controller;
@@ -51,38 +51,14 @@ public class NagelTrafficPanel extends JPanel{
 	private ArrayList<CarLine> lastCarLines;
 	private ArrayList<CarLine> currentCarLines;
 	
+	public int fps = 30;
+	
 	//constructor: creates new timer task
 	// run method: calles the timer, does: the update
 	public NagelTrafficPanel(Controller controller){
 		this.controller = controller;
 		lastCarLines = controller.getNagelMap().getCarLines();
 		currentCarLines = lastCarLines;
-		int fps = 30;
-		// This TimerTask is run 'fps' times per second
-		mapRunner = new TimerTask() {
-			private int frame = 0;
-			private final int tickFreq = 10;
-			public void run(){
-				// This is true every "tickFreq" frames
-				if(frame == 0){
-					controller.getNagelMap().tick();
-					//update our CarLine arrays
-					lastCarLines = currentCarLines;
-					currentCarLines = controller.getNagelMap().getCarLines();
-				}
-				// every frame, we update tickProgress to reflect how many frames out of the total tickFrew we've had.
-				// We animate cars based on this. For example, if this number is 0.75, then cars will be 75% of the way
-				// between their previous position and their current position.
-				tickProgress = frame/(double)tickFreq;
-				repaint();		
-				frame += 1;
-				// this ensures that as soonas frame == tickFreq, it is reset to 0
-				frame %= tickFreq;
-			}
-		};
-		Timer t = new Timer();
-		t.scheduleAtFixedRate(mapRunner, 0, 1000/fps);
-		
 		
 		MouseAdapter ml = new MouseAdapter() {
 			public void mousePressed(MouseEvent e){
@@ -111,6 +87,37 @@ public class NagelTrafficPanel extends JPanel{
 		this.addMouseListener(ml);
 		this.addMouseMotionListener(ml);
 		this.addMouseWheelListener(ml);
+	}
+	
+	public void activate(){
+		// This TimerTask is run 'fps' times per second
+		mapRunner = new TimerTask() {
+			private int frame = 0;
+			private final int tickFreq = 10;
+			public void run(){
+				// This is true every "tickFreq" frames
+				if(frame == 0){
+					controller.getNagelMap().tick();
+					//update our CarLine arrays
+					lastCarLines = currentCarLines;
+					currentCarLines = controller.getNagelMap().getCarLines();
+				}
+				// every frame, we update tickProgress to reflect how many frames out of the total tickFrew we've had.
+				// We animate cars based on this. For example, if this number is 0.75, then cars will be 75% of the way
+				// between their previous position and their current position.
+				tickProgress = frame/(double)tickFreq;
+				repaint();		
+				frame += 1;
+				// this ensures that as soonas frame == tickFreq, it is reset to 0
+				frame %= tickFreq;
+			}
+		};
+		Timer t = new Timer();
+		t.scheduleAtFixedRate(mapRunner, 0, 1000/fps);
+	}
+	
+	public void deactivate(){
+		mapRunner.cancel();
 	}
 	
 	public void paintComponent(Graphics g) {

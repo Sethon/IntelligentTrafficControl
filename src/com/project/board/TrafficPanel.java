@@ -21,7 +21,7 @@ import com.project.cellular.GridCell;
 import com.project.cellular.Map;
 
 
-public class TrafficPanel extends JPanel{
+public class TrafficPanel extends BaseSimulationPanel{
 	
 	private static final long serialVersionUID = -8086343848521884074L;
 	 static boolean temp;
@@ -45,6 +45,9 @@ public class TrafficPanel extends JPanel{
 	// run method: calles the timer, does: the update
 	public TrafficPanel(Controller controller){
 		this.controller = controller;
+	}
+	
+	public void activate(){
 		mapRunner = new TimerTask() {
 			public void run(){
 				controller.getCurrentMap().tick();
@@ -53,6 +56,10 @@ public class TrafficPanel extends JPanel{
 		};
 		Timer t = new Timer();
 		t.scheduleAtFixedRate(mapRunner, 0, 100);
+	}
+	
+	public void deactivate(){
+		mapRunner.cancel();
 	}
 	
 	public void paintComponent(Graphics g) {

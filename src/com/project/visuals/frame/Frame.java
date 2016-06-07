@@ -8,7 +8,7 @@ import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 import javax.swing.JFrame;
 
-public class Frame extends JFrame implements ComponentListener {
+public class Frame extends JFrame implements ComponentListener, Activatable {
 
 	private static final long serialVersionUID = 7105409066216982655L;
 	private Dimension normalSize;
@@ -63,5 +63,17 @@ public class Frame extends JFrame implements ComponentListener {
 	
 	public void componentShown(ComponentEvent e) {
 
+	}
+
+
+
+	@Override
+	public void activate() {
+		//Nothing needs to be done here
+	}
+	
+	@Override
+	public void deactivate() {
+		//Nothing needs to be done here.
 	}
 }

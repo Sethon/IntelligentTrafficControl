@@ -17,11 +17,12 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import com.project.base.Controller;
+import com.project.visuals.frame.Activatable;
 /**
  * GUI
  *
  */
-public class MenuPage extends JPanel {
+public class MenuPage extends JPanel implements Activatable {
 
 	private static final long serialVersionUID = -5614885626543441412L;
 	public static Font buttonFont = new Font("Segoe UI", 0, 32);
@@ -105,5 +106,19 @@ public class MenuPage extends JPanel {
 		RadialGradientPaint gp = new RadialGradientPaint(center, radius, dist, colors);
 		g2.setPaint(gp);
 		g2.fillRect(0, 0, this.getWidth(), this.getHeight());
+	}
+
+
+
+	@Override
+	public void activate() {
+		//Nothing to do here.
+	}
+
+
+
+	@Override
+	public void deactivate() {
+		//Nothing to do here.
 	}
 }
