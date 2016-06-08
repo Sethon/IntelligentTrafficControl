@@ -234,43 +234,6 @@ public class TrafficMenu extends JPanel implements ActionListener {
 				repaint();
 			}
 		});
-		
-		/*this.table.addActionListener(new ActionListener() {
-			private JButton p2;
-
-			public void actionPerformed(ActionEvent e) {
-				String item = (String)table.getSelectedItem();
-				if(text2.getText().length() !=0){
-				if(item == FIRST){
-					String a = text.getText();
-					System.out.println("1"+a);
-					
-				}
-				if(item == SECOND){
-					String a = text.getText();
-					System.out.println("2"+a);
-				}
-				if(item == THIRD){
-					String a = text.getText();
-					System.out.println("3"+a);
-				}
-				if(item == FOURTH){
-					String a = text.getText();
-					System.out.println("4"+text.getText());
-				}
-				if(item == FIFTH){
-					String a = text.getText();
-					System.out.println("5"+a);
-				}
-				if(item == SIXTH){
-					String a = text.getText();
-					System.out.println("6"+a);
-				}
-				
-			}
-			}
-		});*/
-	
 	
 		this.minus.addActionListener(new ActionListener() {
             @Override
@@ -371,7 +334,7 @@ public class TrafficMenu extends JPanel implements ActionListener {
 		
 		this.ExperimentalMap.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//System.out.println("jgr");
+			
 			}
 		});
 		
@@ -445,10 +408,8 @@ public class TrafficMenu extends JPanel implements ActionListener {
 		box.add(Box.createVerticalStrut(10));
 		
 		
-		
-		
 		this.add(box);	
-		//this.add(box3);
+		
 	};
 	
 	
