@@ -59,7 +59,7 @@ public class Lane {
 		if(from + speed >= cars.length){
 			return false;
 		}
-		//check for cars in front
+		//check for car in trajectory
 		for(int j=0; j<=speed; j++){
 			if(hasCarAt(from+j)){
 				return false;
