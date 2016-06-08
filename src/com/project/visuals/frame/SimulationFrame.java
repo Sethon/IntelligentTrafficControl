@@ -21,7 +21,7 @@ import com.project.cellular.RandomCarAdder;
  * -right: panel 
  *
  */
-public class SimulationFrame extends JSplitPane{
+public class SimulationFrame extends JSplitPane implements Activatable {
 
 	private static final long serialVersionUID = 4036879803456305768L;
 	
@@ -103,6 +103,14 @@ public class SimulationFrame extends JSplitPane{
 		RadialGradientPaint gp = new RadialGradientPaint(center, radius, dist, colors);
 		g2.setPaint(gp);
 		g2.fillRect(0, 0, this.getWidth(), this.getHeight());
+	}
+	@Override
+	public void activate() {
+		trafficPanel.activate();
+	}
+	@Override
+	public void deactivate() {
+		trafficPanel.deactivate();
 	}
 	
 }

@@ -17,7 +17,7 @@ import com.project.board.TrafficMenu;
  * -right: panel 
  *
  */
-public class NagelSimulationFrame extends JSplitPane{
+public class NagelSimulationFrame extends JSplitPane implements Activatable{
 
 	private static final long serialVersionUID = 4036879803456305768L;
 	
@@ -67,6 +67,18 @@ public class NagelSimulationFrame extends JSplitPane{
 		RadialGradientPaint gp = new RadialGradientPaint(center, radius, dist, colors);
 		g2.setPaint(gp);
 		g2.fillRect(0, 0, this.getWidth(), this.getHeight());
+	}
+
+	@Override
+	public void activate() {
+		// TODO Auto-generated method stub
+		trafficPanel.activate();
+	}
+
+	@Override
+	public void deactivate() {
+		// TODO Auto-generated method stub
+		trafficPanel.deactivate();
 	}
 	
 }
