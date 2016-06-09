@@ -21,6 +21,7 @@ public class CarSourceSink extends Intersection{
 	}
 	
 	protected Road makeInsideRoad(Lane from, Lane to){
+		//make sure inside roads have SinkLanes instead of normal lanes.
 		Road r = super.makeInsideRoad(from, to);
 		r.leftLane = new SinkLane(r);
 		r.rightLane = new SinkLane(r);
@@ -30,6 +31,7 @@ public class CarSourceSink extends Intersection{
 	
 	public void update(){
 		super.update();
+		//randomly spawn cars to outgoing roads
 		for(Road r: getOutgoingRoads()){
 			if(r != null){
 				if(rand.nextInt(carProb) == 0){
