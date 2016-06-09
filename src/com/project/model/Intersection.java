@@ -162,33 +162,19 @@ public class Intersection {
 		return null;
 	}
 	
-	public Road getInsideRoad(int inDirection, boolean inLane, int outDirection, boolean outLane){
-		//Get the internal "road" that connects an incoming and outgoing lane.
-		//inDirection and outDirection are the direction of the road to come in and go out respectively.
-		//inLane and outLane are true if the incoming/outgoing lane is the left lane, false if it's the right lane.
-		String key = String.format("%s%s%s%s", inLane, inDirection, outLane, outDirection);
+	public Road getInsideRoad(Lane from, Lane to){
+		String key = String.format("%s-%s", from, to);
 		Road road = internalRoads.get(key);
 		if(road == null){
-			Point2D.Double from = getConnectionPoint(inDirection, true, inLane);
-			Point2D.Double to = getConnectionPoint(outDirection, false, outLane);
-			Point2D.Double center = Utils.translate(position, Globals.LANE_WIDTH*2, Globals.LANE_WIDTH*2);
-			int fromDirection = (inDirection + 2) % 4; //the opposite direction
-			int toDirection = (outDirection + 2) % 4;
-			road = new IntersectionInsideRoad(from, to, fromDirection, toDirection, center);
+			road = makeInsideRoad(from, to);
 			internalRoads.put(key, road);
 		}
 		return road;
 	}
 	
-	public Road getInsideRoad(Lane from, Lane to){
-		String key = String.format("%s-%s", from, to);
-		Road road = internalRoads.get(key);
-		if(road == null){
-			Point2D.Double center = Utils.translate(position, Globals.LANE_WIDTH*2, Globals.LANE_WIDTH*2);
-			road = new IntersectionInsideRoad(getConnectionPoint(from), getConnectionPoint(to), 0, 0, position);
-			internalRoads.put(key, road);
-		}
-		return road;
+	protected Road makeInsideRoad(Lane from, Lane to){
+		Point2D.Double center = Utils.translate(position, Globals.LANE_WIDTH*2, Globals.LANE_WIDTH*2);
+		return new IntersectionInsideRoad(getConnectionPoint(from), getConnectionPoint(to), 0, 0, center);
 	}
 	
 	public ArrayList<CarLine> getCarLines(){

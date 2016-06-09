@@ -16,7 +16,8 @@ public class Base {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				NagelMap m = new NagelMap();
-				m.generateCircle(10, 10, 400, 400, 100);
+				//m.generateCircle(10, 10, 400, 400, 100);
+				m.generate();
 				
 				Controller controller = new Controller();
 				controller.init();

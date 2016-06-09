@@ -3,9 +3,11 @@ package com.project.map;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.function.Predicate;
 
 import com.project.model.Car;
 import com.project.model.CarLine;
+import com.project.model.CarSourceSink;
 import com.project.model.CurvedRoad;
 import com.project.model.EllipseRoad;
 import com.project.model.Globals;
@@ -56,6 +58,7 @@ public class NagelMap {
 		Intersection left = new Intersection(new Point2D.Double(offset, offset + c));
 		Intersection bottom = new Intersection(new Point2D.Double(offset + c, offset + size));
 		Intersection right = new Intersection(new Point2D.Double(offset + size, offset + c));
+		Intersection sourceSink = new CarSourceSink(new Point2D.Double(offset + size + c, offset + c));
 
 		Road road1 = new Road(top, center, Intersection.SOUTH, Intersection.NORTH);
 		Road road2 = new Road(center, top, Intersection.NORTH, Intersection.SOUTH);
@@ -65,7 +68,10 @@ public class NagelMap {
 		Road road6 = new Road(center, left, Intersection.WEST, Intersection.EAST);
 		Road road7 = new Road(center, right, Intersection.EAST, Intersection.WEST);
 		Road road8 = new Road(right, center, Intersection.WEST, Intersection.EAST);
-
+		
+		Road road9 = new Road(sourceSink, right, Intersection.WEST, Intersection.EAST);
+		Road road10 = new Road(right, sourceSink, Intersection.EAST, Intersection.WEST);
+		
 		//This offset is the offset for the control point of the bezier curves of the inner roads of the ring.
 		//If we don't apply this offset, the two roads that make up each part of the ring will overlap.
 		//We want to push the control point inwards by 2 lane widths. The amount we need to push inwards
@@ -89,6 +95,8 @@ public class NagelMap {
 		addRoad(road6);
 		addRoad(road7);
 		addRoad(road8);
+		addRoad(road9);
+		addRoad(road10);
 
 		addRoad(ring1);
 		addRoad(ring2);
@@ -104,8 +112,9 @@ public class NagelMap {
 		addIntersection(right);
 		addIntersection(bottom);
 		addIntersection(left);
+		addIntersection(sourceSink);
 		
-		addRandomCars(100);
+		//addRandomCars(100);
 	}
 	
 	public void generateCircle(double x, double y, double w, double h, int nCars){
@@ -161,6 +170,12 @@ public class NagelMap {
 		for(Intersection inter: intersections){
 			inter.update();
 		}
+		cars.removeIf(new Predicate<Car>(){
+			public boolean test(Car car) {
+				return car.trajectory.currentLane == null;
+			}
+			
+		});
 	}
 	
 	private void handleTransitions(){
