@@ -24,6 +24,7 @@ public class Intersection {
 	//This dictionary stores the internal roads, mapping from a string defined by which lanes they connect, to the road.
 	private Hashtable<String, Road> internalRoads = new Hashtable<String, Road>(64);
 	
+	private boolean hasTrafficLights = true;
 	// There always two opposite roads that have green. Which ones, is determined by this number.
 	// "0" for one pair, "1" for the other.
 	private int greenDirection = 0;
@@ -192,6 +193,9 @@ public class Intersection {
 	}
 	
 	private void updateGreenLight(){
+		if(!hasTrafficLights){
+			return;
+		}
 		tickCounter += 1;
 		if(tickCounter==switchInterval){
 			tickCounter = 0;
@@ -239,6 +243,9 @@ public class Intersection {
 	}
 	
 	public boolean hasGreenLight(Lane lane){
+		if(!hasTrafficLights){
+			return true;
+		}
 		Road r = null;
 		if(inRoads[greenDirection] == lane.road){
 			r = inRoads[greenDirection];
@@ -255,5 +262,13 @@ public class Intersection {
 		}
 			
 		return false;
+	}
+	
+	public void setHasTrafficLights(boolean hasLights){
+		hasTrafficLights = hasLights;
+	}
+	
+	public boolean getHasTrafficLights(){
+		return hasTrafficLights;
 	}
 }

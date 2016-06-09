@@ -208,6 +208,9 @@ public class NagelTrafficPanel extends BaseSimulationPanel{
 		
 		//draw the traffic lights
 		for(Intersection inter:map.intersections){
+			if(!inter.getHasTrafficLights()){
+				continue;
+			}
 			for(Road r: inter.getIncomingRoads()){
 				if(r == null) continue;
 				drawLight(inter, r.leftLane, g2);

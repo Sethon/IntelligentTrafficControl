@@ -9,24 +9,27 @@ public class CarSourceSink extends Intersection{
 	
 	private Random rand = new Random();
 	//The probability of a car spawning at each tick, on any outgoing road is 1/carProb
-	private int carProb = 2;
-	
-	public void setCarSpawnProbability(double prob){
-		carProb = (int)(1/prob);
-	}
+	private int carProb = 100000;
 	
 	public CarSourceSink(Double position) {
 		super(position);
+		setHasTrafficLights(false);
+	}
+	
+	public void setCarSpawnProbability(double prob){
+		carProb = (int)(1/prob);
 	}
 	
 	protected Road makeInsideRoad(Lane from, Lane to){
 		Road r = super.makeInsideRoad(from, to);
 		r.leftLane = new SinkLane(r);
 		r.rightLane = new SinkLane(r);
+		System.out.println("Created a sink lane!");
 		return r;
 	}
 	
 	public void update(){
+		super.update();
 		for(Road r: getOutgoingRoads()){
 			if(r != null){
 				if(rand.nextInt(carProb) == 0){
@@ -38,6 +41,6 @@ public class CarSourceSink extends Intersection{
 	
 	public void spawnCar(Road r){
 		Lane l = rand.nextBoolean() ? r.leftLane : r.rightLane;
-		l.addCar(new Car(new RandomTrajectory()), 0);
+		l.acceptCar(new Car(new RandomTrajectory()), 0);
 	}
 }

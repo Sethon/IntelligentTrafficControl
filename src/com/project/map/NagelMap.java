@@ -114,7 +114,7 @@ public class NagelMap {
 		addIntersection(left);
 		addIntersection(sourceSink);
 		
-		//addRandomCars(100);
+		addRandomCars(40);
 	}
 	
 	public void generateCircle(double x, double y, double w, double h, int nCars){
@@ -172,6 +172,9 @@ public class NagelMap {
 		}
 		cars.removeIf(new Predicate<Car>(){
 			public boolean test(Car car) {
+				if(car.trajectory.currentLane == null){
+					System.out.println("This car should be deleted!");
+				}
 				return car.trajectory.currentLane == null;
 			}
 			

@@ -7,12 +7,7 @@ public class SinkLane extends Lane {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public void moveCars(){
-		for(int i=0; i<cars.length; i++){
-			if(cars[i] != null){
-				cars[i].trajectory.currentLane = null;
-				cars[i] = null;
-			}
-		}
+	public void acceptCar(Car car, int position){
+		// do nothing, just throw away the car.
 	}
 }
