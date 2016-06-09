@@ -35,6 +35,9 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import com.project.base.Controller;
+import com.project.cellular.Grid;
+import com.project.cellular.Map;
+import com.project.cellular.RandomCarAdder;
 import com.project.map.NagelMap;
 import com.project.model.Car;
 import com.project.model.Lane;
@@ -225,6 +228,7 @@ public class TrafficMenu extends JPanel implements ActionListener {
 		this.combo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String item = (String)combo.getSelectedItem();
+				combo.updateUI();
 				if(item == ECA_MODEL){
 					controller.showMenuPage(2);
 				}
@@ -328,20 +332,35 @@ public class TrafficMenu extends JPanel implements ActionListener {
 		
 		this.ComplexMap.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(combo.getSelectedItem() == NAGEL_MODEL){
+				System.out.println("Selected model: "+combo.getSelectedItem());
+				if(combo.getSelectedItem() == NAGEL_MODEL || combo.getSelectedItem() == LANE_CHANGING_MODEL){
 					NagelMap map = new NagelMap();
 					map.generate();
 					controller.setNagelMap(map);
+				}
+				if(combo.getSelectedItem() == ECA_MODEL){
+					System.out.println("selected complex ECA model");
+					Grid grid = Grid.generate();
+					Map map = new Map(grid);
+					map.initCars(new RandomCarAdder(4));
+					controller.setCurrentMap(map);
 				}
 			}
 		});
 		
 		this.ExperimentalMap.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(combo.getSelectedItem() == NAGEL_MODEL){
+				if(combo.getSelectedItem() == NAGEL_MODEL || combo.getSelectedItem() == LANE_CHANGING_MODEL){
 					NagelMap map = new NagelMap();
 					map.generateCircle(10, 10, 600, 600, 100);
 					controller.setNagelMap(map);
+				}
+				if(combo.getSelectedItem() == ECA_MODEL){
+					System.out.println("selected experimental ECA model");
+					Grid grid = Grid.generateCircle(25, 25);
+					Map map = new Map(grid);
+					map.initCars(new RandomCarAdder(4));
+					controller.setCurrentMap(new Map(grid));
 				}
 			}
 		});
