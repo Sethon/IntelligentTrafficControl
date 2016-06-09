@@ -114,7 +114,7 @@ public class NagelMap {
 		addIntersection(left);
 		addIntersection(sourceSink);
 		
-		addRandomCars(40);
+		//addRandomCars(40);
 	}
 	
 	public void generateCircle(double x, double y, double w, double h, int nCars){

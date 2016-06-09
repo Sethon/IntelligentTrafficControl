@@ -9,7 +9,7 @@ public class CarSourceSink extends Intersection{
 	
 	private Random rand = new Random();
 	//The probability of a car spawning at each tick, on any outgoing road is 1/carProb
-	private int carProb = 100000;
+	private int carProb = 0;
 	
 	public CarSourceSink(Double position) {
 		super(position);
@@ -41,6 +41,8 @@ public class CarSourceSink extends Intersection{
 	
 	public void spawnCar(Road r){
 		Lane l = rand.nextBoolean() ? r.leftLane : r.rightLane;
-		l.acceptCar(new Car(new RandomTrajectory()), 0);
+		if(!l.hasCarAt(0)){
+			l.acceptCar(new Car(new RandomTrajectory()), 0);
+		}
 	}
 }
