@@ -328,13 +328,21 @@ public class TrafficMenu extends JPanel implements ActionListener {
 		
 		this.ComplexMap.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				if(combo.getSelectedItem() == NAGEL_MODEL){
+					NagelMap map = new NagelMap();
+					map.generate();
+					controller.setNagelMap(map);
+				}
 			}
 		});
 		
 		this.ExperimentalMap.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-			
+				if(combo.getSelectedItem() == NAGEL_MODEL){
+					NagelMap map = new NagelMap();
+					map.generateCircle(10, 10, 600, 600, 100);
+					controller.setNagelMap(map);
+				}
 			}
 		});
 		

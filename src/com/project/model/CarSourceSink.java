@@ -9,7 +9,7 @@ public class CarSourceSink extends Intersection{
 	
 	private Random rand = new Random();
 	//The probability of a car spawning at each tick, on any outgoing road is 1/carProb
-	private int carProb = 0;
+	private int carProb = 5;
 	
 	public CarSourceSink(Double position) {
 		super(position);
