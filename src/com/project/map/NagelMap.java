@@ -59,7 +59,7 @@ public class NagelMap {
 		Intersection left = new Intersection(new Point2D.Double(offset, offset + c));
 		Intersection bottom = new Intersection(new Point2D.Double(offset + c, offset + size));
 		Intersection right = new Intersection(new Point2D.Double(offset + size, offset + c));
-		Intersection sourceSink = new CarSourceSink(new Point2D.Double(offset + size + c, offset + c));
+		Intersection sourceSink = new CarSourceSink(new Point2D.Double(offset + size + c, offset + c), this);
 		
 		Road road1 = new Road(top, center, Intersection.SOUTH, Intersection.NORTH);
 		Road road2 = new Road(center, top, Intersection.NORTH, Intersection.SOUTH);
@@ -135,11 +135,11 @@ public class NagelMap {
 		}
 	}
 	
-	private Car makeCar(){
+	public Car makeCar(){
 		return new Car(new RandomTrajectory());
 	}
 	
-	private void addCar(Car car, Lane lane, int pos){
+	public void addCar(Car car, Lane lane, int pos){
 		if(cars.contains(car)){
 			return;
 		}

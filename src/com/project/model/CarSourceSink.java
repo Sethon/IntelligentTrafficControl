@@ -3,6 +3,8 @@ package com.project.model;
 import java.awt.geom.Point2D.Double;
 import java.util.Random;
 
+import com.project.map.NagelMap;
+
 public class CarSourceSink extends Intersection{
 	// An intersection that puts new cars on the road with a certain probability,
 	// and removes cars that drive on to it.
@@ -11,9 +13,12 @@ public class CarSourceSink extends Intersection{
 	//The probability of a car spawning at each tick, on any outgoing road is 1/carProb
 	private int carProb = 5;
 	
-	public CarSourceSink(Double position) {
+	private NagelMap map;
+	
+	public CarSourceSink(Double position, NagelMap nagelMap) {
 		super(position);
 		setHasTrafficLights(false);
+		map = nagelMap;
 	}
 	
 	public void setCarSpawnProbability(double prob){
@@ -44,7 +49,7 @@ public class CarSourceSink extends Intersection{
 	public void spawnCar(Road r){
 		Lane l = rand.nextBoolean() ? r.leftLane : r.rightLane;
 		if(!l.hasCarAt(0)){
-			l.acceptCar(new Car(new RandomTrajectory()), 0);
+			map.addCar(map.makeCar(), l, 0);
 		}
 	}
 }
