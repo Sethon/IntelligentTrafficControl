@@ -15,6 +15,7 @@ import com.project.model.Intersection;
 import com.project.model.RandomTrajectory;
 import com.project.model.Lane;
 import com.project.model.Road;
+import com.project.model.RoadConnection;
 import com.project.stats.Record;
 import com.project.stats.RecordSet;
 
@@ -59,7 +60,7 @@ public class NagelMap {
 		Intersection bottom = new Intersection(new Point2D.Double(offset + c, offset + size));
 		Intersection right = new Intersection(new Point2D.Double(offset + size, offset + c));
 		Intersection sourceSink = new CarSourceSink(new Point2D.Double(offset + size + c, offset + c));
-
+		
 		Road road1 = new Road(top, center, Intersection.SOUTH, Intersection.NORTH);
 		Road road2 = new Road(center, top, Intersection.NORTH, Intersection.SOUTH);
 		Road road3 = new Road(center, bottom, Intersection.SOUTH, Intersection.NORTH);
@@ -68,9 +69,6 @@ public class NagelMap {
 		Road road6 = new Road(center, left, Intersection.WEST, Intersection.EAST);
 		Road road7 = new Road(center, right, Intersection.EAST, Intersection.WEST);
 		Road road8 = new Road(right, center, Intersection.WEST, Intersection.EAST);
-		
-		Road road9 = new Road(sourceSink, right, Intersection.WEST, Intersection.EAST);
-		Road road10 = new Road(right, sourceSink, Intersection.EAST, Intersection.WEST);
 		
 		//This offset is the offset for the control point of the bezier curves of the inner roads of the ring.
 		//If we don't apply this offset, the two roads that make up each part of the ring will overlap.
@@ -87,6 +85,11 @@ public class NagelMap {
 		Road ring7 = new CurvedRoad(left, top, Intersection.NORTH, Intersection.WEST, new Point2D.Double(offset + ctrlOffset, offset + ctrlOffset));
 		Road ring8 = new CurvedRoad(top, left, Intersection.WEST, Intersection.NORTH, new Point2D.Double(offset, offset));
 
+		Intersection mergePoint = new RoadConnection(ring2, ring2.getLength()/6); //quite an arbitrary connection point :)
+		
+		Road road9 =  new Road(sourceSink, mergePoint, Intersection.WEST, Intersection.EAST);
+		Road road10 = new Road(right, sourceSink, Intersection.EAST, Intersection.WEST);
+		
 		addRoad(road1);
 		addRoad(road2);
 		addRoad(road3);
@@ -114,7 +117,7 @@ public class NagelMap {
 		addIntersection(left);
 		addIntersection(sourceSink);
 		
-		//addRandomCars(40);
+		//addRandomCars(100);
 	}
 	
 	public void generateCircle(double x, double y, double w, double h, int nCars){
@@ -124,7 +127,7 @@ public class NagelMap {
 	
 	public void addRandomCars(int n){
 		Random rand = new Random();
-		for(int i=0;i<100;i++){
+		for(int i=0;i<n;i++){
 			Road r = roads.get(rand.nextInt(roads.size()));
 			int pos = rand.nextInt(r.getLength());
 			Lane lane = (rand.nextBoolean()) ? r.leftLane : r.rightLane;

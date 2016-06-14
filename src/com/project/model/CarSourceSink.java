@@ -25,11 +25,11 @@ public class CarSourceSink extends Intersection{
 		Road r = super.makeInsideRoad(from, to);
 		r.leftLane = new SinkLane(r);
 		r.rightLane = new SinkLane(r);
-		System.out.println("Created a sink lane!");
 		return r;
 	}
 	
 	public void update(){
+		System.out.println("Update!");
 		super.update();
 		//randomly spawn cars to outgoing roads
 		for(Road r: getOutgoingRoads()){

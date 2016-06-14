@@ -29,7 +29,8 @@ public class Road {
 		this.shape = new Line(from.getConnectionPoint(this), to.getConnectionPoint(this));
 		initLanes();
 	}
-	
+
+
 	protected void initLanes(){
 		this.leftLane = new Lane(this);
 		this.rightLane = new Lane(this);
@@ -40,8 +41,8 @@ public class Road {
 	}
 	
 	private void updateConnectingIntersections(int fromDirection, int toDirection){
-		if(from != null) from.setOutgoingRoad(this, fromDirection);
-		if(to != null) to.setIncomingRoad(this, toDirection);
+		if(from != null && from.isRealIntersection()) from.setOutgoingRoad(this, fromDirection);
+		if(to != null && to.isRealIntersection()) to.setIncomingRoad(this, toDirection);
 	}
 	
 	public int getLength() {

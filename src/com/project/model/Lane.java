@@ -29,7 +29,8 @@ public class Lane {
 		laneChangers = new boolean[cars.length];
 		for(int i=0; i<cars.length; i++){
 			if(cars[i] != null){
-				int gap = getGrap(i, cars[i].trajectory.getNextLane());
+				Lane nextLane = cars[i].trajectory.getNextLane();
+				int gap = getGrap(i, nextLane, cars[i].trajectory.getMergePosition(), cars[i].getPreviousVelocity());
 				movements[i] = cars[i].getVelocity(gap);
 				laneChangers[i] = cars[i].getWantsLaneChange();
 			}
@@ -57,11 +58,14 @@ public class Lane {
 	
 	public boolean canMoveIn(int from, int speed){
 		if(from + speed >= cars.length){
+			System.out.println("cannot merge, because the road is too short.");
 			return false;
 		}
 		//check for car in trajectory
 		for(int j=0; j<=speed; j++){
 			if(hasCarAt(from+j)){
+				System.out.println("Cannot merge, because there's a car in front at position "+j
+						);
 				return false;
 			}
 		}
@@ -70,6 +74,7 @@ public class Lane {
 		int carIndex = getCarBehind(from);
 		int distance = from - carIndex;
 		if(carIndex != -1 && movements[carIndex] >= distance){
+			System.out.println("Cannot merge, because there's a car behind.");
 			return false;
 		}
 		
@@ -97,13 +102,15 @@ public class Lane {
 		return cars.length - from - 1;
 	}
 	
-	public int getGrap(int from, Lane nextLane){
+	public int getGrap(int from, Lane nextLane, int mergePosition, int speed){
 		int gap = getGap(from);
 		if(gap == cars.length - from - 1){
 			if(nextLane == null){
 				gap += 100; //arbitrary number of free spaces.
 			}else{
-				gap += nextLane.getGap(-1);
+				if(nextLane.canMoveIn(mergePosition, speed)){
+					gap += nextLane.getGap(mergePosition-1);
+				}
 			}
 		}
 		return gap;
@@ -126,7 +133,7 @@ public class Lane {
 					//this car leaves the road
 					cars[i].trajectory.updateLane();
 					Lane next = cars[i].trajectory.currentLane;
-					next.acceptCar(cars[i], newPosition - cars.length);
+					next.acceptCar(cars[i], newPosition - cars.length + cars[i].trajectory.getMergePosition());
 				}else{
 					newCars[newPosition] = cars[i];
 				}

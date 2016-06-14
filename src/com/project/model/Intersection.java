@@ -271,4 +271,16 @@ public class Intersection {
 	public boolean getHasTrafficLights(){
 		return hasTrafficLights;
 	}
+	
+	public boolean isRealIntersection(){
+		return true;
+	}
+	
+	public Road getConnectedRoad(){
+		return null;
+	}
+	
+	public int getConnectPosition(){
+		return 0;
+	}
 }

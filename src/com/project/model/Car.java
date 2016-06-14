@@ -78,6 +78,10 @@ public class Car{
 	}
 	
 	public boolean canChangeLane(){
-		return laneChangeTimer == 0;
+		return laneChangeTimer == 0 && velocity > 0;
+	}
+
+	public int getPreviousVelocity() {
+		return velocity;
 	}
 }
