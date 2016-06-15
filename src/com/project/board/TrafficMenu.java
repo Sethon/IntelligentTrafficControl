@@ -39,6 +39,7 @@ import com.project.cellular.Grid;
 import com.project.cellular.Map;
 import com.project.cellular.RandomCarAdder;
 import com.project.map.NagelMap;
+import com.project.map.TickListener;
 import com.project.model.Car;
 import com.project.model.Lane;
 
@@ -94,6 +95,13 @@ public class TrafficMenu extends JPanel implements ActionListener {
 	public TrafficMenu(Controller controller){
 		this.controller = controller;
 		this.init();
+		this.controller.addTickListener(new TickListener() {
+			public void onTick(NagelMap map) {
+				label4.setText("" + map.getCarLines().size());
+				repaint();
+				System.out.println("onTick called");
+			}
+		});
 		
 	}
 	

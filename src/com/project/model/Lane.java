@@ -58,14 +58,11 @@ public class Lane {
 	
 	public boolean canMoveIn(int from, int speed){
 		if(from + speed >= cars.length){
-			System.out.println("cannot merge, because the road is too short.");
 			return false;
 		}
 		//check for car in trajectory
 		for(int j=0; j<=speed; j++){
 			if(hasCarAt(from+j)){
-				System.out.println("Cannot merge, because there's a car in front at position "+j
-						);
 				return false;
 			}
 		}
@@ -74,7 +71,6 @@ public class Lane {
 		int carIndex = getCarBehind(from);
 		int distance = from - carIndex;
 		if(carIndex != -1 && movements[carIndex] >= distance){
-			System.out.println("Cannot merge, because there's a car behind.");
 			return false;
 		}
 		

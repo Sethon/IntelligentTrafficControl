@@ -12,6 +12,7 @@ import com.project.visuals.frame.SimulationFrame;
 import com.project.board.BaseSimulationPanel;
 import com.project.cellular.Map;
 import com.project.map.NagelMap;
+import com.project.map.TickListener;
 import com.project.visuals.frame.Activatable;
 import com.project.visuals.frame.Frame;
 import com.project.visuals.frame.NagelSimulationFrame;
@@ -34,6 +35,7 @@ public class Controller {
 	
 	private boolean showLights = false;
 	private int menuIndex = 0;
+	private ArrayList<TickListener> tickListeners = new ArrayList<TickListener>();
 	
 	public Controller() {
 
@@ -104,6 +106,14 @@ public class Controller {
 	
 	public void setNagelMap(NagelMap map){
 		nagelMap = map;
+		for(TickListener tl: tickListeners){
+			nagelMap.addTickListener(tl);
+		}
+	}
+	
+	public void addTickListener(TickListener tl){
+		tickListeners.add(tl);
+		nagelMap.addTickListener(tl);
 	}
 
 }

@@ -25,6 +25,7 @@ public class NagelMap {
 	public final ArrayList<Car> cars = new ArrayList<Car>();
 	private int tickCount = 0;
 	private RecordSet stats = new RecordSet();
+	private ArrayList<TickListener> tickListeners = new ArrayList<TickListener>();
 	
 	public void addRoad(Road road){
 		if(roads.contains(road)){
@@ -154,6 +155,7 @@ public class NagelMap {
 		update();
 		handleTransitions();
 		collectStats();
+		notifyTickListeners();
 		tickCount += 1;
 	}
 	
@@ -236,4 +238,14 @@ public class NagelMap {
 		return cells;
 	}
 	
+	public void addTickListener(TickListener tickListener){
+		tickListeners.add(tickListener);
+	}
+	
+	private void notifyTickListeners(){
+		System.out.println("Notifying "+tickListeners.size()+" tick listeners");
+		for(TickListener listener: tickListeners){
+			listener.onTick(this);
+		}
+	}
 }
