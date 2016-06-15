@@ -13,6 +13,7 @@ import com.project.board.BaseSimulationPanel;
 import com.project.cellular.Map;
 import com.project.map.NagelMap;
 import com.project.map.TickListener;
+import com.project.model.Globals;
 import com.project.visuals.frame.Activatable;
 import com.project.visuals.frame.Frame;
 import com.project.visuals.frame.NagelSimulationFrame;
@@ -115,5 +116,12 @@ public class Controller {
 		tickListeners.add(tl);
 		nagelMap.addTickListener(tl);
 	}
-
+	
+	public void setMaxSpeed(int max){
+		Globals.MAX_SPEED = max;
+	}
+	
+	public void setStartingSpeed(int starting){
+		Globals.STARTING_SPEED = starting;
+	}
 }

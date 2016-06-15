@@ -6,8 +6,6 @@ import com.project.stats.Record;
 
 public class Car{
 	
-	int MinSpeed = 0;
-	int MaxSpeed = 20;
 	
 	public final Trajectory trajectory;
 	private int velocity;
@@ -18,12 +16,12 @@ public class Car{
 	
 	public Car(Trajectory traj){
 		trajectory = traj;
-		velocity = 0;
+		velocity = Globals.STARTING_SPEED;
 		ID = new Random().nextInt(65536);
 	}
 	
 	public void accellerate(){
-		velocity = Math.min(velocity + 1, MaxSpeed);	
+		velocity = Math.min(velocity + 1, Globals.MAX_SPEED);	
 	}
 	
 	public void slowDown(int gap){ // if the gap between 2 cars is smaller than the ActualV of the car behind 

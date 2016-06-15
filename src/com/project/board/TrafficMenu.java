@@ -332,6 +332,15 @@ public class TrafficMenu extends JPanel implements ActionListener {
             	
 			}
         });
+		
+		this.Speed.addChangeListener(new ChangeListener() {
+
+			public void stateChanged(ChangeEvent e) {
+				controller.setMaxSpeed(Speed.getValue());
+			}
+			
+		});
+		
 		this.Density.addChangeListener(new ChangeListener() {
             @Override
             public void stateChanged(ChangeEvent e) {
