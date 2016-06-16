@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Hashtable;
 
 import javax.swing.JFileChooser;
 
@@ -55,5 +56,26 @@ public class RecordSet {
 				e.printStackTrace();
 			}
 		}
+	}
+	
+	public RecordSet makeSummary(){
+		RecordSet s = new RecordSet();
+		Hashtable<String, Double> carSpeeds = new Hashtable<String, Double>();
+		int ticks = 0;
+		for(Record rec: this.records){
+			String carID = "" + rec.getValue("carID");
+			double prevSpeed = carSpeeds.getOrDefault(carID, new Double(0));
+			carSpeeds.put(carID, prevSpeed + rec.getValue("velocity"));
+			ticks = Math.max(ticks, (int)rec.getValue("tick"));
+		}
+		
+		for(String car: carSpeeds.keySet()){
+			Record rec = new Record();
+			rec.setValue("CarID", Double.parseDouble(car));
+			rec.setValue("avgSpeed", carSpeeds.get(car)/ticks);
+			rec.setValue("ticks", ticks);
+			s.addRecord(rec);
+		}
+		return s;
 	}
 }

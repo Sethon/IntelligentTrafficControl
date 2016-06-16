@@ -50,6 +50,10 @@ public class Car{
 		return velocity;
 	}
 	
+	public int getCalculatedVelocity(){
+		return velocity;
+	}
+	
 	public boolean getWantsLaneChange(){
 		return wantsLaneChange;
 	}
