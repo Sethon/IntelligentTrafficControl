@@ -158,4 +158,13 @@ public class Lane {
 		cars[position] = car;
 		car.trajectory.currentLane = this;
 	}
+	
+	public int getWaitingCars(){
+		for(int i=0;i<cars.length; i++){
+			if(cars[cars.length - (i+1)] == null){
+				return i;
+			}
+		}
+		return cars.length;
+	}
 }

@@ -213,6 +213,17 @@ public class Intersection {
 		}
 	}
 	
+	public Lane[] getLanesForLights(boolean greenLane, int greenDirection){
+		Lane[] result = new Lane[2];
+		Road road1 = inRoads[greenDirection];
+		Road road2 = inRoads[greenDirection+2];
+		if(road1 != null)
+			result[0] = greenLane ? road1.leftLane : road1.rightLane;
+		if(road2 != null)
+			result[1] = greenLane ? road2.leftLane : road2.rightLane;
+		return result;
+	}
+	
 	private void updateBlockedLanes(){
 		for(int i=0;i<4;i++){
 			if(inRoads[i] == null) continue;

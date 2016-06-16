@@ -17,23 +17,25 @@ public class Base {
 			public void run() {
 				NagelMap m = new NagelMap();
 				//m.generateCircle(10, 10, 400, 400, 100);
+				m.setSmartIntersections(true);
+				
 				//Pas sin true here to add a CarSourceSink to the map
 				m.generate(false);
 				//Pass in a different number to change the number of initial cars on the map.
-				m.addRandomCars(200);
+				m.addRandomCars(10);
 				
-				//Controller controller = new Controller();
-				//controller.init();
-				//controller.setNagelMap(m);
+				Controller controller = new Controller();
+				controller.init();
+				controller.setNagelMap(m);
 				
 				//Use this part for running the simulation without the GUI, for generating stats.
 				// Comment out the lines above to stop the gui from running
-				
+				/*
 				for(int i=0;i<1000;i++){
 					m.tick();
 				}
 				m.getStats().saveCSVFile();
-				
+				*/
 			}
 		});
 	}

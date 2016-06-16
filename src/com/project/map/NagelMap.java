@@ -6,6 +6,7 @@ import java.util.Random;
 import java.util.function.Predicate;
 
 import com.project.model.Car;
+import com.project.model.CarCounterIntersection;
 import com.project.model.CarLine;
 import com.project.model.CarSourceSink;
 import com.project.model.CurvedRoad;
@@ -26,6 +27,7 @@ public class NagelMap {
 	private int tickCount = 0;
 	private RecordSet stats = new RecordSet();
 	private ArrayList<TickListener> tickListeners = new ArrayList<TickListener>();
+	private boolean smartIntersections = false;
 	
 	public void addRoad(Road road){
 		if(roads.contains(road)){
@@ -59,11 +61,11 @@ public class NagelMap {
 		double size = 600;
 		double c = size / 2;
 
-		Intersection center = new Intersection(new Point2D.Double(offset + c, offset + c));
-		Intersection top = new Intersection(new Point2D.Double(offset + c, offset));
-		Intersection left = new Intersection(new Point2D.Double(offset, offset + c));
-		Intersection bottom = new Intersection(new Point2D.Double(offset + c, offset + size));
-		Intersection right = new Intersection(new Point2D.Double(offset + size, offset + c));
+		Intersection center = makeIntersection(new Point2D.Double(offset + c, offset + c));
+		Intersection top = makeIntersection(new Point2D.Double(offset + c, offset));
+		Intersection left = makeIntersection(new Point2D.Double(offset, offset + c));
+		Intersection bottom = makeIntersection(new Point2D.Double(offset + c, offset + size));
+		Intersection right = makeIntersection(new Point2D.Double(offset + size, offset + c));
 		Intersection sourceSink = new CarSourceSink(new Point2D.Double(offset + size + c, offset + c), this);
 		
 		Road road1 = new Road(top, center, Intersection.SOUTH, Intersection.NORTH);
@@ -147,6 +149,14 @@ public class NagelMap {
 	
 	public Car makeCar(){
 		return new Car(new RandomTrajectory());
+	}
+	
+	public Intersection makeIntersection(Point2D.Double position){
+		if(this.smartIntersections){
+			return new CarCounterIntersection(position);
+		}else{
+			return new Intersection(position);
+		}
 	}
 	
 	public void addCar(Car car, Lane lane, int pos){
@@ -256,5 +266,11 @@ public class NagelMap {
 		for(TickListener listener: tickListeners){
 			listener.onTick(this);
 		}
+	}
+	
+	//Sets whether intersections should be smart (count the number of cars.) 
+	//Must be called BEFORE calling generate, as it only affects newly created intersections.
+	public void setSmartIntersections(boolean smart){
+		smartIntersections = smart;
 	}
 }
