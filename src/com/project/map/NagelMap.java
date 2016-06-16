@@ -48,8 +48,12 @@ public class NagelMap {
 	public RecordSet getStats(){
 		return stats;
 	}
-			
+	
 	public void generate(){
+		generate(true);
+	}
+			
+	public void generate(boolean includeSourceSink){
 		//We want to generate a random map here later, but for now, I'm just setting up a test map.
 		double offset = 35;
 		double size = 600;
@@ -88,11 +92,7 @@ public class NagelMap {
 		Road ring6 = new CurvedRoad(left, bottom, Intersection.SOUTH, Intersection.WEST, new Point2D.Double(offset, offset + size));
 		Road ring7 = new CurvedRoad(left, top, Intersection.NORTH, Intersection.WEST, new Point2D.Double(offset + ctrlOffset, offset + ctrlOffset));
 		Road ring8 = new CurvedRoad(top, left, Intersection.WEST, Intersection.NORTH, new Point2D.Double(offset, offset));
-
-		Intersection mergePoint = new RoadConnection(ring2, ring2.getLength()/6); //quite an arbitrary connection point :)
 		
-		Road road9 =  new Road(sourceSink, mergePoint, Intersection.WEST, Intersection.EAST);
-		Road road10 = new Road(right, sourceSink, Intersection.EAST, Intersection.WEST);
 		
 		addRoad(road1);
 		addRoad(road2);
@@ -102,8 +102,6 @@ public class NagelMap {
 		addRoad(road6);
 		addRoad(road7);
 		addRoad(road8);
-		addRoad(road9);
-		addRoad(road10);
 
 		addRoad(ring1);
 		addRoad(ring2);
@@ -119,7 +117,15 @@ public class NagelMap {
 		addIntersection(right);
 		addIntersection(bottom);
 		addIntersection(left);
-		addIntersection(sourceSink);
+		
+		if(includeSourceSink){
+			Intersection mergePoint = new RoadConnection(ring2, ring2.getLength()/6); //quite an arbitrary connection point :)
+			Road road9 =  new Road(sourceSink, mergePoint, Intersection.WEST, Intersection.EAST);
+			Road road10 = new Road(right, sourceSink, Intersection.EAST, Intersection.WEST);
+			addRoad(road9);
+			addRoad(road10);
+			addIntersection(sourceSink);
+		}
 		
 		//addRandomCars(100);
 	}

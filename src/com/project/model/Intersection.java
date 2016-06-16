@@ -27,9 +27,9 @@ public class Intersection {
 	private boolean hasTrafficLights = true;
 	// There always two opposite roads that have green. Which ones, is determined by this number.
 	// "0" for one pair, "1" for the other.
-	private int greenDirection = 0;
+	protected int greenDirection = 0;
 	// "true" for the left lane, "false" for the right lane.
-	private boolean greenLane = true;
+	protected boolean greenLane = true;
 	// how many "ticks" should it take between switching traffic light directions?
 	private int switchInterval = 10;
 	private int tickCounter = 0;
@@ -199,14 +199,18 @@ public class Intersection {
 		tickCounter += 1;
 		if(tickCounter==switchInterval){
 			tickCounter = 0;
-			if(greenLane){
-				greenLane = false;
-			}else{
-				greenLane = true;
-				greenDirection = greenDirection == 0 ? 1 : 0;
-			}
+			changeLights();
 		}
 		updateBlockedLanes();
+	}
+	
+	protected void changeLights() {
+		if(greenLane){
+			greenLane = false;
+		}else{
+			greenLane = true;
+			greenDirection = greenDirection == 0 ? 1 : 0;
+		}
 	}
 	
 	private void updateBlockedLanes(){
