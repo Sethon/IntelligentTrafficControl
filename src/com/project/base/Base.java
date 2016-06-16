@@ -30,7 +30,6 @@ public class Base {
 					m.tick();
 				}
 				m.getStats().saveCSVFile();
-				
 			}
 		});
 	}

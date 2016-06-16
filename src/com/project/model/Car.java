@@ -21,7 +21,7 @@ public class Car{
 	}
 	
 	public void accellerate(){
-		velocity = Math.min(velocity + 1, Globals.MAX_SPEED);	
+		velocity = Math.min(velocity + 1, trajectory.currentLane.road.getSpeedLimit());	
 	}
 	
 	public void slowDown(int gap){ // if the gap between 2 cars is smaller than the ActualV of the car behind 

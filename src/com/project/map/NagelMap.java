@@ -71,6 +71,9 @@ public class NagelMap {
 		Road road7 = new Road(center, right, Intersection.EAST, Intersection.WEST);
 		Road road8 = new Road(right, center, Intersection.WEST, Intersection.EAST);
 		
+		road7.setSpeedLimit(5);
+		road8.setSpeedLimit(5);
+		
 		//This offset is the offset for the control point of the bezier curves of the inner roads of the ring.
 		//If we don't apply this offset, the two roads that make up each part of the ring will overlap.
 		//We want to push the control point inwards by 2 lane widths. The amount we need to push inwards

@@ -15,11 +15,13 @@ public class Road {
 	public Lane leftLane;
 	public Lane rightLane;
 	protected RoadShape shape;
+	protected int speedLimit;
 	
 	protected Road(){
 		from = null;
 		to = null;
 		shape = null;
+		speedLimit = Globals.MAX_SPEED;
 	}
 	
 	public Road(Intersection from, Intersection to, int fromDirection, int toDirection) {
@@ -28,6 +30,7 @@ public class Road {
 		this.updateConnectingIntersections(fromDirection, toDirection);
 		this.shape = new Line(from.getConnectionPoint(this), to.getConnectionPoint(this));
 		initLanes();
+		speedLimit = Globals.MAX_SPEED;
 	}
 
 
@@ -76,5 +79,13 @@ public class Road {
 	public void handleTransitions(){
 		leftLane.saveAcceptedCars();
 		rightLane.saveAcceptedCars();
+	}
+	
+	public int getSpeedLimit(){
+		return speedLimit;
+	}
+	
+	public void setSpeedLimit(int limit){
+		speedLimit = limit;
 	}
 }

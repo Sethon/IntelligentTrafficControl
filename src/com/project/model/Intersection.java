@@ -33,7 +33,7 @@ public class Intersection {
 	// how many "ticks" should it take between switching traffic light directions?
 	private int switchInterval = 10;
 	private int tickCounter = 0;
-	
+		
 	public Intersection(Point2D.Double position){
 		this.position = position;
 	}
