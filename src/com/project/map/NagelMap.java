@@ -133,7 +133,9 @@ public class NagelMap {
 	}
 	
 	public void generateCircle(double x, double y, double w, double h, int nCars){
-		addRoad(new EllipseRoad(x, y, w, h));
+		Road r = new EllipseRoad(x, y, w, h);
+		System.out.println("The circle is "+r.getLength() + " cells long.");
+		addRoad(r);
 		addRandomCars(nCars);
 	}
 	
