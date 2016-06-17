@@ -10,8 +10,8 @@ public class CarSourceSink extends Intersection{
 	// and removes cars that drive on to it.
 	
 	private Random rand = new Random();
-	//The probability of a car spawning at each tick, on any outgoing road is 1/carProb
-	private int carProb = 5;
+	//The probability of a car spawning at each tick, on any outgoing road.
+	private double carProb = 0.2;
 	
 	private NagelMap map;
 	
@@ -22,7 +22,7 @@ public class CarSourceSink extends Intersection{
 	}
 	
 	public void setCarSpawnProbability(double prob){
-		carProb = (int)(1/prob);
+		carProb = prob;
 	}
 	
 	protected Road makeInsideRoad(Lane from, Lane to){
@@ -33,13 +33,17 @@ public class CarSourceSink extends Intersection{
 		return r;
 	}
 	
+	private boolean weightedCoinFlip(double prob){
+		return (rand.nextDouble() < prob);
+	}
+	
 	public void update(){
 		System.out.println("Update!");
 		super.update();
 		//randomly spawn cars to outgoing roads
 		for(Road r: getOutgoingRoads()){
 			if(r != null){
-				if(rand.nextInt(carProb) == 0){
+				if(weightedCoinFlip(carProb)){
 					spawnCar(r);
 				}
 			}

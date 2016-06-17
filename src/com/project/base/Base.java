@@ -24,9 +24,11 @@ public class Base {
 				m.setSmartIntersections(true);
 				
 				//Pass in true here to add a CarSourceSink to the map
-				m.generateCircle(10, 10, 400, 400, 100);
+				m.generate(true);
 				//Pass in a different number to change the number of initial cars on the map.
 				m.addRandomCars(200);
+				//The probability of a car spawning at each tick
+				m.setCarSpawnProbability(0.2);
 				
 				//configuring global values
 				Globals.MAX_SPEED = 20;

@@ -275,4 +275,12 @@ public class NagelMap {
 	public void setSmartIntersections(boolean smart){
 		smartIntersections = smart;
 	}
+	
+	public void setCarSpawnProbability(double prob){
+		for(Intersection inter: intersections){
+			if(inter instanceof CarSourceSink){
+				((CarSourceSink)inter).setCarSpawnProbability(prob);
+			}
+		}
+	}
 }
