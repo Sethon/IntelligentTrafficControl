@@ -3,6 +3,7 @@ package com.project.base;
 import java.awt.EventQueue;
 
 import com.project.map.NagelMap;
+import com.project.model.Globals;
 
 
 public class Base {
@@ -27,18 +28,23 @@ public class Base {
 				//Pass in a different number to change the number of initial cars on the map.
 				m.addRandomCars(200);
 				
-				//Controller controller = new Controller();
-				//controller.init();
-				//controller.setNagelMap(m);
+				//configuring global values
+				Globals.MAX_SPEED = 20;
+				Globals.STARTING_SPEED = 0; //The speed cars have when they are created.
+				Globals.ALLOW_LANE_CHANGING = false;
+				
+				Controller controller = new Controller();
+				controller.init();
+				controller.setNagelMap(m);
 				
 				//Use this part for running the simulation without the GUI, for generating stats.
 				// Comment out the lines above to stop the gui from running
-				
+				/*
 				for(int i=0;i<1000;i++){
 					m.tick();
 				}
 				m.getStats().makeSummary().saveCSVFile();
-				
+				*/
 			}
 		});
 	}

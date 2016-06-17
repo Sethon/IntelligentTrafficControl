@@ -24,8 +24,7 @@ public class Car{
 		velocity = Math.min(velocity + 1, trajectory.currentLane.road.getSpeedLimit());	
 	}
 	
-	public void slowDown(int gap){ // if the gap between 2 cars is smaller than the ActualV of the car behind 
-													//then the car have to slowdown for not having a collision
+	public void slowDown(int gap){ // if the gap between 2 cars is smaller than the ActualV of the car behind 								//then the car have to slowdown for not having a collision
 		if(velocity > gap)
 		{
 			if(trajectory.currentLane == trajectory.currentLane.road.rightLane){
@@ -36,7 +35,6 @@ public class Car{
 	}
 	
 	public void randomSlowDown(){ // inserting a probablity of each car to slow down by one V's unit
-		
 		if( (velocity > 0 ) && ( Math.random() <= 0.3) ){
 			velocity -= 1;
 		}	
@@ -80,7 +78,7 @@ public class Car{
 	}
 	
 	public boolean canChangeLane(){
-		return laneChangeTimer == 0 && velocity > 0;
+		return laneChangeTimer == 0 && velocity > 0 && Globals.ALLOW_LANE_CHANGING;
 	}
 
 	public int getPreviousVelocity() {

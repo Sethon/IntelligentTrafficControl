@@ -6,4 +6,5 @@ public class Globals {
 	public static final double CELL_LENGTH = 3;
 	public static int MAX_SPEED = 20;
 	public static int STARTING_SPEED = 0;
+	public static boolean ALLOW_LANE_CHANGING = true;
 }
