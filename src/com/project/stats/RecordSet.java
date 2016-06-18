@@ -61,11 +61,18 @@ public class RecordSet {
 	public RecordSet makeSummary(){
 		RecordSet s = new RecordSet();
 		Hashtable<String, Double> carSpeeds = new Hashtable<String, Double>();
+		Hashtable<String, Double> carWaitTimes = new Hashtable<String, Double>();
 		int ticks = 0;
 		for(Record rec: this.records){
 			String carID = "" + rec.getValue("carID");
 			double prevSpeed = carSpeeds.getOrDefault(carID, new Double(0));
-			carSpeeds.put(carID, prevSpeed + rec.getValue("velocity"));
+			double currentSpeed = rec.getValue("velocity");
+			double prevWaitTime = carWaitTimes.getOrDefault(carID, new Double(0));
+			if(currentSpeed == 0){
+				carWaitTimes.put(carID, prevWaitTime + 1);
+			}
+			carSpeeds.put(carID, prevSpeed + currentSpeed);
+			
 			ticks = Math.max(ticks, (int)rec.getValue("tick"));
 		}
 		
@@ -73,6 +80,7 @@ public class RecordSet {
 			Record rec = new Record();
 			rec.setValue("CarID", Double.parseDouble(car));
 			rec.setValue("avgSpeed", carSpeeds.get(car)/ticks);
+			rec.setValue("waitTime", carWaitTimes.getOrDefault(car, new Double(0)));
 			rec.setValue("ticks", ticks);
 			s.addRecord(rec);
 		}
